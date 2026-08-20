@@ -1,0 +1,14 @@
+:root{
+    --color--blanco: #fff;
+    --color--negro: #000;
+    --color--VerdeOscuro: #285A48;
+    --color--VerdeMedio: #408A71;
+    --color--VerdeClaro: #B0E4CC;
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
