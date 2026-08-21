@@ -40,11 +40,9 @@ html, body {
     position: relative;
 }
 
-
 .navegacion__logo {
     display: flex;
     justify-content: left;
-
 }
 .logo__imagen{
     width: 6.5rem;
@@ -56,7 +54,6 @@ html, body {
     flex-direction: column;
     justify-content: left;
 
-   
 }
 
 .navegacion__usuarios a{
@@ -64,8 +61,7 @@ html, body {
 }
 .navegacion__etiqueta:hover{
     background-color: var(--color--VerdeMedio);
-    color: #000;
-    
+    color: #000; 
 }
 
 .navegacion__etiqueta {
@@ -73,17 +69,12 @@ html, body {
     color: var(--color--blanco);
     font-family: var(--fuente--parrafos);
     font-weight: bold;
-    padding: 1rem;
-  
+    padding: 1rem; 
 }
-
 
 .navegacion__imagen {
     width: 1.5rem;
     height: 1.5rem;
-
-   
-
 } 
 
  @media (min-width: 768px) {
@@ -117,11 +108,13 @@ html, body {
         gap: 2rem;
         
     }
-
-
  }
- 
- 
+
+.contenido{
+    margin: 0 auto;
+    max-width: 120rem;
+}
+
 
 
 
