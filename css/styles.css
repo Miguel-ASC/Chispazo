@@ -25,6 +25,11 @@ body {
     background-color: var(--color--negro);
 }
 
+html, body {
+  height: 100%;              /* ocupa toda la ventana */
+  display: flex;             
+  flex-direction: column;    /* apila elementos en columna */
+}
 /*Navegacion*/
 
 
@@ -93,3 +98,12 @@ body {
     height: 1.5rem;
 
 } 
+
+
+/**Footer**/
+footer {
+  background-color: var(--color--VerdeMedio);
+  margin-top: auto; /* empuja el footer al fondo */
+  text-align: center;
+  padding: 20px;
+}
