@@ -6,9 +6,17 @@
     --color--VerdeClaro: #B0E4CC;
 }
 
-html {
-  box-sizing: border-box;
+html, body {
+  height: 100%;              /* ocupa toda la ventana */
+  display: flex;             
+  flex-direction: column;    /* apila elementos en columna */
 }
-*, *:before, *:after {
-  box-sizing: inherit;
+
+
+
+footer {
+  background-color: var(--color--VerdeMedio);
+  margin-top: auto; /* empuja el footer al fondo */
+  text-align: center;
+  padding: 20px;
 }
