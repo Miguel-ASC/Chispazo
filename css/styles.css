@@ -13,6 +13,7 @@
 
 html {
     box-sizing: border-box;
+    font-size: 62.5%;
 }
 
 *,
@@ -25,43 +26,61 @@ body {
     background-color: var(--color--negro);
 }
 
-html, body {
-  height: 100%;              /* ocupa toda la ventana */
+ html, body {
+  height: 100%;              /* ocupa toda la ventana 
   display: flex;             
-  flex-direction: column;   /* apila elementos en columna*/
-}
+  flex-direction: column;    /*apila elementos en columna*/
+} 
 /*Navegacion*/
 .navegacion {
     display: flex;
-    flex-direction: column;
-    align-items: left;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
     padding: 1rem;
     position: relative;
 }
 
-.navegacion__logo {
-    display: flex;
-    justify-content: left;
+.logo__imagen {
+    width: 8.5rem;
+    height: 8.5rem;
 }
-.logo__imagen{
-    width: 6.5rem;
-    height: 6.5rem;
 
+/* Ocultar el checkbox real */
+.navegacion__checkbox {
+    display: none;
 }
-.navegacion__pestañas, .navegacion__usuarios {
+
+/* Estilo del botón de hamburguesa (Visible solo en celular) */
+.navegacion__botondesplegable {
+    display: block;
+    font-size: 2.5rem;
+    color: var(--color--blanco, #fff);
+    cursor: pointer;
+}
+
+/* Ocultar el contenido en pantallas móviles por defecto */
+.navegacion__contenido {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.navegacion__pestañas,
+.navegacion__usuarios {
     display: flex;
     flex-direction: column;
-    justify-content: left;
-
+    width: 100%;
 }
 
-.navegacion__usuarios a{
-    padding: 1rem;
+.navegacion__usuarios {
+    flex-direction: row;
+    gap: 1rem;
 }
-.navegacion__etiqueta:hover{
-    background-color: var(--color--VerdeMedio);
-    color: #000; 
+
+.navegacion__usuarios a {
+    padding: 1rem 0;
 }
 
 .navegacion__etiqueta {
@@ -69,55 +88,84 @@ html, body {
     color: var(--color--blanco);
     font-family: var(--fuente--parrafos);
     font-weight: bold;
-    padding: 1rem; 
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+
+.navegacion__etiqueta:hover {
+    background-color: var(--color--VerdeMedio);
+    color: #000;
 }
 
 .navegacion__imagen {
-    width: 1.5rem;
-    height: 1.5rem;
-} 
+    width: 2.5rem;
+    height: 2.5rem;
+}
 
- @media (min-width: 768px) {
+/* Truco CSS: Cuando el checkbox esté marcado, mostrar el menú */
+.navegacion__checkbox:checked~.navegacion__contenido {
+    display: flex;
+}
+
+/* --- Pantallas Grandes (Desktop) --- */
+@media (min-width: 768px) {
     .navegacion {
-        margin: 0rem auto;
-        text-decoration: none;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
+        flex-wrap: nowrap;
         padding: 2rem 2rem;
-        
     }
 
+    /* Ocultar botón de hamburguesa en PC */
+    .navegacion__botondesplegable {
+        display: none;
+    }
+
+    /* Mostrar siempre el contenido en desktop */
+    .navegacion__contenido {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: auto;
+        flex-grow: 1;
+        margin-left: 2rem;
+    }
 
     .navegacion__pestañas {
-        display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        text-align: center;
         gap: 4rem;
-        
+        width: auto;
 
+        flex: 1;
+        text-align: center;
     }
 
-    .navegacion__usuarios {  
-        display: flex;
+    .navegacion__usuarios {
         flex-direction: row;
         justify-content: right;
         align-items: center;
         gap: 2rem;
-        
+        width: auto;
     }
- }
 
-.contenido{
-    margin: 0 auto;
-    max-width: 120rem;
+    .navegacion__etiqueta {
+        padding: 0.5rem;
+    }
 }
 
-
-
-
+ /**Contenido**/
+.contenido{
+    margin: 0px auto;
+    max-width: 100rem;
+    background-color:lightslategrey;
+}
+.contenido__hero{
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 450px;
+    background-image: url(../img/hero_nosotros.jpg);
+}
 
 
 /**Footer**/
