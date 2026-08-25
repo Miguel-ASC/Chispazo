@@ -195,3 +195,98 @@ footer {
 .form-control-custom::placeholder {
     color: #aaa !important;
 }
+
+/* Fuente global */
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #000000;
+}
+
+/* Títulos y Acentos */
+.titulo-seccion {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.titulo-seccion::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 3px;
+    background-color: #ffc107;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+.icono-amarillo {
+    color: #ffc107;
+    filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.4));
+    transition: transform 0.3s ease;
+}
+
+/* Tarjetas Rediseñadas */
+.tarjeta-custom {
+    background: linear-gradient(145deg, #141414, #0a0a0a) !important;
+    border: 1px solid #282828 !important;
+    transition: all 0.3s ease-in-out !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto Hover en los Contenedores */
+.tarjeta-custom:hover {
+    transform: translateY(-6px);
+    border-color: #ffc107 !important;
+    box-shadow: 0 10px 25px -5px rgba(255, 193, 7, 0.15),
+                0 0 15px rgba(255, 193, 7, 0.08);
+}
+
+.tarjeta-custom:hover .icono-amarillo {
+    transform: scale(1.15);
+}
+
+/* Botones dentro de las tarjetas */
+.btn-outline-warning {
+    border-color: #ffc107;
+    color: #ffc107;
+    transition: all 0.25s ease;
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: #000;
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
+}
+
+/* Ajustes de navegación */
+.navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #000000;
+}
+
+.logo__imagen {
+    max-height: 50px;
+}
+
+.navegacion__etiqueta {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.navegacion__etiqueta:hover {
+    color: #ffc107;
+}
+
+.navegacion__imagen {
+    width: 25px;
+    height: 25px;
+    margin-left: 15px;
+}
