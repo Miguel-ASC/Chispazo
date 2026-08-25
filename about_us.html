@@ -7,7 +7,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/styles.css">
@@ -19,40 +21,71 @@
         <nav>
             <div class="navegacion">
                 <div class="navegacion__logo">
-                    <a class="logo" href="index.html"><img class="logo__imagen" src="img/logo.png" alt=""></a>
+                    <a class="logo" href="index.html">
+                        <img class="logo__imagen" src="img/logo.png" alt="Logo">
+                    </a>
                 </div>
 
-                <div class="navegacion__pestañas">
-                    <a class="navegacion__etiqueta" href="index.html">Inicio</a>
-                    <a class="navegacion__etiqueta" href="#">Productos</a>
-                    <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
-                    <a class="navegacion__etiqueta" href="#">Contacto</a>
-                </div>
+                <!-- Checkbox oculto para controlar el estado del menú -->
+                <input type="checkbox" id="menu-toggle" class="navegacion__checkbox">
 
-                <div class="navegacion__usuarios">
-                    <a href="#"><img src="img/icono_usuario.png" alt="usuario" class="navegacion__imagen"></a>
-                    <a href="#"><img src="img/icono_carritos.png" alt="carrito" class="navegacion__imagen"></a>
+                <!-- Botón visible en móviles -->
+                <label for="menu-toggle" class="navegacion__botondesplegable">
+                    &#9776; <!-- Ícono de 3 líneas -->
+                </label>
+
+                <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
+                <div class="navegacion__contenido">
+                    <div class="navegacion__pestañas">
+                        <a class="navegacion__etiqueta" href="index.html">Inicio</a>
+                        <a class="navegacion__etiqueta" href="#">Productos</a>
+                        <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
+                        <a class="navegacion__etiqueta" href="#">Contacto</a>
+                    </div>
+
+                    <div class="navegacion__usuarios">
+                        <a href="#"><img src="img/icono_usuario.png" alt="usuario" class="navegacion__imagen"></a>
+                        <a href="#"><img src="img/icono_carritos.png" alt="carrito" class="navegacion__imagen"></a>
+                    </div>
                 </div>
             </div>
-
         </nav>
     </header>
     <main>
         <section>
             <!--contenido mision/vision chispazo-->
             <div class="contenido">
-                <div class="contenido__hero">
-                    <img class="hero__imagen" src="" alt="">
+                <div class="contenido__heroimagen">
+                    <div class="contenido__hero">
+                        <img src="img/logo.png" alt="Logo Chispazo">
+                        <h2>Tu proyecto comienza con un Chispazo </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="contenido">
+                <div class="contenido__parrafos">
+                    <h3>Misión</h3>
+                    <p>
+                        Nuestra meta es hacer que la tecnología esté al alcance de todos, proporcionando una variedad de
+                        productos electrónicos de excelente calidad a través de una plataforma de comercio en línea que
+                        sea confiable, segura y fácil de usar. Nuestro objetivo no es simplemente vender, sino ofrecer
+                        soluciones útiles que mejoren la vida diaria de nuestros usuarios, con el apoyo de un servicio
+                        al cliente cercano, accesible y eficaz.
+                        Nos dedicamos a facilitar el acceso a la tecnología innovadora, asegurando precios justos,
+                        envíos rápidos y asesoría especializada, para que cada cliente nos vea como un socio en su
+                        camino hacia la conectividad, el entretenimiento, la productividad y la modernización de su
+                        entorno.
+
+                    </p>
                 </div>
                 <div class="contenido__parrafos">
-                    <h3>Mision</h3>
+                    <h3>Visión</h3>
                     <p>
-
+                        Nuestra visión es consolidarnos como la principal tienda en línea de productos electrónicos en
+                        el mercado nacional y expandirnos hacia otros mercados de Latinoamérica, siendo reconocidos como
+                        un referente de confianza, innovación y sostenibilidad en el sector.
                     </p>
-                    <h3>Vision</h3>
-                    <p>
 
-                    </p>
                 </div>
             </div>
         </section>
@@ -61,15 +94,15 @@
     <footer>
         <div class="row text-white">
             <div class="col-12 col-md-4">
-                <h2>Sobre Nosotros</h2>
+                <h3>Sobre Nosotros</h3>
                 <h5>soy aldo</h5>
             </div>
             <div class="col-12 col-md-4">
-                <h2>Menu</h2>
+                <h3>Menu</h3>
                 <h5>opciones</h5>
             </div>
             <div class="col-12 col-md-4">
-                <h2>Legales</h2>
+                <h3>Legales</h3>
                 <h5>si lees esto eres genial</h5>
             </div>
         </div>

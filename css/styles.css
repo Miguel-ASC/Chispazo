@@ -5,8 +5,10 @@
     --color--VerdeOscuro: #285A48;
     --color--VerdeMedio: #408A71;
     --color--VerdeClaro: #B0E4CC;
+    --color--Amarillo: #ffc107;
 
     --fuente--parrafos: "Quicksand", sans-serif;
+    --fuente--titulos: "Nunito", sans-serif;
 
 
 }
@@ -31,6 +33,29 @@ body {
   display: flex;             
   flex-direction: column;    /*apila elementos en columna*/
 } 
+
+/**Globales**/
+h1{
+    font-size: 4.8rem;
+    font-family: var(--fuente--titulos);
+    font-weight: bold;
+}
+h2{
+    font-size: 3.8rem;
+    font-family: var(--fuente--parrafos);
+    font-weight: bold;
+}
+h3{
+    font-size: 2.8rem;
+    font-family: var(--fuente--parrafos);
+    font-weight: bold;
+}
+p{
+    font-size: 1.8rem;
+    font-family: var(--fuente--parrafos);
+}
+
+
 /*Navegacion*/
 .navegacion {
     display: flex;
@@ -39,6 +64,8 @@ body {
     justify-content: space-between;
     padding: 1rem;
     position: relative;
+    background-image: linear-gradient(to bottom, var(--color--VerdeOscuro) 0%, var(--color--negro) 100%);
+    margin-bottom: 3rem;
 }
 
 .logo__imagen {
@@ -89,7 +116,7 @@ body {
     font-family: var(--fuente--parrafos);
     font-weight: bold;
     font-size: 1.5rem;
-    padding: 1rem 0;
+    padding: 1rem ;
 }
 
 .navegacion__etiqueta:hover {
@@ -145,12 +172,12 @@ body {
         flex-direction: row;
         justify-content: right;
         align-items: center;
-        gap: 2rem;
+        gap: 3rem;
         width: auto;
     }
 
     .navegacion__etiqueta {
-        padding: 0.5rem;
+        padding: 1.5rem;
     }
 }
 
@@ -158,19 +185,65 @@ body {
 .contenido{
     margin: 0px auto;
     max-width: 100rem;
-    background-color:lightslategrey;
+    
 }
-.contenido__hero{
+.contenido__heroimagen{
     background-repeat: no-repeat;
     background-size: cover;
     height: 450px;
     background-image: url(../img/hero_nosotros.jpg);
+    background-position: center bottom;
+    position: relative;
+}
+
+.contenido__hero{
+    position: absolute;
+    background-color: rgb(0 0 0 / 70%);
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenido__hero img{
+    width: 25rem;
+    height: 25rem;
+    padding: 0;
+}
+.contenido__hero h2{
+    text-align: center;
+    color:var(--color--Amarillo);
+    display: flex;
+    font-weight: bolder;
+    font-style: oblique;
+   
+}
+
+.contenido__parrafos{
+    margin: 5rem 2rem;
+}
+.contenido__parrafos p{
+    color: var(--color--blanco);
+    text-align: justify;
+    line-height: 1.5;
+}
+.contenido__parrafos h3{
+    color: var(--color--VerdeMedio)
+}
+
+@media (min-width: 768px){
+    .contenido__hero img{
+    width: 35rem;
+    height: 35rem;
+}
 }
 
 
 /**Footer**/
 footer {
-  background-color: var(--color--VerdeMedio);
+
+  background-image: linear-gradient(to top, var(--color--VerdeOscuro) 0%, var(--color--negro) 100%);
   margin-top: auto; /* empuja el footer al fondo */
   text-align: center;
   padding: 20px;
