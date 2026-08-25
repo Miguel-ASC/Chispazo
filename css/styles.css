@@ -1,5 +1,4 @@
 :root {
-    /*var()*/
     --color--blanco: #fff;
     --color--negro: #000;
     --color--VerdeOscuro: #285A48;
@@ -27,11 +26,11 @@ body {
 }
 
  html, body {
-  height: 100%;              /* ocupa toda la ventana 
+  height: 100%; 
   display: flex;             
-  flex-direction: column;    /*apila elementos en columna*/
+  flex-direction: column;   
 } 
-/*Navegacion*/
+
 .navegacion {
     display: flex;
     flex-wrap: wrap;
@@ -46,12 +45,10 @@ body {
     height: 8.5rem;
 }
 
-/* Ocultar el checkbox real */
 .navegacion__checkbox {
     display: none;
 }
 
-/* Estilo del botón de hamburguesa (Visible solo en celular) */
 .navegacion__botondesplegable {
     display: block;
     font-size: 2.5rem;
@@ -59,7 +56,6 @@ body {
     cursor: pointer;
 }
 
-/* Ocultar el contenido en pantallas móviles por defecto */
 .navegacion__contenido {
     display: none;
     width: 100%;
@@ -102,59 +98,54 @@ body {
     height: 2.5rem;
 }
 
-/* Truco CSS: Cuando el checkbox esté marcado, mostrar el menú */
 .navegacion__checkbox:checked~.navegacion__contenido {
     display: flex;
 }
 
-/* --- Pantallas Grandes (Desktop) --- */
 @media (min-width: 768px) {
-    .navegacion {
-        flex-wrap: nowrap;
-        padding: 2rem 2rem;
-    }
+.navegacion {
+    flex-wrap: nowrap;
+    padding: 2rem 2rem;
+}
 
-    /* Ocultar botón de hamburguesa en PC */
-    .navegacion__botondesplegable {
-        display: none;
-    }
+.navegacion__botondesplegable {
+    display: none;
+}
 
-    /* Mostrar siempre el contenido en desktop */
-    .navegacion__contenido {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: auto;
-        flex-grow: 1;
-        margin-left: 2rem;
-    }
+.navegacion__contenido {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    flex-grow: 1;
+    margin-left: 2rem;
+}
 
-    .navegacion__pestañas {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 4rem;
-        width: auto;
+.navegacion__pestañas {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    width: auto;
 
-        flex: 1;
-        text-align: center;
-    }
+    flex: 1;
+    text-align: center;
+}
 
-    .navegacion__usuarios {
-        flex-direction: row;
-        justify-content: right;
-        align-items: center;
-        gap: 2rem;
-        width: auto;
-    }
+.navegacion__usuarios {
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    gap: 2rem;
+    width: auto;
+}
 
-    .navegacion__etiqueta {
-        padding: 0.5rem;
+.navegacion__etiqueta {
+    padding: 0.5rem;
     }
 }
 
- /**Contenido**/
 .contenido{
     margin: 0px auto;
     max-width: 100rem;
@@ -167,16 +158,13 @@ body {
     background-image: url(../img/hero_nosotros.jpg);
 }
 
-
-/**Footer**/
 footer {
   background-color: var(--color--VerdeMedio);
-  margin-top: auto; /* empuja el footer al fondo */
+  margin-top: auto; 
   text-align: center;
   padding: 20px;
 }
 
-/**carrusel**/
 #carouselExampleCaptions .carousel-item {
     height: 320px;
 }
@@ -185,4 +173,25 @@ footer {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.card-contacto {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+}
+
+.form-control-custom {
+    background-color: #2b2b2b !important;
+    border: 1px solid #444 !important;
+    color: #ffffff !important;
+}
+
+.form-control-custom:focus {
+    background-color: #333333 !important;
+    border-color: #ffc107 !important;
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.4) !important;
+}
+
+.form-control-custom::placeholder {
+    color: #aaa !important;
 }
