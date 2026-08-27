@@ -4,12 +4,16 @@
     --color--VerdeOscuro: #285A48;
     --color--VerdeMedio: #408A71;
     --color--VerdeClaro: #B0E4CC;
+    --color--Amarillo: #ffc107;
 
     --fuente--parrafos: "Quicksand", sans-serif;
+    --fuente--titulos: "Nunito", sans-serif;
 
 
 }
-
+/*=========
+    Base
+===========*/
 html {
     box-sizing: border-box;
     font-size: 62.5%;
@@ -31,6 +35,32 @@ body {
   flex-direction: column;   
 } 
 
+/*=========
+    Globales
+===========*/
+h1{
+    font-size: 4.8rem;
+    font-family: var(--fuente--titulos);
+    font-weight: bold;
+}
+h2{
+    font-size: 3.8rem;
+    font-family: var(--fuente--parrafos);
+    font-weight: bold;
+}
+h3{
+    font-size: 2.8rem;
+    font-family: var(--fuente--parrafos);
+    font-weight: bold;
+}
+.textos, p{
+    font-size: 1.8rem;
+    font-family: var(--fuente--parrafos);
+}
+
+/*=========
+    NavBar
+===========*/
 .navegacion {
     display: flex;
     flex-wrap: wrap;
@@ -38,6 +68,8 @@ body {
     justify-content: space-between;
     padding: 1rem;
     position: relative;
+    background-image: linear-gradient(to bottom, var(--color--VerdeOscuro) 0%, var(--color--negro) 100%);
+    margin-bottom: 3rem;
 }
 
 .logo__imagen {
@@ -85,11 +117,12 @@ body {
     font-family: var(--fuente--parrafos);
     font-weight: bold;
     font-size: 1.5rem;
-    padding: 1rem 0;
+    padding: 1rem ;
 }
 
 .navegacion__etiqueta:hover {
-    background-color: var(--color--VerdeMedio);
+    background-color: var(--color--VerdeOscuro);
+    border-radius: 3rem;
     color: #000;
 }
 
@@ -133,37 +166,101 @@ body {
     text-align: center;
 }
 
-.navegacion__usuarios {
-    flex-direction: row;
-    justify-content: right;
-    align-items: center;
-    gap: 2rem;
-    width: auto;
-}
+    .navegacion__usuarios {
+        flex-direction: row;
+        justify-content: right;
+        align-items: center;
+        gap: 3rem;
+        width: auto;
+    }
 
-.navegacion__etiqueta {
-    padding: 0.5rem;
+    .navegacion__etiqueta {
+        padding: 1.5rem;
     }
 }
+/*=========
+    Contenido: Nosotros
+===========*/
 
 .contenido{
     margin: 0px auto;
     max-width: 100rem;
-    background-color:lightslategrey;
+    
 }
-.contenido__hero{
+.contenido__heroimagen{
     background-repeat: no-repeat;
     background-size: cover;
     height: 450px;
     background-image: url(../img/hero_nosotros.jpg);
+    background-position: center bottom;
+    position: relative;
 }
 
+.contenido__hero{
+    position: absolute;
+    background-color: rgb(0 0 0 / 70%);
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenido__hero img{
+    width: 25rem;
+    height: 25rem;
+    padding: 0;
+}
+.contenido__hero h2{
+    text-align: center;
+    color:var(--color--Amarillo);
+    display: flex;
+    font-weight: bolder;
+    font-style: oblique;
+   
+}
+
+.contenido__parrafos{
+    margin: 5rem 2rem;
+}
+.contenido__parrafos p{
+    color: var(--color--blanco);
+    text-align: justify;
+    line-height: 1.5;
+}
+.contenido__parrafos h3{
+    color: var(--color--VerdeMedio)
+}
+
+@media (min-width: 768px){
+    .contenido__hero img{
+    width: 35rem;
+    height: 35rem;
+}
+}
+
+/**team**/
+
+.contenido-equipo{
+    margin: 0px auto;
+    max-width: 120rem;
+}
+
+/*=========
+    Footer
+===========*/
+
 footer {
-  background-color: var(--color--VerdeMedio);
-  margin-top: auto; 
+
+  background-image: linear-gradient(to top, var(--color--VerdeOscuro) 0%, var(--color--negro) 100%);
+  margin-top: auto; /* empuja el footer al fondo */
   text-align: center;
   padding: 20px;
 }
+
+/*=========
+    Index
+===========*/
 
 #carouselExampleCaptions .carousel-item {
     height: 320px;
@@ -196,11 +293,7 @@ footer {
     color: #aaa !important;
 }
 
-/* Fuente global */
-body {
-    font-family: 'Quicksand', sans-serif;
-    background-color: #000000;
-}
+
 
 /* Títulos y Acentos */
 .titulo-seccion {
@@ -259,8 +352,8 @@ body {
     color: #000;
     box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
 }
-
-/* Ajustes de navegación */
+/*---------------------Revisar porque se duplico */
+/* Ajustes de navegación
 .navegacion {
     display: flex;
     justify-content: space-between;
@@ -289,4 +382,4 @@ body {
     width: 25px;
     height: 25px;
     margin-left: 15px;
-}
+} */

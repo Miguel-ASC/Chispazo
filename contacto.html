@@ -20,19 +20,32 @@
     <nav>
       <div class="navegacion">
         <div class="navegacion__logo">
-          <a class="logo" href="index.html"><img class="logo__imagen" src="img/logo.png" alt="Chispazo Logo"></a>
+          <a class="logo" href="index.html">
+            <img class="logo__imagen" src="img/logo.png" alt="Logo">
+          </a>
         </div>
 
-        <div class="navegacion__pestañas">
-          <a class="navegacion__etiqueta" href="index.html">Inicio</a>
-          <a class="navegacion__etiqueta" href="#">Productos</a>
-          <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
-          <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
-        </div>
+        <!-- Checkbox oculto para controlar el estado del menú -->
+        <input type="checkbox" id="menu-toggle" class="navegacion__checkbox">
 
-        <div class="navegacion__usuarios">
-          <a href="#"><img src="img/icono_usuario.png" alt="usuario" class="navegacion__imagen"></a>
-          <a href="#"><img src="img/icono_carritos.png" alt="carrito" class="navegacion__imagen"></a>
+        <!-- Botón visible en móviles -->
+        <label for="menu-toggle" class="navegacion__botondesplegable">
+          &#9776; <!-- Ícono de 3 líneas -->
+        </label>
+
+        <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
+        <div class="navegacion__contenido">
+          <div class="navegacion__pestañas">
+            <a class="navegacion__etiqueta" href="index.html">Inicio</a>
+            <a class="navegacion__etiqueta" href="#">Productos</a>
+            <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
+            <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
+          </div>
+
+          <div class="navegacion__usuarios">
+            <a href="#"><img src="img/icono_usuario.png" alt="usuario" class="navegacion__imagen"></a>
+            <a href="#"><img src="img/icono_carritos.png" alt="carrito" class="navegacion__imagen"></a>
+          </div>
         </div>
       </div>
     </nav>
@@ -45,8 +58,9 @@
       <div class="col-lg-5">
         <div class="card card-contacto h-100 shadow-sm p-4 text-white rounded-4">
           <h2 class="fw-bold mb-4 text-warning">Ponte en contacto</h2>
-          <p class="text-light mb-4">¿Tienes dudas sobre componentes electrónicos o tu pedido? Escríbenos y te responderemos a la brevedad.</p>
-          
+          <p class="text-light mb-4">¿Tienes dudas sobre componentes electrónicos o tu pedido? Escríbenos y te
+            responderemos a la brevedad.</p>
+
           <div class="d-flex align-items-center mb-3">
             <i class="bi bi-geo-alt-fill fs-4 text-warning me-3"></i>
             <span>Ciudad de México, México</span>
@@ -70,22 +84,26 @@
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="nombre" class="form-label">Nombre completo</label>
-                <input type="text" class="form-control form-control-custom" id="nombre" placeholder="Tu nombre" required>
+                <input type="text" class="form-control form-control-custom" id="nombre" placeholder="Tu nombre"
+                  required>
                 <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
               </div>
               <div class="col-md-6">
-                <label for="correo" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control form-control-custom" id="correo" placeholder="correo@ejemplo.com" required>
+                <label for="correo" class="form-label ">Correo electrónico</label>
+                <input type="email" class="form-control form-control-custom" id="correo"
+                  placeholder="correo@ejemplo.com" required>
                 <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
               </div>
               <div class="col-12">
                 <label for="asunto" class="form-label">Asunto</label>
-                <input type="text" class="form-control form-control-custom" id="asunto" placeholder="Motivo de tu mensaje" required>
+                <input type="text" class="form-control form-control-custom" id="asunto"
+                  placeholder="Motivo de tu mensaje" required>
                 <div class="invalid-feedback">Ingresa el asunto del mensaje.</div>
               </div>
               <div class="col-12">
                 <label for="mensaje" class="form-label">Mensaje</label>
-                <textarea class="form-control form-control-custom" id="mensaje" rows="4" placeholder="¿En qué te podemos ayudar?" required></textarea>
+                <textarea class="form-control form-control-custom" id="mensaje" rows="4"
+                  placeholder="¿En qué te podemos ayudar?" required></textarea>
                 <div class="invalid-feedback">Escribe tu mensaje.</div>
               </div>
               <div class="col-12">

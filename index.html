@@ -19,22 +19,39 @@
         <nav>
             <div class="navegacion">
                 <div class="navegacion__logo">
-                    <a class="logo" href="index.html"><img class="logo__imagen" src="img/logo.png" alt="Logo Chispazo"></a>
+                    <a class="logo" href="index.html">
+                        <img class="logo__imagen" src="img/logo.png" alt="Logo">
+                    </a>
                 </div>
 
-                <div class="navegacion__pestañas">
-                    <a class="navegacion__etiqueta" href="index.html">Inicio</a>
-                    <a class="navegacion__etiqueta" href="productos.html">Productos</a>
-                    <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
-                    <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
-                </div>
+                <!-- Checkbox oculto para controlar el estado del menú -->
+                <input type="checkbox" id="menu-toggle" class="navegacion__checkbox">
 
-                <div class="navegacion__usuarios">
-                    <a href="#"><img src="img/icono_usuario.png" alt="Usuario" class="navegacion__imagen"></a>
-                    <a href="#"><img src="img/icono_carritos.png" alt="Carrito" class="navegacion__imagen"></a>
+                <!-- Botón visible en móviles -->
+                <label for="menu-toggle" class="navegacion__botondesplegable">
+                    &#9776; <!-- Ícono de 3 líneas -->
+                </label>
+
+                <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
+                <div class="navegacion__contenido">
+                    <div class="navegacion__pestañas">
+                        <a class="navegacion__etiqueta" href="index.html">Inicio</a>
+                        <a class="navegacion__etiqueta" href="#">Productos</a>
+                        <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
+                        <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
+                    </div>
+
+                    <div class="navegacion__usuarios">
+                        <a href="#"><img src="img/icono_usuario.png" alt="usuario" class="navegacion__imagen"></a>
+                        <a href="#"><img src="img/icono_carritos.png" alt="carrito" class="navegacion__imagen"></a>
+                    </div>
                 </div>
             </div>
+        </nav>
+    </header>
 
+    <main class="bg-black text-white">
+        <section>
             <!-- Carrusel -->
             <div id="carouselExampleCaptions" class="carousel slide">
                 <div class="carousel-indicators">
@@ -83,11 +100,7 @@
                     <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
-        </nav>
-    </header>
-
-    <main class="bg-black text-white">
-
+        </section>
         <!-- Sección 1: Propuesta de Valor / Beneficios -->
         <section class="py-5 bg-black">
             <div class="container">
@@ -100,21 +113,24 @@
                         <div class="p-4 rounded-4 h-100 bg-black tarjeta-custom">
                             <div class="fs-1 mb-3 icono-amarillo">⚡</div>
                             <h5 class="fw-bold text-white mb-2">Envíos Rápidos</h5>
-                            <p class="text-white-50 small mb-0">Recibe tus componentes y kits STEM directo a la puerta de tu hogar o escuela.</p>
+                            <p class="text-white-50 small mb-0">Recibe tus componentes y kits STEM directo a la puerta
+                                de tu hogar o escuela.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-4 rounded-4 h-100 bg-black tarjeta-custom">
                             <div class="fs-1 mb-3 icono-amarillo">🛡️</div>
                             <h5 class="fw-bold text-white mb-2">Calidad Garantizada</h5>
-                            <p class="text-white-50 small mb-0">Todos nuestros sensores y microcontroladores están probados para asegurar su funcionamiento.</p>
+                            <p class="text-white-50 small mb-0">Todos nuestros sensores y microcontroladores están
+                                probados para asegurar su funcionamiento.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-4 rounded-4 h-100 bg-black tarjeta-custom">
                             <div class="fs-1 mb-3 icono-amarillo">🤝</div>
                             <h5 class="fw-bold text-white mb-2">Soporte Maker</h5>
-                            <p class="text-white-50 small mb-0">Te acompañamos con documentación clara para que no te atores en tus tareas o prototipos.</p>
+                            <p class="text-white-50 small mb-0">Te acompañamos con documentación clara para que no te
+                                atores en tus tareas o prototipos.</p>
                         </div>
                     </div>
                 </div>
@@ -136,7 +152,8 @@
                                     <h5 class="card-title fw-bold text-white fs-6 mb-2">Microcontroladores</h5>
                                     <p class="card-text small text-white-50">Arduino, ESP32 y más</p>
                                 </div>
-                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver más</a>
+                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver
+                                    más</a>
                             </div>
                         </div>
                     </div>
@@ -147,7 +164,8 @@
                                     <h5 class="card-title fw-bold text-white fs-6 mb-2">Sensores</h5>
                                     <p class="card-text small text-white-50">Temperatura, presencia, etc.</p>
                                 </div>
-                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver más</a>
+                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver
+                                    más</a>
                             </div>
                         </div>
                     </div>
@@ -158,7 +176,8 @@
                                     <h5 class="card-title fw-bold text-white fs-6 mb-2">Kits STEM</h5>
                                     <p class="card-text small text-white-50">Para principiantes y escuelas</p>
                                 </div>
-                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver más</a>
+                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver
+                                    más</a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +188,8 @@
                                     <h5 class="card-title fw-bold text-white fs-6 mb-2">Herramientas</h5>
                                     <p class="card-text small text-white-50">Cautines, multímetros, cables</p>
                                 </div>
-                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver más</a>
+                                <a href="productos.html" class="btn btn-outline-warning btn-sm mt-3 fw-semibold">Ver
+                                    más</a>
                             </div>
                         </div>
                     </div>
@@ -182,7 +202,8 @@
             <div class="container py-3">
                 <h2 class="fw-bold mb-3 text-white">¿Listo para comenzar tu próximo prototipo?</h2>
                 <p class="text-white-50 mb-4">Revisa nuestro catálogo completo y dale vida a tus ideas electrónicas.</p>
-                <a href="productos.html" class="btn btn-warning btn-lg fw-bold text-dark px-4 rounded-3">Ir a Productos</a>
+                <a href="productos.html" class="btn btn-warning btn-lg fw-bold text-dark px-4 rounded-3">Ir a
+                    Productos</a>
             </div>
         </section>
 
