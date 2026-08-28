@@ -15,41 +15,45 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="navegacion">
-                <div class="navegacion__logo">
-                    <a class="logo" href="index.html">
-                        <img class="logo__imagen" src="img/logo.png" alt="Logo" />
-                    </a>
+    <nav>
+        <div class="navegacion">
+            <div class="navegacion__logo">
+                <a class="logo" href="index.html">
+                    <img class="logo__imagen" src="img/logo.png" alt="Logo" />
+                </a>
+            </div>
+
+            <!-- Checkbox oculto para controlar el estado del menú -->
+            <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
+
+            <!-- Botón visible en móviles -->
+            <label for="menu-toggle" class="navegacion__botondesplegable">
+                &#9776;
+                <!-- Ícono de 3 líneas -->
+            </label>
+
+            <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
+            <div class="navegacion__contenido">
+                <div class="navegacion__pestañas">
+                    <a class="navegacion__etiqueta" href="index.html">Inicio</a>
+                    <a class="navegacion__etiqueta" href="#">Productos</a>
+                    <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
+                    <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
+                </div>
+                <div class="navegacion__busqueda">
+                    <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
+                    <button type="submit">
+                        🔍
+                    </button>
                 </div>
 
-                <!-- Checkbox oculto para controlar el estado del menú -->
-                <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
-
-                <!-- Botón visible en móviles -->
-                <label for="menu-toggle" class="navegacion__botondesplegable">
-                    &#9776;
-                    <!-- Ícono de 3 líneas -->
-                </label>
-
-                <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
-                <div class="navegacion__contenido">
-                    <div class="navegacion__pestañas">
-                        <a class="navegacion__etiqueta" href="index.html">Inicio</a>
-                        <a class="navegacion__etiqueta" href="#">Productos</a>
-                        <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
-                        <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
-                    </div>
-
-                    <div class="navegacion__usuarios">
-                        <a href="#"><img src="img/icono_usuario.png" alt="usuario" class="navegacion__imagen" /></a>
-                        <a href="#"><img src="img/icono_carritos.png" alt="carrito" class="navegacion__imagen" /></a>
-                    </div>
+                <div class="navegacion__usuarios">
+                    <a href="#"><img src="img/icono_usuario.png" alt="usuario" class="navegacion__imagen" /></a>
+                    <a href="#"><img src="img/icono_carritos.png" alt="carrito" class="navegacion__imagen" /></a>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <main class="bg-black text-white">
         <section>
