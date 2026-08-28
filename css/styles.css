@@ -251,28 +251,53 @@ h3{
 ===========*/
 
 footer {
-
-  background-image: linear-gradient(to top, var(--color--VerdeOscuro) 0%, var(--color--negro) 100%);
+  background-image: linear-gradient(
+    to top,
+    var(--color--VerdeOscuro) 0%,
+    var(--color--negro) 100%
+  );
   margin-top: auto; /* empuja el footer al fondo */
   text-align: center;
-padding: 20px 20px 5px 20px;}
-
-footer a {
-  color: var(--color--blanco);   /* Mantiene el color blanco */
-  text-decoration: none;         /* Quita el subrayado */
-  font-size: inherit;            /* Hereda el tamaño del h4 */
-  font-weight: inherit;          /* Hereda el grosor del h4 */
+  padding: 20px 20px 5px 20px;
 }
 
-footer a:hover {
-  color: #ffc107;                /* Ejemplo: amarillo al pasar el mouse */
+footer h5 {
+  color: var(--color--blanco);
+  margin-top: 25px;
+}
+
+footer a , #us {
+  color: var(--color--blanco);   /* Mantiene el color blanco */
+  text-decoration: none;         /* Quita el subrayado */
+  font-size: 0.95rem;            /* Ajusta tamaño */
+  font-weight: 500;              /* Grosor medio */
+}
+
+footer a:hover , #us:hover {
+  color: #ffc107;                /* Amarillo al pasar el mouse */
+}
+#us{
+    font-size: 15px;
+    font-weight: bold;
+}
+footer i {
+  font-size: 1.5rem;             /* Tamaño de iconos */
+  margin: 0 8px;
+   color: var(--color--blanco);
+  transition: color 0.3s ease;
+}
+
+footer i:hover {
+  color: #ffc107;                /* Efecto hover en iconos */
 }
 
 #copyright {
-  margin-top: 30px;
+  margin-top: 75px;
+  margin-bottom: 0px;
   font-size: 0.9rem;
   color: var(--color--blanco);
 }
+
 
 /*=========
     Index
