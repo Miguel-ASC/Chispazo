@@ -600,3 +600,35 @@ footer i:hover {
     color: #ffffff;
     padding: 10px;
 }
+
+/*---------------------Revisar porque se duplico */
+/* Ajustes de navegación
+.navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #000000;
+}
+
+.logo__imagen {
+    max-height: 50px;
+}
+
+.navegacion__etiqueta {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.navegacion__etiqueta:hover {
+    color: #ffc107;
+}
+
+.navegacion__imagen {
+    width: 25px;
+    height: 25px;
+    margin-left: 15px;
+} */
