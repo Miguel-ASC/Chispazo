@@ -267,6 +267,19 @@ nav {
   z-index: 1;
 }
 
+.btn-hero-dorado {
+  background-color: #DFA225;
+  color: #000;
+  font-family: var(--fuente--parrafos);
+  font-weight: 700;
+  transition: background-color 0.25s ease;
+}
+
+.btn-hero-dorado:hover {
+  background-color: #c98f1c;
+  color: #000;
+}
+
 /*aqui termino
 
 /*=========
