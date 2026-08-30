@@ -256,8 +256,7 @@ footer {
     var(--color--VerdeOscuro) 0%,
     var(--color--negro) 100%
   );
-  margin-top: auto; /* empuja el footer al fondo */
-  text-align: center;
+  text-align: left;
   padding: 20px 20px 5px 20px;
 }
 
@@ -276,7 +275,7 @@ footer a , #us {
 footer a:hover , #us:hover {
   color: #ffc107;                /* Amarillo al pasar el mouse */
 }
-#us{
+#us , #usa{
     font-size: 15px;
     font-weight: bold;
 }
@@ -291,8 +290,18 @@ footer i:hover {
   color: #ffc107;                /* Efecto hover en iconos */
 }
 
+.footer_text{
+   padding: 1rem 0;
+    
+}
+
+#fot1 , #fot2 {
+    margin-top: 22.5px
+    ;
+}
+
 #copyright {
-  margin-top: 75px;
+  margin-top: 40px;
   margin-bottom: 0px;
   font-size: 0.9rem;
   color: var(--color--blanco);
