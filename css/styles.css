@@ -254,7 +254,6 @@ h3 {
     Footer
 ===========*/
 footer {
-<<<<<<< HEAD
   background-image: linear-gradient(
     to top,
     var(--color--VerdeOscuro) 0%,
@@ -262,16 +261,6 @@ footer {
   );
   text-align: left;
   padding: 20px 20px 5px 20px;
-=======
-    background-image: linear-gradient(
-        to top,
-        var(--color--VerdeOscuro) 0%,
-        var(--color--negro) 100%
-    );
-    margin-top: auto; 
-    text-align: center;
-    padding: 20px 20px 5px 20px;
->>>>>>> 5e4e7f12c2cfaf021839747147d52e839d281bde
 }
 
 footer h5 {
@@ -291,12 +280,7 @@ footer a, #us {
 footer a:hover, #us:hover {
     color: #ffc107;                
 }
-<<<<<<< HEAD
 #us , #usa{
-=======
-
-#us {
->>>>>>> 5e4e7f12c2cfaf021839747147d52e839d281bde
     font-size: 15px;
     font-weight: bold;
 }
@@ -323,19 +307,10 @@ footer i:hover {
 }
 
 #copyright {
-<<<<<<< HEAD
   margin-top: 40px;
   margin-bottom: 0px;
   font-size: 0.9rem;
   color: var(--color--blanco);
-=======
-    margin-top: 75px;
-    margin-bottom: 0px;
-    font-size: 0.9rem;
-    color: var(--color--blanco);
-    font-family: var(--fuente--parrafos);
-    font-weight: 400;
->>>>>>> 5e4e7f12c2cfaf021839747147d52e839d281bde
 }
 
 /*=========
