@@ -90,18 +90,7 @@ nav {
 
 }
 
-/* 
-.navegacion {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    position: sticky;
-    top:0;
-    background-image: linear-gradient(to bottom,  var(--color--VerdeOscuro) 0%, var(--color--negro) 100%);
-    margin-bottom: 3rem;
-} */
+
 
 .logo__imagen {
     width: 6.5rem;
