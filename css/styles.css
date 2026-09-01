@@ -61,20 +61,32 @@ h3 {
 /*=========
     NavBar
 ===========*/
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 .navegacion {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
-    position: relative;
-    background-image: linear-gradient(to bottom, var(--color--VerdeOscuro) 0%, var(--color--negro) 100%);
-    margin-bottom: 3rem;
+
+    background: radial-gradient(ellipse 70% 150% at center,
+            var(--color--VerdeOscuro) 0%,
+            var(--color--negro) 80%);
+
+    border-bottom: 1px solid var(--color--VerdeMedio);
+    box-shadow: 0 2px 12px rgba(69, 85, 80, 0.2);
+
 }
 
+
+
 .logo__imagen {
-    width: 8.5rem;
-    height: 8.5rem;
+    width: 6.5rem;
+    height: 6.5rem;
 }
 
 .navegacion__checkbox {
@@ -121,9 +133,9 @@ h3 {
 }
 
 .navegacion__etiqueta:hover {
-    background-color: var(--color--VerdeOscuro);
-    border-radius: 3rem;
-    color: #000;
+    border-bottom: 3px solid var(--color--Amarillo);
+    /* border-radius: 3rem; */
+    color: var(--color--Amarillo);
 }
 
 .navegacion__imagen {
@@ -148,7 +160,7 @@ h3 {
     .navegacion__contenido {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         width: auto;
         flex-grow: 1;
@@ -157,12 +169,12 @@ h3 {
 
     .navegacion__pestañas {
         flex-direction: row;
-        justify-content: center;
+        justify-content: left;
         align-items: center;
         gap: 4rem;
         width: auto;
-        flex: 1;
-        text-align: center;
+      
+        order: -4;
     }
 
     .navegacion__usuarios {
@@ -171,11 +183,194 @@ h3 {
         align-items: center;
         gap: 3rem;
         width: auto;
+
+        margin: 3rem;
     }
 
     .navegacion__etiqueta {
         padding: 1.5rem;
     }
+
+    .navegacion__busqueda {
+        margin-left: 4rem;
+    }
+
+}
+
+/*=========
+    Hero - Inicio
+    */
+.hero-section h1 {
+  font-family: var(--fuente--titulos); /* Nunito */
+  font-weight: 800;
+}
+
+.hero-section p {
+  font-family: var(--fuente--parrafos); /* Quicksand */
+}
+
+.hero-section .btn-warning {
+  background-color: #DFA225;
+  border-color: #DFA225;
+  font-family: var(--fuente--parrafos); /* Quicksand */
+  font-weight: 700;
+  color: #000;
+  transition: background-color 0.25s ease;
+}
+
+.hero-section .btn-warning:hover {
+  background-color: #c98f1c;
+  border-color: #c98f1c;
+  color: #000;
+}
+.hero-section {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-imagen-fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+.btn-hero-dorado {
+  background-color: #DFA225;
+  color: #000;
+  font-family: var(--fuente--parrafos);
+  font-weight: 700;
+  transition: background-color 0.25s ease;
+}
+
+.btn-hero-dorado:hover {
+  background-color: #c98f1c;
+  color: #000;
+}
+
+/*aqui termino
+
+/*=========
+    CTA final
+.cta-icono-circulo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color--VerdeOscuro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.cta-icono-circulo i {
+  color: var(--color--Amarillo);
+  font-size: 1.6rem;
+}
+
+.btn-verde-pill {
+  background-color: var(--color--VerdeOscuro);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--fuente--titulos);
+  font-weight: 700;
+  transition: background-color 0.25s ease;
+}
+
+.btn-verde-pill:hover {
+  background-color: var(--color--VerdeMedio);
+  color: #fff;
+}
+.seccion-verde {
+  background-color: var(--color--VerdeOscuro);
+}
+
+.imgindex { width:100%; height:15rem;}
+
+
+
+.seccion-verde .tarjeta-custom__img-container .imgindex {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover; /* Fuerza a que todas midan exactamente lo mismo sin deformar las proporciones *
+}
+*/
+
+/*=========
+    Sección Beneficios
+.tarjeta-beneficio {
+  background-color: var(--color--VerdeOscuro);
+  transition: background-color 0.3s ease;
+}
+
+.tarjeta-beneficio:hover {
+  background-color: #2b634d;
+}
+.icono-caja {
+  width: 55px;
+  height: 55px;
+  border-radius: 12px;
+  background-color: #111e19;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem;
+  font-size: 1.8rem;
+}
+/**AGREGADO INPUT DE BUSQUEDA**/
+.navegacion__busqueda {
+    display: flex;
+    align-items: center;
+    border: 1px solid #408A71;
+    border-radius: 2rem;
+    overflow: hidden;
+    background-color: #000000;
+    order: -4;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.navegacion__busqueda input {
+    width: 15rem;
+    padding: 0.8rem 1rem;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--color--blanco);
+    font-family: var(--fuente--parrafos);
+
+}
+
+.navegacion__busqueda input::placeholder {
+    color: var(--color--VerdeClaro);
+}
+
+.navegacion__busqueda button {
+    border: none;
+    background-color: transparent;
+    color: var(--color--VerdeClaro);
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+}
+
+.navegacion__busqueda:focus-within {
+    border-color: var(--color--VerdeClaro);
+    box-shadow: 0 0 8px rgba(176, 228, 204, 0.25);
 }
 
 /*=========
@@ -206,8 +401,8 @@ h3 {
 }
 
 .contenido__hero img {
-    width: 25rem;
-    height: 25rem;
+    width: 20rem;
+    height: 20rem;
     padding: 0;
 }
 
@@ -254,13 +449,15 @@ h3 {
     Footer
 ===========*/
 footer {
-  background-image: linear-gradient(
-    to top,
-    var(--color--VerdeOscuro) 0%,
-    var(--color--negro) 100%
-  );
-  text-align: left;
-  padding: 20px 20px 5px 20px;
+     background: radial-gradient(ellipse 70% 150% at center,
+            var(--color--VerdeOscuro) 0%,
+            var(--color--negro) 80%);
+
+    border-top: 1px solid var(--color--VerdeMedio);
+    box-shadow: 0 2px 12px rgba(69, 85, 80, 0.2);
+    margin-top: auto; 
+    text-align: center;
+    padding: 20px 20px 5px 20px;
 }
 
 footer h5 {
@@ -293,7 +490,17 @@ footer i {
 }
 
 footer i:hover {
-    color: #ffc107;                
+    color: var(--color--Amarillo);                
+}
+
+.footer_text{
+   padding: 1.5rem 0;
+    
+}
+
+#fot1 , #fot2 {
+    margin-top: 22.5px
+    ;
 }
 
 .footer_text{
@@ -365,6 +572,30 @@ footer i:hover {
     transition: transform 0.3s ease;
 }
 
+/* Tarjetas Rediseñadas */
+.tarjeta-custom {
+    border: 1px solid #282828 !important;
+    transition: all 0.3s ease-in-out !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto Hover en los Contenedores */
+.tarjeta-custom:hover {
+    transform: translateY(-6px);
+    border-color: #DFA225 !important;
+    box-shadow: 0 10px 25px -5px rgba(223, 162, 37, 0.15),
+                0 0 15px rgba(223, 162, 37, 0.08);
+    border-color: var(--color--Amarillo) !important;
+    box-shadow: 0 10px 25px -5px rgba(255, 193, 7, 0.15),
+        0 0 15px rgba(255, 193, 7, 0.08);
+}
+
+.tarjeta-custom:hover .icono-amarillo {
+    transform: scale(1.15);
+}
+
+/* Botones dentro de las tarjetas */
 .btn-outline-warning,
 .btn-custom,
 .btn {
@@ -373,15 +604,20 @@ footer i:hover {
 }
 
 .btn-outline-warning {
+    border-color: #DFA225;
+    color: #DFA225;
+    border-color: var(--color--Amarillo);
     border-color: #ffc107;
     color: #ffc107;
     transition: all 0.25s ease;
 }
 
 .btn-outline-warning:hover {
+    background-color: #DFA225;
+    background-color: var(--color--Amarillo);
     background-color: #ffc107;
     color: #000;
-    box-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0 12px rgba(223, 162, 37, 0.4);
 }
 
 /*=========
@@ -394,6 +630,8 @@ footer i:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .tarjeta-custom:hover {
@@ -490,8 +728,8 @@ footer i:hover {
 
 .btn-carrito-custom svg,
 .btn-carrito-custom i {
-    color: #000000;
-    fill: #000000;
+    color: var(--color--negro);
+    fill: var(--color--negro);
 }
 
 /*=========
@@ -499,14 +737,14 @@ footer i:hover {
 ===========*/
 .panel-filtros-verde {
     background-color: #2e4d41;
-    color: #e0e0e0;
+    color: var(--color--blanco);
     border-radius: 8px;
     font-family: 'Quicksand', sans-serif;
     padding: 2.5rem 2rem !important;
 }
 
 .panel-filtros-verde h6 {
-    color: #ffffff;
+    color: var(--color--blanco);
     font-weight: 700;
     letter-spacing: 1px;
     font-size: 1.4rem; 
