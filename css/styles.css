@@ -514,10 +514,14 @@ footer i:hover {
 }
 
 #copyright {
-  margin-top: 40px;
+  margin-top: 1rem;
   margin-bottom: 0px;
   font-size: 0.9rem;
   color: var(--color--blanco);
+}
+#logo_footer {
+   margin-top: 30px;
+  
 }
 
 /*=========
