@@ -157,6 +157,134 @@ const toleranceOptions = [
   },
 ];
 
+const chispazoStock = [
+  { id: "P0001", ohms: 10 },
+  { id: "P0002", ohms: 100 },
+  { id: "P0003", ohms: 220 },
+  { id: "P0004", ohms: 330 },
+  { id: "P0005", ohms: 470 },
+  { id: "P0006", ohms: 1000 },
+  { id: "P0007", ohms: 2200 },
+  { id: "P0008", ohms: 4700 },
+  { id: "P0009", ohms: 10000 },
+  { id: "P0010", ohms: 22000 },
+  { id: "P0011", ohms: 47000 },
+  { id: "P0012", ohms: 100000 },
+  { id: "P0013", ohms: 1000000 },
+];
+
+function findClosestChispazoStock(ohms) {
+  let best = chispazoStock[0];
+  let minDiff = Math.abs(ohms - best.ohms);
+  for (const item of chispazoStock) {
+    const diff = Math.abs(ohms - item.ohms);
+    if (diff < minDiff) {
+      minDiff = diff;
+      best = item;
+    }
+  }
+  return best;
+}
+
+function updateChispazoEquivalent(ohms) {
+  const el = document.getElementById("text-chispazo-equivalent");
+  if (!el) return;
+  const match = findClosestChispazoStock(ohms);
+  if (match.ohms === ohms) {
+    el.innerText = `✅ Disponible en Chispazo: ${formatOhms(match.ohms)} (código ${match.id})`;
+  } else {
+    el.innerText = `🔁 Equivalencia más cercana: ${formatOhms(match.ohms)} (código ${match.id})`;
+  }
+}
+
+function formatOhms(ohms) {
+  const abs = Math.abs(ohms);
+  let value, suffix;
+  if (abs >= 1000000000) {
+    value = ohms / 1000000000;
+    suffix = "GΩ";
+  } else if (abs >= 1000000) {
+    value = ohms / 1000000;
+    suffix = "MΩ";
+  } else if (abs >= 1000) {
+    value = ohms / 1000;
+    suffix = "kΩ";
+  } else {
+    value = ohms;
+    suffix = "Ω";
+  }
+  const rounded = Math.round(value * 100) / 100;
+  return `${rounded} ${suffix}`;
+}
+
+function getCurrentResistanceOhms() {
+  const d1 = parseInt(band1And2Options[selected1].value);
+  const d2 = parseInt(band1And2Options[selected2].value);
+  const mult = multiplierOptions[selected3].value;
+  return (d1 * 10 + d2) * mult;
+}
+
+function calcularPotencia({ voltaje, corriente, resistencia }) {
+  const valores = [voltaje, corriente, resistencia].filter(
+    (v) => v !== undefined && v !== null && !Number.isNaN(v)
+  );
+
+  if (valores.length < 2) {
+    throw new Error("Ingresa al menos dos valores (voltaje, corriente o resistencia).");
+  }
+
+  const V = voltaje;
+  const I = corriente;
+  const R = resistencia;
+
+  if (V !== undefined && I !== undefined) {
+    return V * I;
+  }
+  if (I !== undefined && R !== undefined) {
+    if (R < 0) throw new Error("La resistencia no puede ser negativa.");
+    return Math.pow(I, 2) * R;
+  }
+  if (V !== undefined && R !== undefined) {
+    if (R === 0) throw new Error("No se puede dividir entre una resistencia de 0 Ω.");
+    return Math.pow(V, 2) / R;
+  }
+  throw new Error("Combinación de valores insuficiente.");
+}
+
+function formatPower(watts) {
+  if (watts >= 1) return `${watts.toFixed(3)} W`;
+  if (watts >= 0.001) return `${(watts * 1000).toFixed(2)} mW`;
+  return `${(watts * 1e6).toFixed(2)} µW`;
+}
+
+function updatePower() {
+  const errorEl = document.getElementById("power-error");
+  const resultEl = document.getElementById("text-power");
+  if (!errorEl || !resultEl) return;
+
+  errorEl.textContent = "";
+
+  const voltajeInput = document.getElementById("power-voltage").value;
+  const corrienteInput = document.getElementById("power-current").value;
+  const corrienteUnidad = parseFloat(
+    document.getElementById("current-unit-select").value
+  );
+  const usarR = document.getElementById("use-calculated-r").checked;
+
+  const voltaje = voltajeInput !== "" ? parseFloat(voltajeInput) : undefined;
+  const corriente =
+    corrienteInput !== "" ? parseFloat(corrienteInput) * corrienteUnidad : undefined;
+  const resistencia = usarR ? getCurrentResistanceOhms() : undefined;
+
+  try {
+    const potencia = calcularPotencia({ voltaje, corriente, resistencia });
+    resultEl.textContent = formatPower(potencia);
+  } catch (err) {
+    resultEl.textContent = "--";
+    errorEl.textContent = err.message;
+  }
+}
+
 let selected1 = 1;
 let selected2 = 2;
 let selected3 = 4;
@@ -222,6 +350,15 @@ function populateSelects() {
   document
     .getElementById("unit-select")
     .addEventListener("change", calculateFromInput);
+  
+    ["power-voltage", "power-current", "current-unit-select", "use-calculated-r"].forEach(
+    (id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("input", updatePower);
+      el.addEventListener("change", updatePower);
+    }
+  );
 
   const modal = document.getElementById("instruction-modal");
   const btnOpen = document.getElementById("btn-open-modal");
@@ -293,14 +430,8 @@ function calculateFromBands() {
 
   const totalOhms = (d1 * 10 + d2) * mult;
 
-  let formattedText = totalOhms + " Ohms";
-  if (totalOhms >= 1000000000)
-    formattedText = totalOhms / 1000000000 + "G Ohms";
-  else if (totalOhms >= 1000000) formattedText = totalOhms / 1000000 + "M Ohms";
-  else if (totalOhms >= 1000) formattedText = totalOhms / 1000 + "k Ohms";
-  if (totalOhms < 1) formattedText = parseFloat(totalOhms.toFixed(2)) + " Ohms";
-
-  document.getElementById("text-ohms").innerText = formattedText;
+  document.getElementById("text-ohms").innerText = formatOhms(totalOhms);
+  updateChispazoEquivalent(totalOhms);
   document.getElementById("text-tolerance").innerText = opt4.displayValue;
 
   const unitSelect = document.getElementById("unit-select");
@@ -317,7 +448,9 @@ function calculateFromBands() {
     unitSelect.value = "1";
     document.getElementById("num-input").value = totalOhms;
   }
+  updatePower();
 }
+
 
 function calculateFromInput() {
   const inputVal = parseFloat(document.getElementById("num-input").value);
@@ -370,15 +503,12 @@ function calculateFromInput() {
   document.getElementById("band3").style.backgroundColor =
     multiplierOptions[selected3].color;
 
-  let formattedText = targetOhms + " Ohms";
-  if (targetOhms >= 1000000000)
-    formattedText = targetOhms / 1000000000 + "G Ohms";
-  else if (targetOhms >= 1000000)
-    formattedText = targetOhms / 1000000 + "M Ohms";
-  else if (targetOhms >= 1000) formattedText = targetOhms / 1000 + "k Ohms";
-
-  document.getElementById("text-ohms").innerText = formattedText;
+  document.getElementById("text-ohms").innerText = formatOhms(targetOhms);
+  updateChispazoEquivalent(targetOhms);
   isUpdatingFromInput = false;
+
+  updatePower();
 }
+
 
 window.addEventListener("DOMContentLoaded", populateSelects);

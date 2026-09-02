@@ -160,6 +160,7 @@
                 <span id="text-ohms">120 kΩ</span>
                 <span id="text-tolerance">5%</span>
               </div>
+              <p id="text-chispazo-equivalent" class="chispazo-equivalent" aria-live="polite"></p>
               <div class="input-box-container">
                 <label class="input-label" for="num-input">Ingresa un valor</label>
                 <div class="input-group">
@@ -183,38 +184,104 @@
                 <p class="input-hint">El código se ajusta a la combinación comercial más cercana.</p>
               </div>
             </section>
+
+           <!--calculo potencia--> 
+            <section class="results-section power-section" aria-label="Cálculo de potencia">
+              <p class="result-label">Calcular potencia</p>
+              <p class="input-hint">
+                Ingresa dos valores conocidos (voltaje, corriente o usa la resistencia ya calculada arriba).
+              </p>
+
+              <div class="power-inputs-grid">
+                <div class="input-box-container">
+                  <label class="input-label" for="power-voltage">Voltaje (V)</label>
+                  <div class="input-group">
+                    <input type="number" id="power-voltage" class="value-input" min="0" step="any" placeholder="Ej: 12" />
+                    <div class="unit-addon"><span>V</span></div>
+                  </div>
+                </div>
+
+                <div class="input-box-container">
+                  <label class="input-label" for="power-current">Corriente (I)</label>
+                  <div class="input-group">
+                    <input type="number" id="power-current" class="value-input" min="0" step="any" placeholder="Ej: 0.5" />
+                    <div class="unit-addon">
+                      <select id="current-unit-select" class="unit-dropdown" aria-label="Unidad de corriente">
+                        <option value="1">A</option>
+                        <option value="0.001" selected>mA</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-box-container">
+                  <label class="input-label">
+                    <input type="checkbox" id="use-calculated-r" checked />
+                    Usar resistencia calculada arriba
+                  </label>
+                </div>
+              </div>
+
+              <div class="result-single-line" aria-live="polite">
+                <span id="text-power">--</span>
+              </div>
+              <p id="power-error" class="input-hint power-error" role="alert"></p>
+            </section>
+
           </div>
         </div>
       </section>
     </main>
 
     <div id="instruction-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h2 id="modal-title">Instrucciones y diagrama</h2>
-          <button id="modal-close-x" class="modal-close-btn" type="button" aria-label="Cerrar instrucciones">
-            &times;
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="modal-text">
-            Selecciona el color de cada banda para conocer el valor y la tolerancia
-            de una resistencia de cuatro bandas. También puedes escribir un valor
-            para obtener la combinación de colores más cercana.
-          </p>
-          <div class="modal-image-container">
-            <img
-              src="img/calculadora/chart.jpg"
-              alt="Diagrama del código de colores de resistencias"
-              class="modal-image"
-            />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button id="modal-continue-btn" class="btn-continue" type="button">Continuar</button>
-        </div>
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2 id="modal-title">Instrucciones y diagrama</h2>
+      <button id="modal-close-x" class="modal-close-btn" type="button" aria-label="Cerrar instrucciones">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-text">
+        Una resistencia de cuatro bandas se lee de izquierda a derecha.
+        Cada color representa un número o función distinta:
+      </p>
+
+      <ol class="modal-steps">
+        <li>
+          <strong>1ª y 2ª banda:</strong> representan los dos primeros dígitos
+          del valor de la resistencia.
+        </li>
+        <li>
+          <strong>3ª banda (multiplicador):</strong> indica por cuánto se
+          multiplican esos dos dígitos.
+        </li>
+        <li>
+          <strong>4ª banda (tolerancia):</strong> indica el margen de error
+          posible respecto al valor indicado (por ejemplo, ±5%).
+        </li>
+      </ol>
+
+      <p class="modal-text">
+        Selecciona el color de cada banda en los menús desplegables para ver
+        el valor calculado, o escribe directamente un valor en el campo de
+        abajo para ver la combinación de colores más cercana disponible en
+        el mercado.
+      </p>
+
+      <div class="modal-image-container">
+        <img
+          src="img/calculadora/chart.jpg"
+          alt="Diagrama del código de colores de resistencias"
+          class="modal-image"
+        />
       </div>
     </div>
+    <div class="modal-footer">
+      <button id="modal-continue-btn" class="btn-continue" type="button">Continuar</button>
+    </div>
+  </div>
+</div>
 
     <footer>
       <div class="container">

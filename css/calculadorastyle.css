@@ -387,6 +387,10 @@
   color: var(--calculator-accent);
 }
 
+#text-power {
+  color: var(--calculator-accent);
+}
+
 #text-tolerance {
   color: var(--calculator-text-muted);
   font-size: 0.65em;
@@ -677,4 +681,46 @@
   .resistor-cap {
     width: 1.4rem;
   }
+}
+
+.modal-steps {
+  padding-left: 1.25rem;
+  margin: 0.75rem 0;
+}
+
+.modal-steps li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.modal-steps strong {
+  color: inherit;
+}
+
+.chispazo-equivalent {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: #e8e8e8;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.power-section {
+  margin-top: -3rem;
+  grid-column: 2;
+}
+
+.power-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.power-error {
+  color: #d64545;
+  font-weight: 600;
+  min-height: 1.2em;
 }
