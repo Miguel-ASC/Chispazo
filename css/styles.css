@@ -477,8 +477,7 @@ footer a, #us {
 footer a:hover, #us:hover {
     color: #ffc107;                
 }
-
-#us {
+#us , #usa{
     font-size: 15px;
     font-weight: bold;
 }
@@ -494,13 +493,35 @@ footer i:hover {
     color: var(--color--Amarillo);                
 }
 
+.footer_text{
+   padding: 1.5rem 0;
+    
+}
+
+#fot1 , #fot2 {
+    margin-top: 22.5px
+    ;
+}
+
+.footer_text{
+   padding: 1.5rem 0;
+    
+}
+
+#fot1 , #fot2 {
+    margin-top: 22.5px
+    ;
+}
+
 #copyright {
-    margin-top: 75px;
-    margin-bottom: 0px;
-    font-size: 0.9rem;
-    color: var(--color--blanco);
-    font-family: var(--fuente--parrafos);
-    font-weight: 400;
+  margin-top: 1rem;
+  margin-bottom: 0px;
+  font-size: 0.9rem;
+  color: var(--color--blanco);
+}
+#logo_footer {
+   margin-top: 30px;
+  
 }
 
 /*=========
