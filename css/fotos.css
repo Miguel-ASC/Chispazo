@@ -1,0 +1,82 @@
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.team-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+    transition: 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20);
+}
+
+.team-image-container {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: #eaf3ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.team-info {
+    padding: 20px;
+}
+
+.team-name-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-name {
+    margin: 0;
+    font-size: 19px;
+    color: #222;
+}
+
+.team-arrow {
+    font-size: 25px;
+    color: #0077ff;
+}
+
+.team-role {
+    color: #777;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+/* Tablets */
+@media (max-width: 800px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Celulares */
+@media (max-width: 500px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}
