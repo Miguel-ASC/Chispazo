@@ -203,6 +203,8 @@ nav {
 .hero-section h1 {
   font-family: var(--fuente--titulos); /* Nunito */
   font-weight: 800;
+  position:relative;
+
 }
 
 .hero-section p {
@@ -237,6 +239,10 @@ nav {
   height: 100%;
   object-fit: cover;
   z-index: 0;
+}
+.hero–section {
+    position: relative;
+    padding–top: 100px;
 }
 
 .hero-overlay {

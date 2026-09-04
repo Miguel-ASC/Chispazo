@@ -73,12 +73,13 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
-.team-title {
-    text-align: center;
-}
+
 /* Celulares */
 @media (max-width: 500px) {
     .team-grid {
         grid-template-columns: 1fr;
     }
+}
+.team-title {
+    text-align: center;
 }
