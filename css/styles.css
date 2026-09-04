@@ -390,7 +390,7 @@ nav {
 .contenido__heroimagen {
     background-repeat: no-repeat;
     background-size: cover;
-    height: 450px;
+    height: 500px;
     background-image: url(../img/hero_nosotros.jpg);
     background-position: center bottom;
     position: relative;
