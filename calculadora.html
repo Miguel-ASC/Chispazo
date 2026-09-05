@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Calculadora de código de colores para resistencias de cuatro bandas."
+      content="Calculadora de código de colores para resistencias de cuatro y seis bandas."
     />
     <title>Calculadora de resistencias | Chispazo</title>
 
@@ -79,19 +79,22 @@
           <p class="calculator-eyebrow">Herramientas para tus proyectos</p>
           <h1 id="calculator-title">Calculadora de resistencias</h1>
           <p class="calculator-intro">
-            Consulta el valor de una resistencia de cuatro bandas a partir de su
-            código de colores.
+            Consulta el valor de una resistencia de cuatro o seis bandas a
+            partir de su código de colores.
           </p>
         </div>
 
         <div class="main-container">
           <div class="tabs-container">
             <div class="tabs" role="tablist" aria-label="Número de bandas">
+              <!-- NUEVO: id "tab-btn-4" y atributo data-mode para poder engancharle el click desde JS -->
               <button
+                id="tab-btn-4"
                 class="tab active"
                 type="button"
                 role="tab"
                 aria-selected="true"
+                data-mode="4"
               >
                 4 bandas
               </button>
@@ -104,12 +107,14 @@
               >
                 5 bandas
               </button>
+              <!-- NUEVO: quitamos "disabled" y agregamos id "tab-btn-6" para activar este modo -->
               <button
+                id="tab-btn-6"
                 class="tab"
                 type="button"
                 role="tab"
                 aria-selected="false"
-                disabled
+                data-mode="6"
               >
                 6 bandas
               </button>
@@ -127,15 +132,23 @@
             >
               <div
                 class="resistor-graphic"
-                aria-label="Representación de una resistencia de cuatro bandas"
+                aria-label="Representación de la resistencia"
               >
                 <div class="terminal-wire"></div>
                 <div class="resistor-cap"></div>
                 <div class="resistor-body">
+                  <!-- Bandas renombradas de band1-band4 a band1-band6 para dejar espacio
+                       a la 3ª cifra (band3) y al coeficiente de temperatura (band6) -->
                   <div id="band1" class="band"></div>
                   <div id="band2" class="band"></div>
-                  <div id="band3" class="band"></div>
+                  <!-- NUEVO: 3ª banda de cifra significativa, solo visible en modo 6 bandas -->
+                  <div id="band3" class="band d-none"></div>
+                  <!-- Antes era band3 (multiplicador), ahora es band4 -->
                   <div id="band4" class="band"></div>
+                  <!-- Antes era band4 (tolerancia), ahora es band5 -->
+                  <div id="band5" class="band"></div>
+                  <!-- NUEVO: 6ª banda, coeficiente de temperatura, solo visible en modo 6 bandas -->
+                  <div id="band6" class="band d-none"></div>
                 </div>
                 <div class="resistor-cap"></div>
                 <div class="terminal-wire"></div>
@@ -146,11 +159,7 @@
                   <span class="control-label">1ª cifra</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown1">
-                    <button
-                      class="dropdown-trigger"
-                      id="trigger1"
-                      type="button"
-                    >
+                    <button class="dropdown-trigger" id="trigger1" type="button">
                       1
                     </button>
                     <div class="dropdown-menu-list" id="menu1"></div>
@@ -160,25 +169,34 @@
                   <span class="control-label">2ª cifra</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown2">
-                    <button
-                      class="dropdown-trigger"
-                      id="trigger2"
-                      type="button"
-                    >
+                    <button class="dropdown-trigger" id="trigger2" type="button">
                       2
                     </button>
                     <div class="dropdown-menu-list" id="menu2"></div>
                   </div>
                 </div>
+
+                <!-- NUEVO: columna completa para la 3ª cifra, oculta por defecto (d-none) -->
+                <div class="control-column d-none" id="col-digit3">
+                  <span class="control-label">3ª cifra</span>
+                  <div class="indicator-line"></div>
+                  <div class="custom-dropdown" id="dropdown-digit3">
+                    <button
+                      class="dropdown-trigger"
+                      id="trigger-digit3"
+                      type="button"
+                    >
+                      0
+                    </button>
+                    <div class="dropdown-menu-list" id="menu-digit3"></div>
+                  </div>
+                </div>
+
                 <div class="control-column">
                   <span class="control-label">Multiplicador</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown3">
-                    <button
-                      class="dropdown-trigger"
-                      id="trigger3"
-                      type="button"
-                    >
+                    <button class="dropdown-trigger" id="trigger3" type="button">
                       ×10 kΩ
                     </button>
                     <div class="dropdown-menu-list" id="menu3"></div>
@@ -188,14 +206,26 @@
                   <span class="control-label">Tolerancia</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown4">
-                    <button
-                      class="dropdown-trigger"
-                      id="trigger4"
-                      type="button"
-                    >
+                    <button class="dropdown-trigger" id="trigger4" type="button">
                       5%
                     </button>
                     <div class="dropdown-menu-list" id="menu4"></div>
+                  </div>
+                </div>
+
+                <!-- NUEVO: columna completa para el coeficiente de temperatura, oculta por defecto -->
+                <div class="control-column d-none" id="col-tempco">
+                  <span class="control-label">Coef. temperatura</span>
+                  <div class="indicator-line"></div>
+                  <div class="custom-dropdown" id="dropdown-tempco">
+                    <button
+                      class="dropdown-trigger"
+                      id="trigger-tempco"
+                      type="button"
+                    >
+                      10 ppm/°C
+                    </button>
+                    <div class="dropdown-menu-list" id="menu-tempco"></div>
                   </div>
                 </div>
               </div>
@@ -210,15 +240,35 @@
                 <span id="text-ohms">120 kΩ</span>
                 <span id="text-tolerance">5%</span>
               </div>
+              <!-- NUEVO: línea para mostrar el coeficiente de temperatura, solo en modo 6 bandas -->
+              <p
+                id="text-tempco"
+                class="chispazo-equivalent d-none"
+                aria-live="polite"
+              ></p>
+
+              <div class="input-box-container d-none" id="tempco-calc-container">
+                <label class="input-label" for="temp-target">Calcular a temperatura (°C)</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    id="temp-target"
+                    class="value-input"
+                    value="25"
+                    step="any"
+                 />
+                 <div class="unit-addon"><span>°C</span></div>
+            </div>
+            <p class="input-hint" id="text-tempco-result"></p>
+        </div>
+
               <p
                 id="text-chispazo-equivalent"
                 class="chispazo-equivalent"
                 aria-live="polite"
               ></p>
               <div class="input-box-container">
-                <label class="input-label" for="num-input"
-                  >Ingresa un valor</label
-                >
+                <label class="input-label" for="num-input">Ingresa un valor</label>
                 <div class="input-group">
                   <input
                     type="number"
@@ -260,9 +310,7 @@
 
               <div class="power-inputs-grid">
                 <div class="input-box-container">
-                  <label class="input-label" for="power-voltage"
-                    >Voltaje (V)</label
-                  >
+                  <label class="input-label" for="power-voltage">Voltaje (V)</label>
                   <div class="input-group">
                     <input
                       type="number"
@@ -277,9 +325,7 @@
                 </div>
 
                 <div class="input-box-container">
-                  <label class="input-label" for="power-current"
-                    >Corriente (I)</label
-                  >
+                  <label class="input-label" for="power-current">Corriente (I)</label>
                   <div class="input-group">
                     <input
                       type="number"
@@ -313,11 +359,7 @@
               <div class="result-single-line" aria-live="polite">
                 <span id="text-power">--</span>
               </div>
-              <p
-                id="power-error"
-                class="input-hint power-error"
-                role="alert"
-              ></p>
+              <p id="power-error" class="input-hint power-error" role="alert"></p>
             </section>
           </div>
         </div>
@@ -345,30 +387,36 @@
         </div>
         <div class="modal-body">
           <p class="modal-text">
-            Una resistencia de cuatro bandas se lee de izquierda a derecha. Cada
-            color representa un número o función distinta:
+            Una resistencia se lee de izquierda a derecha. Cada color
+            representa un número o función distinta:
           </p>
 
           <ol class="modal-steps">
             <li>
-              <strong>1ª y 2ª banda:</strong> representan los dos primeros
+              <strong>1ª, 2ª (y 3ª en 6 bandas):</strong> representan los
               dígitos del valor de la resistencia.
             </li>
             <li>
-              <strong>3ª banda (multiplicador):</strong> indica por cuánto se
-              multiplican esos dos dígitos.
+              <strong>Multiplicador:</strong> indica por cuánto se multiplican
+              esos dígitos.
             </li>
             <li>
-              <strong>4ª banda (tolerancia):</strong> indica el margen de error
-              posible respecto al valor indicado (por ejemplo, ±5%).
+              <strong>Tolerancia:</strong> indica el margen de error posible
+              respecto al valor indicado (por ejemplo, ±5%).
+            </li>
+            <!-- NUEVO: explicación de la 6ª banda para el modal de instrucciones -->
+            <li>
+              <strong>Coeficiente de temperatura (solo 6 bandas):</strong>
+              indica cuánto varía la resistencia por cada grado Celsius de
+              cambio de temperatura, en partes por millón (ppm/°C).
             </li>
           </ol>
 
           <p class="modal-text">
-            Selecciona el color de cada banda en los menús desplegables para ver
-            el valor calculado, o escribe directamente un valor en el campo de
-            abajo para ver la combinación de colores más cercana disponible en
-            el mercado.
+            Selecciona el color de cada banda en los menús desplegables para
+            ver el valor calculado, o escribe directamente un valor en el
+            campo de abajo para ver la combinación de colores más cercana
+            disponible en el mercado.
           </p>
 
           <div class="modal-image-container">
