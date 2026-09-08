@@ -387,9 +387,6 @@ function updateTempcoCalculation(totalOhms, tcrPpm) {
   resultEl.innerText = `A ${targetTemp}°C: ${formatOhms(adjustedOhms)}`;
 }
 
-// MODIFICADA: ahora se ramifica según currentBandMode para pintar/calcular
-// la 3ª cifra y el coeficiente de temperatura solo cuando aplica (6 bandas).
-
 function calculateFromBands() {
   if (isUpdatingFromInput) return;
 
@@ -401,7 +398,8 @@ function calculateFromBands() {
   document.getElementById("band1").style.backgroundColor = opt1.color;
   document.getElementById("band2").style.backgroundColor = opt2.color;
   document.getElementById("band4").style.backgroundColor = optMult.color; // antes band3
-  document.getElementById("band5").style.backgroundColor = optTol.color;  // antes band4
+  document.getElementById("band5").style.backgroundColor = optTol.color;
+    // antes band4
 
   let totalOhms;
 
