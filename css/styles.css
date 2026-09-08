@@ -1256,37 +1256,24 @@ main.flex-grow-1 {
     text-align: justify;
     padding: 0.5rem 1.2rem;
 }
-
-
-
-/*---------------------Revisar porque se duplico */
-/* Ajustes de navegación
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #000000;
+    
+/* Página activa con el mismo tono que el botón Guardar Producto */
+.pagination .page-item.active .page-link {
+  background-color: #ffc107 !important; /* Tono de btn-carrito-custom */
+  border-color: #ffc107 !important;
+  color: #000000 !important;
+  font-weight: bold;
 }
 
-.logo__imagen {
-    max-height: 50px;
+/* Resto de botones e inactivos */
+.pagination .page-link {
+  background-color: #212529;
+  border-color: #495057;
+  color: #ffffff;
 }
 
-.navegacion__etiqueta {
-    color: #ffffff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: 500;
-    transition: color 0.2s ease;
+/* Efecto hover en botones inactivos */
+.pagination .page-link:hover {
+  background-color: #343a40;
+  color: #ffc107;
 }
-
-.navegacion__etiqueta:hover {
-    color: #ffc107;
-}
-
-.navegacion__imagen {
-    width: 25px;
-    height: 25px;
-    margin-left: 15px;
-} */
