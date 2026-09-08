@@ -100,88 +100,6 @@ if (productsController.items.length === 0) {
     "2024-05-05",
     "Interfaz y Entrada"
   );
-
-  productsController.addProduct(
-    "Instrumentación",
-    "Osciloscopios digitales portátiles para medición y análisis de señales en tiempo real.",
-    "120.00",
-    "img/osciloscopio_digital.png",
-    "2024-05-06",
-    "Instrumentación"
-  )
-  productsController.addProduct(
-    "Soldadura",
-    "Terceras manos con lupa integrada para sujetar componentes durante la soldadura de precisión.",
-    "120.00",
-    "img/terceras manos con lupa.jpg",
-    "2024-05-06",
-    "Soldadura"
-
-  )
-  productsController.addProduct(
-    "ESD y seguridad",
-    "Bolsas antiestáticas para el transporte y almacenamiento seguro de componentes sensibles.",
-    "120.00",
-    "img/bolsas antiestaticas.jpg",
-    "2024-05-07",
-    "ESD y Seguridad"
-  )
-  productsController.addProduct(
-    "IoT y domótica",
-    "Relé WiFi de 1 a 4 canales para automatizar y controlar dispositivos de forma remota.",
-    "120.00",
-    "img/Relé WiFi (1-4 canales).jpg",
-    "2024-05-07",
-    "IoT y Domótica"
-  )
-  productsController.addProduct(
-    "Redes y conectividad",
-    "Antenas LoRa de 915MHz/433MHz para comunicación inalámbrica de largo alcance y bajo consumo.",
-    "120.00",
-    "img/Antena LoRa (915MHz433MHz).jpg",
-    "2024-05-08",
-    "Redes y Conectividad"
-  )
-    productsController.addProduct(
-    "Repuestos y reparación",
-    "Lupa de banco con luz LED integrada, ideal para inspección y reparación de placas.",
-    "120.00",
-    "img/Lupa de banco con luz LED.jpg",
-    "2024-05-08",
-    "Repuestos y Reparación"
-  )
-  productsController.addProduct(
-    "Automatización industrial",
-    "Variador de frecuencia monofásico compacto para control de velocidad en motores.",
-    "120.00",
-    "img/Variador de frecuencia pequeño (VFD, monofásico).jpg",
-    "2024-05-09",
-    "Automatización Industrial"
-  )
-  productsController.addProduct(
-    "Kits para principiantes",
-    "Kit de electrónica analógica con resistencias, capacitores, protoboard y LEDs para iniciar en el prototipado.",
-    "120.00",
-    "img/Kit de electrónica analógica (resistencias, capacitores, protoboard, LEDs).jpg",
-    "2024-05-09",
-    "Kits STEM"
-  )
-  productsController.addProduct(
-    "Kits de manos robóticas",
-    "Kit de mano robótica-biónica educativa, ensamblable, ideal para proyectos de robótica.",
-    "120.00",
-    "img/Kit de mano robótica-biónica educativa (ensamblable).jpg",
-    "2024-05-10",
-    "Kits STEM"
-  )
-    productsController.addProduct(
-    "Compuertas lógicas",
-    "Buffer/driver de línea 74244 para control de compuertas lógicas en circuitos digitales.",
-    "120.00",
-    "img/Bufferdriver de línea 74244.jpg",
-    "2024-05-10",
-    "Semiconductores"
-  )
 }
 
 // 3. Verificamos en consola que los 10 productos se agregaron correctamente
@@ -239,7 +157,8 @@ function renderProducts(products) {
   });
 }
 
-// 6. Esperamos a que el DOM esté listo y pintamos los productos
+// 6. Esperamos a que el DOM esté listo y pintamos SOLO los productos activos
+//    (los eliminados desde el panel admin tienen activo = false y no se muestran aquí)
 document.addEventListener("DOMContentLoaded", () => {
-  renderProducts(productsController.items);
+  renderProducts(productsController.getActiveProducts());
 });
