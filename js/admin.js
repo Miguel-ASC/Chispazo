@@ -3,6 +3,10 @@
 // Lógica del panel administrativo: formulario de alta/edición,
 // validación con alertas de Bootstrap, tabla de productos y
 // baja lógica (activo = false) en lugar de borrado físico.
+//
+// La imagen se sube con <input type="file">, se convierte a
+// base64 (Data URL) con FileReader, y así se guarda en el
+// objeto JSON del producto (y en localStorage).
 // =========================================================
 
 const productsController = new ProductsController();
@@ -17,8 +21,10 @@ const cancelEditBtn = document.getElementById("cancel-edit-btn");
 const tableBody = document.getElementById("products-table-body");
 const tablaContador = document.getElementById("tabla-contador");
 const imgInput = document.getElementById("img");
+const currentImgInput = document.getElementById("current-img");
 const imgPreviewWrapper = document.getElementById("img-preview-wrapper");
 const imgPreview = document.getElementById("img-preview");
+const paginationControls = document.getElementById("pagination-controls");
 
 const fields = {
   id: document.getElementById("product-id"),
@@ -30,6 +36,8 @@ const fields = {
 };
 
 let currentFilter = "todos"; // todos | activos | eliminados
+let currentPage = 1;
+const ITEMS_PER_PAGE = 5;
 
 // =========================================================
 // VALIDACIÓN
@@ -37,19 +45,24 @@ let currentFilter = "todos"; // todos | activos | eliminados
 
 /**
  * Valida los campos del formulario.
+ * El campo de imagen se valida distinto según el modo:
+ *  - Creación: se exige haber seleccionado un archivo.
+ *  - Edición: basta con que exista una imagen previa (currentImgInput)
+ *    si el usuario no seleccionó un archivo nuevo.
  * @returns {string[]} arreglo de mensajes de error (vacío si todo es válido)
  */
 function validateProductForm() {
   const errors = [];
 
-  // Limpiamos estados de error previos
   Object.values(fields).forEach((field) => field.classList.remove("is-invalid"));
 
   const name = fields.name.value.trim();
   const description = fields.description.value.trim();
   const precio = fields.precio.value;
   const categoria = fields.categoria.value;
-  const img = fields.img.value.trim();
+  const isEditing = fields.id.value !== "";
+  const hasNewFile = imgInput.files.length > 0;
+  const hasExistingImg = currentImgInput.value !== "";
 
   if (name.length < 3) {
     errors.push("El nombre del producto debe tener al menos 3 caracteres.");
@@ -71,8 +84,8 @@ function validateProductForm() {
     fields.categoria.classList.add("is-invalid");
   }
 
-  if (img.length < 3) {
-    errors.push("Debes indicar la ruta o URL de una imagen.");
+  if (!hasNewFile && !(isEditing && hasExistingImg)) {
+    errors.push("Debes seleccionar una imagen para el producto.");
     fields.img.classList.add("is-invalid");
   }
 
@@ -108,11 +121,26 @@ function hideAlerts() {
   alertSuccess.classList.add("d-none");
 }
 
+/**
+ * Convierte un archivo (File) en un Data URL base64, en forma de Promise,
+ * para poder usar await dentro del submit del formulario.
+ * @param {File} file
+ * @returns {Promise<string>}
+ */
+function readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
 // =========================================================
 // CREAR / EDITAR (mismo formulario)
 // =========================================================
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const errors = validateProductForm();
@@ -122,33 +150,56 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  // 1. Construimos el objeto JSON con la información del formulario
+  // 1. Resolvemos la imagen: si el usuario eligió un archivo nuevo lo
+  //    convertimos a base64; si no, conservamos la imagen que ya tenía
+  //    el producto (solo aplica en modo edición).
+  let imgData = currentImgInput.value;
+
+  if (imgInput.files.length > 0) {
+    try {
+      imgData = await readFileAsDataURL(imgInput.files[0]);
+    } catch (error) {
+      showFormErrors(["No se pudo leer el archivo de imagen. Intenta de nuevo."]);
+      return;
+    }
+  }
+
+  // 2. Construimos el objeto JSON con la información del formulario
   const productData = {
     name: fields.name.value.trim(),
     description: fields.description.value.trim(),
     precio: Number(fields.precio.value).toFixed(2),
     categoria: fields.categoria.value,
-    img: fields.img.value.trim(),
+    img: imgData,
   };
 
   const editingId = fields.id.value;
 
-  if (editingId) {
-    // --- MODO EDICIÓN ---
-    productsController.updateProduct(Number(editingId), productData);
-    showFormSuccess("Producto actualizado correctamente.");
-  } else {
-    // --- MODO CREACIÓN ---
-    const today = new Date().toISOString().split("T")[0];
-    productsController.addProduct(
-      productData.name,
-      productData.description,
-      productData.precio,
-      productData.img,
-      today,
-      productData.categoria
-    );
-    showFormSuccess("Producto agregado correctamente.");
+  try {
+    if (editingId) {
+      // --- MODO EDICIÓN ---
+      productsController.updateProduct(Number(editingId), productData);
+      showFormSuccess("Producto actualizado correctamente.");
+    } else {
+      // --- MODO CREACIÓN ---
+      const today = new Date().toISOString().split("T")[0];
+      productsController.addProduct(
+        productData.name,
+        productData.description,
+        productData.precio,
+        productData.img,
+        today,
+        productData.categoria
+      );
+      showFormSuccess("Producto agregado correctamente.");
+    }
+  } catch (error) {
+    // saveToStorage() lanza un error si localStorage se queda sin espacio
+    // (por ejemplo, demasiadas imágenes en base64 acumuladas)
+    showFormErrors([
+      "No se pudo guardar el producto: el almacenamiento local está lleno. Elimina productos o usa imágenes más pequeñas.",
+    ]);
+    return;
   }
 
   resetForm();
@@ -161,6 +212,7 @@ form.addEventListener("submit", (event) => {
 function resetForm() {
   form.reset();
   fields.id.value = "";
+  currentImgInput.value = "";
   formTitulo.textContent = "Nuevo Producto";
   submitBtn.textContent = "Guardar Producto";
   cancelEditBtn.classList.add("d-none");
@@ -171,7 +223,10 @@ function resetForm() {
 cancelEditBtn.addEventListener("click", resetForm);
 
 /**
- * Carga los datos de un producto en el formulario para editarlo
+ * Carga los datos de un producto en el formulario para editarlo.
+ * El <input type="file"> se deja vacío (no se puede precargar por
+ * seguridad del navegador); currentImgInput guarda la imagen existente
+ * para usarla si el usuario no sube una nueva.
  * @param {number} id
  */
 function loadProductIntoForm(id) {
@@ -183,43 +238,49 @@ function loadProductIntoForm(id) {
   fields.description.value = product.description;
   fields.precio.value = product.precio;
   fields.categoria.value = product.categoria || "";
-  fields.img.value = product.img;
+  imgInput.value = ""; // no se puede precargar un input file
+  currentImgInput.value = product.img;
 
   formTitulo.textContent = `Editando: ${product.name}`;
   submitBtn.textContent = "Actualizar Producto";
   cancelEditBtn.classList.remove("d-none");
 
-  updateImgPreview();
+  // Vista previa con la imagen actual del producto
+  imgPreview.src = product.img;
+  imgPreviewWrapper.style.display = "block";
+
   hideAlerts();
   form.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// Vista previa de la imagen mientras se escribe la URL
-imgInput.addEventListener("input", updateImgPreview);
+// Vista previa: al elegir un archivo nuevo, lo leemos y mostramos al instante
+imgInput.addEventListener("change", () => {
+  const file = imgInput.files[0];
 
-function updateImgPreview() {
-  const url = imgInput.value.trim();
-  if (url) {
-    imgPreview.src = url;
-    imgPreviewWrapper.style.display = "block";
-  } else {
-    imgPreviewWrapper.style.display = "none";
+  if (!file) {
+    // Si el usuario cancela la selección, mostramos la imagen anterior (si hay)
+    if (currentImgInput.value) {
+      imgPreview.src = currentImgInput.value;
+      imgPreviewWrapper.style.display = "block";
+    } else {
+      imgPreviewWrapper.style.display = "none";
+    }
+    return;
   }
-}
+
+  readFileAsDataURL(file).then((dataUrl) => {
+    imgPreview.src = dataUrl;
+    imgPreviewWrapper.style.display = "block";
+  });
+});
 
 // =========================================================
-// TABLA Y PAGINACIÓN
+// TABLA: listar, eliminar (baja lógica), reactivar
 // =========================================================
-
-let currentPage = 1;
-const itemsPerPage = 5; // Cambia este valor para ajustar cuántos productos ver por página
-
-const paginationContainer = document.getElementById("pagination-container");
 
 function renderTable() {
   let items = productsController.items;
 
-  // 1. Filtrado por estado
   if (currentFilter === "activos") {
     items = items.filter((p) => p.activo);
   } else if (currentFilter === "eliminados") {
@@ -230,23 +291,20 @@ function renderTable() {
 
   if (items.length === 0) {
     tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4">No hay productos en este filtro.</td></tr>`;
-    if (paginationContainer) paginationContainer.innerHTML = "";
+    paginationControls.innerHTML = "";
     return;
   }
 
-  // 2. Cálculo de paginación
-  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
 
   if (currentPage > totalPages) {
     currentPage = totalPages;
   }
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedItems = items.slice(startIndex, endIndex);
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  const pageItems = items.slice(start, start + ITEMS_PER_PAGE);
 
-  // 3. Renderizado de filas
-  tableBody.innerHTML = paginatedItems
+  tableBody.innerHTML = pageItems
     .map((product) => {
       const estadoBadge = product.activo
         ? '<span class="badge bg-success">Activo</span>'
@@ -278,60 +336,58 @@ function renderTable() {
     })
     .join("");
 
-  // 4. Renderizado de botones de paginación
   renderPagination(totalPages);
 }
 
 /**
- * Genera los botones de la paginación dinámicamente
+ * Dibuja los controles de paginación (Anterior, números de página, Siguiente)
+ * usando el componente .pagination de Bootstrap.
+ * @param {number} totalPages
  */
 function renderPagination(totalPages) {
-  if (!paginationContainer) return;
-
   if (totalPages <= 1) {
-    paginationContainer.innerHTML = "";
+    paginationControls.innerHTML = "";
     return;
   }
 
-  let html = `
+  let html = "";
+
+  html += `
     <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
-      <a class="page-link" href="#" data-page="${currentPage - 1}">&laquo; Previous</a>
+      <button class="page-link" data-page="${currentPage - 1}" aria-label="Anterior">&laquo;</button>
     </li>
   `;
 
-  for (let i = 1; i <= totalPages; i++) {
+  for (let page = 1; page <= totalPages; page++) {
     html += `
-      <li class="page-item ${i === currentPage ? "active" : ""}">
-        <a class="page-link" href="#" data-page="${i}">${i}</a>
+      <li class="page-item ${page === currentPage ? "active" : ""}">
+        <button class="page-link" data-page="${page}">${page}</button>
       </li>
     `;
   }
 
   html += `
     <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
-      <a class="page-link" href="#" data-page="${currentPage + 1}">Next &raquo;</a>
+      <button class="page-link" data-page="${currentPage + 1}" aria-label="Siguiente">&raquo;</button>
     </li>
   `;
 
-  paginationContainer.innerHTML = html;
+  paginationControls.innerHTML = html;
 }
 
-// Escuchador para los clics en la paginación
-if (paginationContainer) {
-  paginationContainer.addEventListener("click", (event) => {
-    event.preventDefault();
-    const link = event.target.closest(".page-link");
-    if (!link) return;
+// Delegación de eventos para los botones de paginación
+paginationControls.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-page]");
+  if (!button) return;
 
-    const targetPage = Number(link.dataset.page);
-    if (targetPage && targetPage !== currentPage) {
-      currentPage = targetPage;
-      renderTable();
-    }
-  });
-}
+  const page = Number(button.dataset.page);
+  if (page < 1) return;
 
-// Delegación de eventos para editar y cambiar estado (eliminar/reactivar)
+  currentPage = page;
+  renderTable();
+});
+
+// Delegación de eventos: un solo listener para todos los botones editar/eliminar
 tableBody.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
@@ -365,10 +421,14 @@ document.querySelectorAll("[data-filter]").forEach((btn) => {
     document.querySelectorAll("[data-filter]").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     currentFilter = btn.dataset.filter;
-    currentPage = 1; // Resetea a la primera página al cambiar de filtro
+    currentPage = 1;
     renderTable();
   });
 });
+
+// =========================================================
+// Primer render al cargar la página
+// =========================================================
 document.addEventListener("DOMContentLoaded", () => {
   renderTable();
 });
