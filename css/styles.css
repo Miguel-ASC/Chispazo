@@ -1259,7 +1259,7 @@ main.flex-grow-1 {
     
 /* Página activa con el mismo tono que el botón Guardar Producto */
 .pagination .page-item.active .page-link {
-  background-color: #ffc107 !important; /* Tono de btn-carrito-custom */
+  background-color: #ffc107 !important;
   border-color: #ffc107 !important;
   color: #000000 !important;
   font-weight: bold;
@@ -1277,3 +1277,4 @@ main.flex-grow-1 {
   background-color: #343a40;
   color: #ffc107;
 }
+
