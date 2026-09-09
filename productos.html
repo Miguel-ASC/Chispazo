@@ -25,36 +25,86 @@
     <title>Productos - Chispazo</title>
   </head>
 
-  <body>
-    <nav>
-      <div class="navegacion">
-        <div class="navegacion__logo">
-          <a class="logo" href="index.html">
-            <img class="logo__imagen" src="img/logo.png" alt="Logo" />
-          </a>
+      <div class="navegacion__contenido">
+        <div class="navegacion__pestañas">
+          <a class="navegacion__etiqueta" href="index.html">Inicio</a>
+          
+          <!-- CONTENEDOR PRINCIPAL DEL MENÚ DESPLEGABLE -->
+          <div class="dropdown-menu-container">
+            <a href="productos.html" class="navegacion__etiqueta">Productos ▾</a>
+
+            <!-- SUBMENÚ DE ANCHO COMPLETO -->
+            <div class="mega-submenu">
+              <div class="mega-submenu-inner">
+                <div class="submenu-columnas">
+
+                  <div class="submenu-col">
+                    <h6 class="submenu-titulo">Pasivos y Semiconductores</h6>
+                    <ul class="submenu-lista">
+                      <li><a href="#cat-2">Capacitores</a></li>
+                      <li><a href="#cat-3">Semiconductores</a></li>
+                      <li><a href="#cat-4">Bobinas e Inductores</a></li>
+                      <li><a href="#cat-20">Compuertas lógicas</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="submenu-col">
+                    <h6 class="submenu-titulo">Módulos y Control</h6>
+                    <ul class="submenu-lista">
+                      <li><a href="#cat-6">Módulos y Placas</a></li>
+                      <li><a href="#cat-7">Sensores</a></li>
+                      <li><a href="#cat-8">Actuadores</a></li>
+                      <li><a href="#cat-9">Alimentación</a></li>
+                      <li><a href="#cat-10">Interfaz y entrada</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="submenu-col">
+                    <h6 class="submenu-titulo">Conectividad y Redes</h6>
+                    <ul class="submenu-lista">
+                      <li><a href="#cat-5">Conectores y Cables</a></li>
+                      <li><a href="#cat-14">IoT y domótica</a></li>
+                      <li><a href="#cat-15">Redes y conectividad</a></li>
+                      <li><a href="#cat-17">Automatización industrial</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="submenu-col">
+                    <h6 class="submenu-titulo">Herramientas y Kits</h6>
+                    <ul class="submenu-lista">
+                      <li><a href="#cat-11">Instrumentación</a></li>
+                      <li><a href="#cat-12">Soldadura</a></li>
+                      <li><a href="#cat-13">ESD y seguridad</a></li>
+                      <li><a href="#cat-16">Repuestos y reparación</a></li>
+                      <li><a href="#cat-18">Kits para principiantes</a></li>
+                      <li><a href="#cat-19">Kits de manos robóticas</a></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
+          <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
+        </div>
+        
+        <div class="navegacion__busqueda">
+          <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
+          <button type="submit">
+            🔍
+          </button>
         </div>
 
         <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
 
-        <label for="menu-toggle" class="navegacion__botondesplegable">
-          &#9776;
-        </label>
-
-        <div class="navegacion__contenido">
-          <div class="navegacion__pestañas">
-            <a class="navegacion__etiqueta" href="index.html">Inicio</a>
-            <a class="navegacion__etiqueta" href="productos.html">Productos</a>
-            <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
-            <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
-          </div>
-          <div class="navegacion__busqueda">
-            <input
-              type="search"
-              placeholder="Buscar productos..."
-              aria-label="Buscar productos"
-            />
-            <button type="submit">🔍</button>
-          </div>
+  <main class="bg-black text-white">
+    <div class="container my-4">
+      <!-- Encabezado -->
+      <h1 class="titulo-catalogo text-center">CATÁLOGO DE PRODUCTOS</h1>
+      <p class="text-center">Explora nuestros componentes electrónicos y sus variaciones disponibles.</p>
+    </div>
 
           <div class="navegacion__usuarios">
             <a href="perfil.html"
@@ -75,195 +125,19 @@
       </div>
     </nav>
 
-    <main class="bg-black text-white">
-      <div class="container my-4">
-        <!-- Encabezado -->
-        <h1 class="titulo-catalogo text-center">CATÁLOGO DE PRODUCTOS</h1>
-        <p class="text-center">
-          Explora nuestros componentes electrónicos y sus variaciones
-          disponibles.
-        </p>
-      </div>
+        <div class="row">
+          <!-- COLUMNA PRINCIPAL: Tarjetas de Productos -->
+          <div class="col-lg-12">
+            <!-- PRODUCTOS -->
+            <div class="row g-4" id="productos-grid">
 
-      <!-- Grid de Componentes y Filtros -->
-      <section class="pb-5 bg-black">
-        <div class="container">
-          <div class="row">
-            <!-- COLUMNA IZQUIERDA: Texto y Panel Verde agrupados -->
-            <aside class="col-lg-3 mb-4">
-              <!-- Texto alineado verticalmente con el Select -->
-              <div
-                class="mb-4 d-flex align-items-center"
-                style="min-height: 42px"
-              >
-                <p class="subtitulo-resultados mb-0">
-                  Mostrando 42 resultados técnicos
-                </p>
-              </div>
-
-              <!-- PANEL VERDE DE FILTROS -->
-              <div class="panel-filtros-verde p-4">
-                <div class="d-flex align-items-center mb-4">
-                  <i class="bi bi-sliders me-2 fs-5"></i>
-                  <span
-                    class="fw-bold text-uppercase small"
-                    style="letter-spacing: 1px"
-                    >FILTROS</span
-                  >
-                </div>
-
-                <!-- Categoria -->
-                <div class="mb-4">
-                  <h6 class="text-uppercase mb-3">CATEGORÍA</h6>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="cat-micro"
-                    />
-                    <label class="form-check-label" for="cat-micro"
-                      >Microcontroladores</label
-                    >
-                  </div>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="cat-sensores"
-                    />
-                    <label class="form-check-label" for="cat-sensores"
-                      >Sensores</label
-                    >
-                  </div>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="cat-stem"
-                    />
-                    <label class="form-check-label" for="cat-stem"
-                      >Kits STEM</label
-                    >
-                  </div>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="cat-pasivos"
-                    />
-                    <label class="form-check-label" for="cat-pasivos"
-                      >Componentes Pasivos</label
-                    >
-                  </div>
-                </div>
-
-                <!-- Precio -->
-                <div class="mb-4">
-                  <h6 class="text-uppercase mb-3">PRECIO</h6>
-                  <div class="d-flex gap-2">
-                    <div class="input-group">
-                      <span
-                        class="input-group-text border-0 text-white bg-transparent ps-0 pe-1"
-                        >$</span
-                      >
-                      <input
-                        type="number"
-                        class="form-control input-precio-verde rounded"
-                        placeholder="Min"
-                      />
-                    </div>
-                    <div class="input-group">
-                      <span
-                        class="input-group-text border-0 text-white bg-transparent ps-0 pe-1"
-                        >$</span
-                      >
-                      <input
-                        type="number"
-                        class="form-control input-precio-verde rounded"
-                        placeholder="Max"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Marca -->
-                <div class="mb-2">
-                  <h6 class="text-uppercase mb-3">MARCA</h6>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="marca-arduino"
-                    />
-                    <label class="form-check-label" for="marca-arduino"
-                      >Arduino</label
-                    >
-                  </div>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="marca-espressif"
-                    />
-                    <label class="form-check-label" for="marca-espressif"
-                      >Espressif</label
-                    >
-                  </div>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="marca-raspberry"
-                    />
-                    <label class="form-check-label" for="marca-raspberry"
-                      >Raspberry Pi</label
-                    >
-                  </div>
-                  <div class="form-check mb-2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="marca-adafruit"
-                    />
-                    <label class="form-check-label" for="marca-adafruit"
-                      >Adafruit</label
-                    >
-                  </div>
-                </div>
-              </div>
-            </aside>
-
-            <!-- COLUMNA DERECHA: Select Ordenar + Tarjetas de Productos -->
-            <div class="col-lg-9">
-              <!-- Select de Ordenar alineado a la derecha -->
-              <div
-                class="d-flex justify-content-end mb-4"
-                style="min-height: 42px"
-              >
-                <select class="select-ordenar-custom">
-                  <option>ORDENAR POR: Relevancia</option>
-                  <option>Precio: Menor a Mayor</option>
-                  <option>Precio: Mayor a Menor</option>
-                </select>
-              </div>
-
-              <!-- PRODUCTOS -->
-              <div class="row g-4" id="productos-grid">
-                <!-- Componente 1: Resistencias -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">3.3V-5V</span>
-                        <span class="badge">PASSIVE</span>
-                      </div>
-                      <img
-                        src="img/Resistencias.jpg"
-                        class="img-fluid"
-                        alt="Resistencias"
-                      />
+              <!-- Componente 1: Resistencias -->
+              <div class="col-md-4 mb-4" id="cat-1">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">3.3V-5V</span>
+                      <span class="badge">PASSIVE</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">Resistencias</h5>
@@ -296,20 +170,14 @@
                     </div>
                   </div>
                 </div>
-                <!-- Componente 2: Capacitores -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">PASSIVE</span>
-                      </div>
-                      <img
-                        src="img/Capacitores.jpg"
-                        class="img-fluid"
-                        alt="Capacitores"
-                      />
+              </div>
+
+              <!-- Componente 2: Capacitores -->
+              <div class="col-md-4 mb-4" id="cat-2">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">PASSIVE</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">Capacitores</h5>
@@ -343,20 +211,12 @@
                   </div>
                 </div>
 
-                <!-- Componente 3: Semiconductores -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">SEMI</span>
-                      </div>
-                      <img
-                        src="img/Diodos.jpg"
-                        class="img-fluid"
-                        alt="Semiconductores"
-                      />
+              <!-- Componente 3: Semiconductores -->
+              <div class="col-md-4 mb-4" id="cat-3">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">SEMI</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">Semiconductores</h5>
@@ -390,20 +250,12 @@
                   </div>
                 </div>
 
-                <!-- Componente 4: Bobinas e Inductores -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">IND</span>
-                      </div>
-                      <img
-                        src="img/Bobinas.jpg"
-                        class="img-fluid"
-                        alt="Bobinas e Inductores"
-                      />
+              <!-- Componente 4: Bobinas e Inductores -->
+              <div class="col-md-4 mb-4" id="cat-4">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">IND</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">
@@ -439,20 +291,12 @@
                   </div>
                 </div>
 
-                <!-- Componente 5: Conectores y Cables -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">2.54mm</span>
-                      </div>
-                      <img
-                        src="img/Conectores.jpg"
-                        class="img-fluid"
-                        alt="Conectores y Cables"
-                      />
+              <!-- Componente 5: Conectores y Cables -->
+              <div class="col-md-4 mb-4" id="cat-5">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">2.54mm</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">
@@ -488,21 +332,13 @@
                   </div>
                 </div>
 
-                <!-- Componente 6: Módulos y Placas -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">3.3V-5V</span>
-                        <span class="badge">I2C</span>
-                      </div>
-                      <img
-                        src="img/esp32_esp8266.jpg"
-                        class="img-fluid"
-                        alt="Módulos y Placas"
-                      />
+              <!-- Componente 6: Módulos y Placas -->
+              <div class="col-md-4 mb-4" id="cat-6">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">3.3V-5V</span>
+                      <span class="badge">I2C</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">Módulos y Placas</h5>
@@ -535,21 +371,13 @@
                   </div>
                 </div>
 
-                <!-- Componente 7: Sensores -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">MQ</span>
-                        <span class="badge">5V</span>
-                      </div>
-                      <img
-                        src="img/sensor-de-gas-y-aire-MQ-2.jpg"
-                        class="img-fluid"
-                        alt="Sensores"
-                      />
+              <!-- Componente 7: Sensores -->
+              <div class="col-md-4 mb-4" id="cat-7">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">MQ</span>
+                      <span class="badge">5V</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">Sensores</h5>
@@ -583,20 +411,12 @@
                   </div>
                 </div>
 
-                <!-- Componente 8: Actuadores -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">12V-24V</span>
-                      </div>
-                      <img
-                        src="img/valvulas_solenoides24v.jpg"
-                        class="img-fluid"
-                        alt="Actuadores"
-                      />
+              <!-- Componente 8: Actuadores -->
+              <div class="col-md-4 mb-4" id="cat-8">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">12V-24V</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">Actuadores</h5>
@@ -630,20 +450,12 @@
                   </div>
                 </div>
 
-                <!-- Componente 9: Alimentación -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/Baterías (LiPo, Li-ion 18650, alcalinas).jpg"
-                        class="img-fluid"
-                        alt="Alimentación"
-                      />
+              <!-- Componente 9: Alimentación -->
+              <div class="col-md-4 mb-4" id="cat-9">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">BAT</span>
                     </div>
                     <div class="card-body card-body-custom d-flex flex-column">
                       <h5 class="card-title-custom mb-2">Alimentación</h5>
@@ -677,502 +489,22 @@
                   </div>
                 </div>
 
-                <!-- Componente 10: Interfaz y entrada -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/pantalla tactil resistiva-capacitiva.jpg"
-                        class="img-fluid"
-                        alt="Interfaz y entrada"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">Interfaz y entrada</h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 11: Instrumentación -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/osciloscopio_digital.png"
-                        class="img-fluid"
-                        alt="Instrumentación"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">Instrumentación</h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 12: Soldadura -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/terceras manos con lupa.jpg"
-                        class="img-fluid"
-                        alt="Soldadura"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">Soldadura</h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 13: ESD y seguridad -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/bolsas antiestaticas.jpg"
-                        class="img-fluid"
-                        alt="ESD y seguridad"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">ESD y seguridad</h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 14: IoT y domótica -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/Relé WiFi (1-4 canales).jpg"
-                        class="img-fluid"
-                        alt="IoT y domótica"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">IoT y domótica</h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 15: Redes y conectividad -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/Antena LoRa (915MHz433MHz).jpg"
-                        class="img-fluid"
-                        alt="Redes y conectividad"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">
-                        Redes y conectividad
-                      </h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 16: Repuestos y reparación -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/Lupa de banco con luz LED.jpg"
-                        class="img-fluid"
-                        alt="Repuestos y reparación"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">
-                        Repuestos y reparación
-                      </h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 17: Automatización industrial -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/Variador de frecuencia pequeño (VFD, monofásico).jpg"
-                        class="img-fluid"
-                        alt="Automatización industrial"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">
-                        Automatización industrial
-                      </h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 18: Kits para principiantes -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/Kit de electrónica analógica (resistencias, capacitores, protoboard, LEDs).jpg"
-                        class="img-fluid"
-                        alt="Kits para principiantes"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">
-                        Kits para principiantes
-                      </h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 19: Kits de manos robóticas -->
-                <div class="col-md-4 mb-4">
-                  <div
-                    class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden"
-                  >
-                    <div class="tarjeta-custom__img-container">
-                      <div class="etiqueta-badge">
-                        <span class="badge">BAT</span>
-                      </div>
-                      <img
-                        src="img/Kit de mano robótica-biónica educativa (ensamblable).jpg"
-                        class="img-fluid"
-                        alt="Kits de manos robóticas"
-                      />
-                    </div>
-                    <div class="card-body card-body-custom d-flex flex-column">
-                      <h5 class="card-title-custom mb-2">
-                        Kits de manos robóticas
-                      </h5>
-                      <p class="descripcion-producto mb-4">
-                        Valores disponibles: (LiPo, Li-ion 18650, alcalinas).
-                        Soluciones portátiles de energía.
-                      </p>
-                      <div
-                        class="mt-auto d-flex justify-content-between align-items-center pt-2"
-                      >
-                        <span class="precio-custom">$120.00 MXN</span>
-                        <button
-                          class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
-                          aria-label="Agregar al carrito"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="#000000"
-                            class="bi bi-cart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Componente 20: Compuertas lógicas 
-              <div class="col-md-4 mb-4">
+              <!-- Componente 10: Interfaz y entrada -->
+              <div class="col-md-4 mb-4" id="cat-10">
                 <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
                   <div class="tarjeta-custom__img-container">
                     <div class="etiqueta-badge">
-                      <span class="badge">BAT</span>
+                      <span class="badge">DISPLAY</span>
                     </div>
-                    <img src="img/Bufferdriver de línea 74244.jpg" class="img-fluid" alt="Compuertas lógicas">
+                    <img src="img/pantalla tactil resistiva-capacitiva.jpg" class="img-fluid" alt="Interfaz y entrada">
                   </div>
                   <div class="card-body card-body-custom d-flex flex-column">
-                    <h5 class="card-title-custom mb-2">Compuertas lógicas</h5>
+                    <h5 class="card-title-custom mb-2">Interfaz y entrada</h5>
                     <p class="descripcion-producto mb-4">
-                      Valores disponibles: (LiPo, Li-ion 18650, alcalinas). Soluciones portátiles de energía.
+                      Pantallas táctiles resistivas y capacitivas con conectividad SPI y HMI.
                     </p>
                     <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
-                      <span class="precio-custom">$120.00 MXN</span>
+                      <span class="precio-custom">$350.00 MXN</span>
                       <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
                         aria-label="Agregar al carrito">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
@@ -1184,9 +516,291 @@
                     </div>
                   </div>
                 </div>
-                
-              </div>-->
+
+              <!-- Componente 11: Instrumentación -->
+              <div class="col-md-4 mb-4" id="cat-11">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">MEASURE</span>
+                    </div>
+                    <img src="img/osciloscopio_digital.png" class="img-fluid" alt="Instrumentación">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Instrumentación</h5>
+                    <p class="descripcion-producto mb-4">
+                      Osciloscopios y multímetros portátiles para prueba y análisis de señal.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$1,200.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 12: Soldadura -->
+              <div class="col-md-4 mb-4" id="cat-12">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">TOOLS</span>
+                    </div>
+                    <img src="img/terceras manos con lupa.jpg" class="img-fluid" alt="Soldadura">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Soldadura</h5>
+                    <p class="descripcion-producto mb-4">
+                      Soportes de tercera mano con lupa y base pesada para ensambles precisos.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$180.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 13: ESD y seguridad -->
+              <div class="col-md-4 mb-4" id="cat-13">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">SAFETY</span>
+                    </div>
+                    <img src="img/bolsas antiestaticas.jpg" class="img-fluid" alt="ESD y seguridad">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">ESD y seguridad</h5>
+                    <p class="descripcion-producto mb-4">
+                      Bolsas antiestáticas para almacenamiento seguro de componentes sensibles.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$40.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 14: IoT y domótica -->
+              <div class="col-md-4 mb-4" id="cat-14">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">WIFI</span>
+                    </div>
+                    <img src="img/Relé WiFi (1-4 canales).jpg" class="img-fluid" alt="IoT y domótica">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">IoT y domótica</h5>
+                    <p class="descripcion-producto mb-4">
+                      Módulos de relé Wi-Fi de 1 a 4 canales para automatización remota del hogar.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$160.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 15: Redes y conectividad -->
+              <div class="col-md-4 mb-4" id="cat-15">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">LORA</span>
+                    </div>
+                    <img src="img/Antena LoRa (915MHz433MHz).jpg" class="img-fluid" alt="Redes y conectividad">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Redes y conectividad</h5>
+                    <p class="descripcion-producto mb-4">
+                      Antenas de alcance extendido LoRa (915MHz y 433MHz) para proyectos de largo alcance.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$110.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 16: Repuestos y reparación -->
+              <div class="col-md-4 mb-4" id="cat-16">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">REPAIR</span>
+                    </div>
+                    <img src="img/Lupa de banco con luz LED.jpg" class="img-fluid" alt="Repuestos y reparación">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Repuestos y reparación</h5>
+                    <p class="descripcion-producto mb-4">
+                      Lupas de banco articuladas con iluminación LED para inspección de circuitos SMD.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$320.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 17: Automatización industrial -->
+              <div class="col-md-4 mb-4" id="cat-17">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">PLC</span>
+                    </div>
+                    <img src="img/Variador de frecuencia pequeño (VFD, monofásico).jpg" class="img-fluid"
+                      alt="Automatización industrial">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Automatización industrial</h5>
+                    <p class="descripcion-producto mb-4">
+                      Variadores de frecuencia monofásicos (VFD) para control preciso de motores eléctricos.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$1,450.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 18: Kits para principiantes -->
+              <div class="col-md-4 mb-4" id="cat-18">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">KITS</span>
+                    </div>
+                    <img src="img/Kit de electrónica analógica (resistencias, capacitores, protoboard, LEDs).jpg"
+                      class="img-fluid" alt="Kits para principiantes">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Kits para principiantes</h5>
+                    <p class="descripcion-producto mb-4">
+                      Kits completos de electrónica básica: protoboard, LEDs, capacitores y resistencias.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$280.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 19: Kits de manos robóticas -->
+              <div class="col-md-4 mb-4" id="cat-19">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">ROBOTICS</span>
+                    </div>
+                    <img src="img/Kit de mano robótica-biónica educativa (ensamblable).jpg" class="img-fluid"
+                      alt="Kits de manos robóticas">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Kits de manos robóticas</h5>
+                    <p class="descripcion-producto mb-4">
+                      Mano biónica ensamblable de uso educativo con servomotores y estructura acrílica.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$650.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <!-- Componente 20: Compuertas lógicas -->
+              <div class="col-md-4 mb-4" id="cat-20">
+                <div class="card h-100 tarjeta-custom border-0 rounded-3 overflow-hidden">
+                  <div class="tarjeta-custom__img-container">
+                    <div class="etiqueta-badge">
+                      <span class="badge">LOGIC</span>
+                    </div>
+                    <img src="img/Bufferdriver de línea 74244.jpg" class="img-fluid" alt="Compuertas lógicas">
+                  </div>
+                  <div class="card-body card-body-custom d-flex flex-column">
+                    <h5 class="card-title-custom mb-2">Compuertas lógicas</h5>
+                    <p class="descripcion-producto mb-4">
+                      Circuitos integrados de la serie 74HC/TTL para procesamiento digital y lógica combinacional.
+                    </p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                      <span class="precio-custom">$35.00 MXN</span>
+                      <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center"
+                        aria-label="Agregar al carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                          class="bi bi-cart-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </div>
           </div>
         </div>

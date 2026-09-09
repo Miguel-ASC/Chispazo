@@ -19,11 +19,40 @@
 
     <!-- Estilos Personalizados -->
     <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        /* Estilo para el contenedor con el ojo del campo de contraseña */
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper input {
+            padding-right: 40px; /* Espacio para que el texto no quede debajo del ojo */
+            width: 100%;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+        .toggle-password:hover {
+            color: #212529;
+        }
+    </style>
 </head>
 
 <body class="bg-login-page">
 
-    <!--========= Header Simplificado (Punto de Retorno) =========-->
+    <!--========= Header Simplificado =========-->
     <header class="header-simplificado py-3 px-4 px-md-5 d-flex justify-content-between align-items-center">
         <a href="index.html" class="logo-link">
             <img class="logo__imagen" src="img/logo.png" alt="Logo Chispazo">
@@ -50,7 +79,7 @@
                 </div>
 
                 <!-- Formulario 1: Inicio de Sesión -->
-                <form id="form-login" class="perfil-form d-block">
+                <form id="form-login" class="perfil-form d-block" novalidate>
                     <div class="perfil-form-group">
                         <label for="login-email">Correo Electrónico</label>
                         <input type="email" id="login-email" class="perfil-input" placeholder="usuario@ejemplo.com" required>
@@ -58,7 +87,15 @@
 
                     <div class="perfil-form-group">
                         <label for="login-password">Contraseña</label>
-                        <input type="password" id="login-password" class="perfil-input" placeholder="••••••••" required>
+                        <div class="password-wrapper">
+                            <input type="password" id="login-password" class="perfil-input" placeholder="••••••••" 
+                                   minlength="8" 
+                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-]).{8,}$" 
+                                   required>
+                            <button type="button" class="toggle-password" data-target="login-password" aria-label="Mostrar contraseña">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="perfil-opciones">
@@ -72,16 +109,16 @@
                 </form>
 
                 <!-- Formulario 2: Registro de Cuenta -->
-                <form id="form-registro" class="perfil-form d-none">
+                <form id="form-registro" class="perfil-form d-none" novalidate>
                     <div class="perfil-grid-2">
                         <div class="perfil-form-group">
                             <label for="reg-nombre">Nombre(s)</label>
-                            <input type="text" id="reg-nombre" class="perfil-input" placeholder="Tu nombre" required>
+                            <input type="text" id="reg-nombre" class="perfil-input" placeholder="Tu nombre" minlength="2" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" required>
                         </div>
 
                         <div class="perfil-form-group">
                             <label for="reg-apellido">Apellidos</label>
-                            <input type="text" id="reg-apellido" class="perfil-input" placeholder="Tus apellidos" required>
+                            <input type="text" id="reg-apellido" class="perfil-input" placeholder="Tus apellidos" minlength="2" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" required>
                         </div>
                     </div>
 
@@ -93,12 +130,26 @@
                     <div class="perfil-grid-2">
                         <div class="perfil-form-group">
                             <label for="reg-password">Contraseña</label>
-                            <input type="password" id="reg-password" class="perfil-input" placeholder="••••••••" required>
+                            <div class="password-wrapper">
+                                <input type="password" id="reg-password" class="perfil-input" placeholder="••••••••" 
+                                       minlength="8" 
+                                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-]).{8,}$" 
+                                       title="Debe tener al menos 8 caracteres, incluir una mayúscula, una minúscula, un número y un carácter especial (@$!%*?&.#_-)."
+                                       required>
+                                <button type="button" class="toggle-password" data-target="reg-password" aria-label="Mostrar contraseña">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="perfil-form-group">
                             <label for="reg-confirm-password">Confirmar Contraseña</label>
-                            <input type="password" id="reg-confirm-password" class="perfil-input" placeholder="••••••••" required>
+                            <div class="password-wrapper">
+                                <input type="password" id="reg-confirm-password" class="perfil-input" placeholder="••••••••" required>
+                                <button type="button" class="toggle-password" data-target="reg-confirm-password" aria-label="Mostrar contraseña">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -133,7 +184,7 @@
                 <p>Toda la información personal recopilada en esta plataforma será tratada con confidencialidad y utilizada únicamente para proveer y mejorar los servicios del sistema, garantizando la privacidad de los datos ingresados.</p>
 
                 <h4>4. Uso Aceptable</h4>
-                <p>Queda strictly prohibido utilizar la plataforma para fines ilícitos, alteración de datos, accesos no autorizados o cualquier actividad que comprometa el correcto funcionamiento del software.</p>
+                <p>Queda estrictamente prohibido utilizar la plataforma para fines ilícitos, alteración de datos, accesos no autorizados o cualquier actividad que comprometa el correcto funcionamiento del software.</p>
 
                 <h4>5. Modificaciones de los Términos</h4>
                 <p>Nos reservamos el derecho de actualizar o modificar estos términos en cualquier momento. Se notificará a los usuarios sobre cambios relevantes a través de la plataforma.</p>
