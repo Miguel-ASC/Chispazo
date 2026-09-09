@@ -724,3 +724,27 @@
   font-weight: 600;
   min-height: 1.2em;
 }
+
+#band1 {
+  left: 8%;
+}
+
+#band2 {
+  left: 20%;
+}
+
+#band3 {
+  left: 32%;
+}
+
+#band4 {
+  left: 55%;
+}
+
+#band5 {
+  right: 20%;
+}
+
+#band6 {
+  right: 8%;
+}
