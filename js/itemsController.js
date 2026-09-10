@@ -38,22 +38,27 @@ class ProductsController {
    * @param {string} name
    * @param {string} description
    * @param {string} precio
-   * @param {string} img
+   * @param {string} img - URL o ruta de la imagen (ubicadas en ./img/)
    * @param {string} createdAt
-   * @param {string} categoria - usada más adelante por el segmentador/filtros,
-   *                             no se muestra en la card
+   * @param {string} categoria - usada por el segmentador/filtros
    * @param {boolean} activo - true por defecto; false = producto "eliminado"
    * @returns {object} el producto recién creado
    */
   addProduct(name, description, precio, img, createdAt, categoria, activo = true) {
     this.currentId++;
 
+    // Si no trae ruta completa ni es URL externa, nos aseguramos de anteponer 'img/'
+    let imagePath = img;
+    if (imagePath && !imagePath.startsWith("http") && !imagePath.startsWith("img/") && !imagePath.startsWith("./img/")) {
+      imagePath = `img/${imagePath}`;
+    }
+
     const newProduct = {
       id: this.currentId,
       name: name,
       description: description,
       precio: precio,
-      img: img,
+      img: imagePath,
       createdAt: createdAt,
       categoria: categoria,
       activo: activo,
@@ -87,6 +92,11 @@ class ProductsController {
       return null;
     }
 
+    // Normalizar la ruta de la imagen en caso de actualizarla
+    if (updatedFields.img && !updatedFields.img.startsWith("http") && !updatedFields.img.startsWith("img/") && !updatedFields.img.startsWith("./img/")) {
+      updatedFields.img = `img/${updatedFields.img}`;
+    }
+
     Object.assign(product, updatedFields);
     this.saveToStorage();
 
@@ -112,8 +122,6 @@ class ProductsController {
 
   /**
    * Elimina un producto DEFINITIVAMENTE del arreglo (borrado físico).
-   * El panel admin usa deactivateProduct(); este método queda disponible
-   * por si en algún momento necesitas un borrado real.
    * @param {number} id
    */
   removeProduct(id) {
@@ -126,6 +134,20 @@ class ProductsController {
    */
   getActiveProducts() {
     return this.items.filter((product) => product.activo);
+  }
+
+  /**
+   * Obtiene los productos activos filtrados por categoría (ignorando mayúsculas/minúsculas)
+   * @param {string} categoryName
+   * @returns {object[]}
+   */
+  getProductsByCategory(categoryName) {
+    if (!categoryName) return this.getActiveProducts();
+
+    return this.getActiveProducts().filter((product) => {
+      if (!product.categoria) return false;
+      return product.categoria.trim().toLowerCase() === categoryName.trim().toLowerCase();
+    });
   }
 
   /**
@@ -157,3 +179,54 @@ class ProductsController {
     this.currentId = 0;
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.getElementById("productos-grid");
+  const titulo = document.getElementById("titulo-catalogo");
+
+  // Obtener parámetro de categoría desde la URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedCategory = urlParams.get("categoria");
+
+  function renderProducts() {
+    let items = itemsController.getItems().filter((item) => item.active);
+
+    if (selectedCategory) {
+      titulo.textContent = `CATÁLOGO: ${selectedCategory.toUpperCase()}`;
+      items = items.filter(
+        (item) => item.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    } else {
+      titulo.textContent = "CATÁLOGO DE PRODUCTOS";
+    }
+
+    grid.innerHTML = "";
+
+    if (items.length === 0) {
+      grid.innerHTML = `<div class="col-12 text-center text-muted"><p>No se encontraron productos disponibles en esta categoría.</p></div>`;
+      return;
+    }
+
+    items.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "col-6 col-md-4 col-lg-3";
+      card.innerHTML = `
+        <div class="card h-100 bg-dark text-white border-secondary">
+          <img src="${item.img}" class="card-img-top p-3" alt="${item.name}" style="height: 180px; object-fit: contain;">
+          <div class="card-body d-flex flex-column">
+            <span class="badge bg-success mb-2 align-self-start">${item.category}</span>
+            <h5 class="card-title text-truncate">${item.name}</h5>
+            <p class="card-text text-secondary small flex-grow-1">${item.description}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="fw-bold fs-5">$${Number(item.price).toFixed(2)}</span>
+              <button class="btn btn-sm btn-outline-light"><i class="bi bi-cart-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  renderProducts();
+});
