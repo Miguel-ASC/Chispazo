@@ -62,13 +62,13 @@ h3 {
     font-weight: 500;
 }
 .textos, p {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-family: var(--fuente--parrafos);
     font-weight: 400; 
 }
 
-.table-s{
-    padding: 2rem;
+.textos-card{
+    font-size: 1.3rem;
 }
 
 /*=========
@@ -153,8 +153,12 @@ nav {
 }
 
 .navegacion__imagen {
-    width: 2.5rem;
-    height: 2.5rem;
+    color: var(--color--blanco);
+}
+
+.navegacion__imagen:hover{
+    color: var(--color--Amarillo);
+    
 }
 
 .cart-count {
