@@ -65,8 +65,12 @@
             <a href="perfil.html" aria-label="Perfil de usuario">
               <img src="img/perfil.png" alt="" class="navegacion__imagen" />
             </a>
-            <a href="#" aria-label="Carrito de compras">
-              <img src="img/carrito.png" alt="" class="navegacion__imagen" />
+            <a href="cart.html" aria-label="Carrito de compras">
+              <img
+                src="img/carrito.png"
+                alt=""
+                class="navegacion__imagen"
+              /><span id="cartCount" class="cart-count" hidden>0</span>
             </a>
           </div>
         </div>
@@ -157,7 +161,11 @@
                   <span class="control-label">1ª cifra</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown1">
-                    <button class="dropdown-trigger" id="trigger1" type="button">
+                    <button
+                      class="dropdown-trigger"
+                      id="trigger1"
+                      type="button"
+                    >
                       1
                     </button>
                     <div class="dropdown-menu-list" id="menu1"></div>
@@ -167,7 +175,11 @@
                   <span class="control-label">2ª cifra</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown2">
-                    <button class="dropdown-trigger" id="trigger2" type="button">
+                    <button
+                      class="dropdown-trigger"
+                      id="trigger2"
+                      type="button"
+                    >
                       2
                     </button>
                     <div class="dropdown-menu-list" id="menu2"></div>
@@ -193,7 +205,11 @@
                   <span class="control-label">Multiplicador</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown3">
-                    <button class="dropdown-trigger" id="trigger3" type="button">
+                    <button
+                      class="dropdown-trigger"
+                      id="trigger3"
+                      type="button"
+                    >
                       ×10 kΩ
                     </button>
                     <div class="dropdown-menu-list" id="menu3"></div>
@@ -203,7 +219,11 @@
                   <span class="control-label">Tolerancia</span>
                   <div class="indicator-line"></div>
                   <div class="custom-dropdown" id="dropdown4">
-                    <button class="dropdown-trigger" id="trigger4" type="button">
+                    <button
+                      class="dropdown-trigger"
+                      id="trigger4"
+                      type="button"
+                    >
                       5%
                     </button>
                     <div class="dropdown-menu-list" id="menu4"></div>
@@ -242,8 +262,13 @@
                 aria-live="polite"
               ></p>
 
-              <div class="input-box-container d-none" id="tempco-calc-container">
-                <label class="input-label" for="temp-target">Calcular a temperatura (°C)</label>
+              <div
+                class="input-box-container d-none"
+                id="tempco-calc-container"
+              >
+                <label class="input-label" for="temp-target"
+                  >Calcular a temperatura (°C)</label
+                >
                 <div class="input-group">
                   <input
                     type="number"
@@ -251,11 +276,11 @@
                     class="value-input"
                     value="25"
                     step="any"
-                 />
-                 <div class="unit-addon"><span>°C</span></div>
-            </div>
-            <p class="input-hint" id="text-tempco-result"></p>
-        </div>
+                  />
+                  <div class="unit-addon"><span>°C</span></div>
+                </div>
+                <p class="input-hint" id="text-tempco-result"></p>
+              </div>
 
               <p
                 id="text-chispazo-equivalent"
@@ -263,7 +288,9 @@
                 aria-live="polite"
               ></p>
               <div class="input-box-container">
-                <label class="input-label" for="num-input">Ingresa un valor</label>
+                <label class="input-label" for="num-input"
+                  >Ingresa un valor</label
+                >
                 <div class="input-group">
                   <input
                     type="number"
@@ -304,7 +331,9 @@
 
               <div class="power-inputs-grid">
                 <div class="input-box-container">
-                  <label class="input-label" for="power-voltage">Voltaje (V)</label>
+                  <label class="input-label" for="power-voltage"
+                    >Voltaje (V)</label
+                  >
                   <div class="input-group">
                     <input
                       type="number"
@@ -319,7 +348,9 @@
                 </div>
 
                 <div class="input-box-container">
-                  <label class="input-label" for="power-current">Corriente (I)</label>
+                  <label class="input-label" for="power-current"
+                    >Corriente (I)</label
+                  >
                   <div class="input-group">
                     <input
                       type="number"
@@ -353,7 +384,11 @@
               <div class="result-single-line" aria-live="polite">
                 <span id="text-power">--</span>
               </div>
-              <p id="power-error" class="input-hint power-error" role="alert"></p>
+              <p
+                id="power-error"
+                class="input-hint power-error"
+                role="alert"
+              ></p>
             </section>
           </div>
         </div>
@@ -381,8 +416,8 @@
         </div>
         <div class="modal-body">
           <p class="modal-text">
-            Una resistencia se lee de izquierda a derecha. Cada color
-            representa un número o función distinta:
+            Una resistencia se lee de izquierda a derecha. Cada color representa
+            un número o función distinta:
           </p>
 
           <ol class="modal-steps">
@@ -406,10 +441,10 @@
           </ol>
 
           <p class="modal-text">
-            Selecciona el color de cada banda en los menús desplegables para
-            ver el valor calculado, o escribe directamente un valor en el
-            campo de abajo para ver la combinación de colores más cercana
-            disponible en el mercado.
+            Selecciona el color de cada banda en los menús desplegables para ver
+            el valor calculado, o escribe directamente un valor en el campo de
+            abajo para ver la combinación de colores más cercana disponible en
+            el mercado.
           </p>
 
           <div class="modal-image-container">
@@ -475,6 +510,7 @@
       </div>
     </footer>
 
+    <script src="js/cart.js"></script>
     <script src="calculadora.js"></script>
   </body>
 </html>

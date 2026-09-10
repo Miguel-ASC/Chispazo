@@ -156,4 +156,58 @@ class ProductsController {
     this.items = [];
     this.currentId = 0;
   }
+
+  /**
+   * Normaliza un texto removiendo acentos y convirtiéndolo a minúsculas
+   * para comparaciones insensibles a mayúsculas, minúsculas y tildes.
+   * @param {string} text
+   * @returns {string}
+   */
+  normalizeText(text) {
+    if (!text) return "";
+    return text
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  }
+
+  /**
+   * Retorna los productos activos filtrados por categoría.
+   * Si no se pasa categoría, retorna todos los productos activos.
+   * @param {string|null} category
+   * @returns {object[]}
+   */
+  getProductsByCategory(category = null) {
+    const activeProducts = this.getActiveProducts();
+
+    if (!category) {
+      return activeProducts;
+    }
+
+    const cleanCategory = this.normalizeText(category);
+
+    return activeProducts.filter(
+      (product) => this.normalizeText(product.categoria) === cleanCategory
+    );
+  }
+
+  /**
+   * Carga tarjetas/productos iniciales en localStorage si la tienda está completamente vacía.
+   * @param {object[]} initialProducts - Arreglo con los objetos de prueba iniciales
+   */
+  seedInitialData(initialProducts = []) {
+    if (this.items.length === 0 && initialProducts.length > 0) {
+      initialProducts.forEach((item) => {
+        this.addProduct(
+          item.name,
+          item.description,
+          item.precio,
+          item.img,
+          item.createdAt || new Date().toISOString(),
+          item.categoria,
+          item.activo !== undefined ? item.activo : true
+        );
+      });
+    }
+  }
 }
