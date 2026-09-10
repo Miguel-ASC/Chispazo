@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p class="descripcion-producto mb-4">${product.description}</p>
                 <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
                   <span class="precio-custom">$${precioFormateado} MXN</span>
-                  <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center" aria-label="Agregar al carrito">
+                  <button class="btn btn-carrito-custom d-flex align-items-center justify-content-center" aria-label="Agregar al carrito" data-id="${product.id}">
                     <i class="bi bi-cart-fill"></i>
                   </button>
                 </div>
