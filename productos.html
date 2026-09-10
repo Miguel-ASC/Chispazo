@@ -25,6 +25,7 @@
     <title>Productos - Chispazo</title>
   </head>
 
+      <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
       <div class="navegacion__contenido">
         <div class="navegacion__pestañas">
           <a class="navegacion__etiqueta" href="index.html">Inicio</a>
@@ -41,43 +42,45 @@
                   <div class="submenu-col">
                     <h6 class="submenu-titulo">Pasivos y Semiconductores</h6>
                     <ul class="submenu-lista">
-                      <li><a href="#cat-2">Capacitores</a></li>
-                      <li><a href="#cat-3">Semiconductores</a></li>
-                      <li><a href="#cat-4">Bobinas e Inductores</a></li>
-                      <li><a href="#cat-20">Compuertas lógicas</a></li>
+                      <li><a href="productos.html?categoria=Resistencias">Resistencias</a></li>
+                      <li><a href="productos.html?categoria=Capacitores">Capacitores</a></li>
+                      <li><a href="productos.html?categoria=Semiconductores">Semiconductores</a></li>
+                      <li><a href="productos.html?categoria=Bobinas%20e%20inductores">Bobinas e Inductores</a></li>
+                      <li><a href="productos.html?categoria=Conectores%20e%20cables">Conectores y cables</a></li>
+                      <li><a href="productos.html?categoria=Compuertas%20lógicas">Compuertas lógicas</a></li>
                     </ul>
                   </div>
 
                   <div class="submenu-col">
                     <h6 class="submenu-titulo">Módulos y Control</h6>
                     <ul class="submenu-lista">
-                      <li><a href="#cat-6">Módulos y Placas</a></li>
-                      <li><a href="#cat-7">Sensores</a></li>
-                      <li><a href="#cat-8">Actuadores</a></li>
-                      <li><a href="#cat-9">Alimentación</a></li>
-                      <li><a href="#cat-10">Interfaz y entrada</a></li>
+                      <li><a href="productos.html?categoria=Módulos%20y%20placas">Módulos y Placas</a></li>
+                      <li><a href="productos.html?categoria=Sensores">Sensores</a></li>
+                      <li><a href="productos.html?categoria=Actuadores">Actuadores</a></li>
+                      <li><a href="productos.html?categoria=Alimentación">Alimentación</a></li>
+                      <li><a href="productos.html?categoria=Interfaz%20y%20entrada">Interfaz y entrada</a></li>
                     </ul>
                   </div>
 
                   <div class="submenu-col">
                     <h6 class="submenu-titulo">Conectividad y Redes</h6>
                     <ul class="submenu-lista">
-                      <li><a href="#cat-5">Conectores y Cables</a></li>
-                      <li><a href="#cat-14">IoT y domótica</a></li>
-                      <li><a href="#cat-15">Redes y conectividad</a></li>
-                      <li><a href="#cat-17">Automatización industrial</a></li>
+                      <li><a href="productos.html?categoria=Conectores%20y%20cables">Conectores y Cables</a></li>
+                      <li><a href="productos.html?categoria=IoT%20y%20domótica">IoT y domótica</a></li>
+                      <li><a href="productos.html?categoria=Redes%20y%20conectividad">Redes y conectividad</a></li>
+                      <li><a href="productos.html?categoria=Automatización%20Industrial">Automatización industrial</a></li>
                     </ul>
                   </div>
 
                   <div class="submenu-col">
                     <h6 class="submenu-titulo">Herramientas y Kits</h6>
                     <ul class="submenu-lista">
-                      <li><a href="#cat-11">Instrumentación</a></li>
-                      <li><a href="#cat-12">Soldadura</a></li>
-                      <li><a href="#cat-13">ESD y seguridad</a></li>
-                      <li><a href="#cat-16">Repuestos y reparación</a></li>
-                      <li><a href="#cat-18">Kits para principiantes</a></li>
-                      <li><a href="#cat-19">Kits de manos robóticas</a></li>
+                      <li><a href="productos.html?categoria=Instrumentación">Instrumentación</a></li>
+                      <li><a href="productos.html?categoria=Soldadura">Soldadura</a></li>
+                      <li><a href="productos.html?categoria=ESD%20y%20seguridad">ESD y seguridad</a></li>
+                      <li><a href="productos.html?categoria=Repuestos%20y%20reparación">Repuestos y reparación</a></li>
+                      <li><a href="productos.html?categoria=Kits%20para%20principiantes">Kits para principiantes</a></li>
+                      <li><a href="productos.html?categoria=Kits%20de%20manos%20robóticas">Kits de manos robóticas</a></li>
                     </ul>
                   </div>
 
@@ -89,7 +92,7 @@
           <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
           <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
         </div>
-        
+
         <div class="navegacion__busqueda">
           <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
           <button type="submit">
@@ -99,11 +102,11 @@
 
         <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
 
-  <main class="bg-black text-white">
-    <div class="container my-4">
-      <!-- Encabezado -->
-      <h1 class="titulo-catalogo text-center">CATÁLOGO DE PRODUCTOS</h1>
-      <p class="text-center">Explora nuestros componentes electrónicos y sus variaciones disponibles.</p>
+  <main class="bg-black text-white min-vh-100">
+    <div class="container py-4">
+      <!-- Encabezado Dinámico -->
+      <h1 class="titulo-catalogo text-center" id="titulo-catalogo">CATÁLOGO DE PRODUCTOS</h1>
+      <p class="text-center text-secondary">Explora nuestros componentes electrónicos y sus variaciones disponibles.</p>
     </div>
 
           <div class="navegacion__usuarios">
@@ -126,9 +129,8 @@
     </nav>
 
         <div class="row">
-          <!-- COLUMNA PRINCIPAL: Tarjetas de Productos -->
           <div class="col-lg-12">
-            <!-- PRODUCTOS -->
+            <!-- El contenedor se renderiza dinámicamente según la categoría de la URL -->
             <div class="row g-4" id="productos-grid">
 
               <!-- Componente 1: Resistencias -->
