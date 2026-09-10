@@ -372,3 +372,4 @@ document.querySelectorAll("[data-filter]").forEach((btn) => {
 document.addEventListener("DOMContentLoaded", () => {
   renderTable();
 });
+
