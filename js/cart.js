@@ -264,3 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
   actualizarContadorNav();
   renderCart();
 });
+
+window.addEventListener("chispazo:component-loaded", (event) => {
+  if (event.detail?.id === "nav-container") actualizarContadorNav();
+});
