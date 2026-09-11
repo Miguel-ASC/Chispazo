@@ -10,13 +10,13 @@
     --fuente--titulos: "Nunito", sans-serif;
 
 
---admin-font-base: 1.4rem;     
-  --admin-font-label: 1.3rem;    
-  --admin-font-titulo: 2rem;     
-  --admin-font-tabla-header: 1.3rem; 
-  --admin-padding-input: 1rem 1.4rem;   
-  --admin-padding-boton: 1.1rem 1.8rem; 
-  --admin-btn-icono-size: 4rem;  
+    --admin-font-base: 1.4rem;
+    --admin-font-label: 1.3rem;
+    --admin-font-titulo: 2rem;
+    --admin-font-tabla-header: 1.3rem;
+    --admin-padding-input: 1rem 1.4rem;
+    --admin-padding-boton: 1.1rem 1.8rem;
+    --admin-btn-icono-size: 4rem;
 }
 
 /*=========
@@ -64,13 +64,15 @@ h3 {
     font-family: var(--fuente--titulos);
     font-weight: 500;
 }
-.textos, p {
+
+.textos,
+p {
     font-size: 1.6rem;
     font-family: var(--fuente--parrafos);
     font-weight: 400;
 }
 
-.textos-card{
+.textos-card {
     font-size: 1.3rem;
 }
 
@@ -155,11 +157,12 @@ nav {
 .navegacion__imagen {
     color: var(--color--blanco);
     width: 3rem;
+    transition: transform 180ms ease, filter 180ms ease;
 }
 
-.navegacion__imagen:hover{
-    color: var(--color--Amarillo);
-    
+.navegacion__usuarios a:hover .navegacion__imagen {
+    transform: scale(1.12);
+    filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%) hue-rotate(2deg) brightness(104%) contrast(102%);
 }
 
 .cart-count {
@@ -1768,104 +1771,106 @@ nav,
         text-decoration: none;
     }
 }
+
 /********ADMIN*********/
 
 #product-form .form-control,
 #product-form .form-select {
-  background-color: #0d1f17;
-  border: 1px solid var(--color--VerdeMedio);
-  color: var(--color--blanco);
-  font-size: var(--admin-font-base);
-  padding: var(--admin-padding-input);
+    background-color: #0d1f17;
+    border: 1px solid var(--color--VerdeMedio);
+    color: var(--color--blanco);
+    font-size: var(--admin-font-base);
+    padding: var(--admin-padding-input);
 }
- 
+
 #product-form .form-control:focus,
 #product-form .form-select:focus {
-  background-color: #0d1f17;
-  color: var(--color--blanco);
-  border-color: var(--color--VerdeClaro);
-  box-shadow: 0 0 0 0.2rem rgba(176, 228, 204, 0.25);
+    background-color: #0d1f17;
+    color: var(--color--blanco);
+    border-color: var(--color--VerdeClaro);
+    box-shadow: 0 0 0 0.2rem rgba(176, 228, 204, 0.25);
 }
- 
+
 #product-form .form-control::placeholder {
-  color: #8fa89a;
+    color: #8fa89a;
 }
- 
+
 #product-form .form-label {
-  font-weight: 600;
-  font-size: var(--admin-font-label);
+    font-weight: 600;
+    font-size: var(--admin-font-label);
 }
- 
+
 #product-form .is-invalid {
-  border-color: #dc3545;
+    border-color: #dc3545;
 }
- 
+
 #form-titulo {
-  font-size: var(--admin-font-titulo);
-  font-family: var(--fuente--titulos);
-  font-weight: 800;
+    font-size: var(--admin-font-titulo);
+    font-family: var(--fuente--titulos);
+    font-weight: 800;
 }
- 
+
 /* Botones Guardar / Cancelar: .btn-carrito-custom viene pensado como
    botón cuadrado de 45x45 (ícono de carrito). Aquí lo usamos como botón
    de texto completo, así que liberamos su ancho/alto fijo. */
 #submit-btn,
 #cancel-edit-btn {
-  width: auto !important;
-  height: auto !important;
-  font-size: var(--admin-font-base);
-  padding: var(--admin-padding-boton);
+    width: auto !important;
+    height: auto !important;
+    font-size: var(--admin-font-base);
+    padding: var(--admin-padding-boton);
 }
- 
+
 /* -------------------------------------------------------
    TABLA
    ------------------------------------------------------- */
 .table-dark {
-  --bs-table-bg: transparent;
+    --bs-table-bg: transparent;
 }
- 
+
 .table th,
 .table td {
-  padding: 1.2rem 1rem; /* 12px 10px */
-  vertical-align: middle;
-  font-size: var(--admin-font-base);
+    padding: 1.2rem 1rem;
+    /* 12px 10px */
+    vertical-align: middle;
+    font-size: var(--admin-font-base);
 }
- 
+
 .table thead th {
-  font-size: var(--admin-font-tabla-header);
-  font-family: var(--fuente--titulos);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #a0b0a8;
+    font-size: var(--admin-font-tabla-header);
+    font-family: var(--fuente--titulos);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #a0b0a8;
 }
- 
+
 #products-table-body img {
-  border: 1px solid var(--color--VerdeMedio);
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 6px;
+    border: 1px solid var(--color--VerdeMedio);
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 6px;
 }
- 
+
 /* Botones de acción (editar / eliminar) dentro de la tabla */
 #products-table-body .btn {
-  width: var(--admin-btn-icono-size);
-  height: var(--admin-btn-icono-size);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
+    width: var(--admin-btn-icono-size);
+    height: var(--admin-btn-icono-size);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
 }
- 
+
 /* Botones del filtro Todos / Activos / Eliminados */
 [data-filter] {
-  font-size: 1.2rem;
-  padding: 0.6rem 1.2rem;
-  font-family: var(--fuente--parrafos);
-  font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0.6rem 1.2rem;
+    font-family: var(--fuente--parrafos);
+    font-weight: 600;
 }
- 
+
 /* -------------------------------------------------------
    PAGINACIÓN
    Los colores (activo en amarillo, inactivo oscuro) ya están
@@ -1873,58 +1878,64 @@ nav,
    para no pisar esas reglas.
    ------------------------------------------------------- */
 .pagination .page-link {
-  font-size: var(--admin-font-base);
-  padding: 0.7rem 1.1rem;
+    font-size: var(--admin-font-base);
+    padding: 0.7rem 1.1rem;
 }
- 
+
 /* =========================================================
    RESPONSIVO
    ========================================================= */
- 
+
 /* Tablet: formulario y tabla se apilan en columnas completas */
 @media (max-width: 991.98px) {
-  .col-lg-5,
-  .col-lg-7 {
-    width: 100%;
-  }
+
+    .col-lg-5,
+    .col-lg-7 {
+        width: 100%;
+    }
 }
- 
+
 /* Móvil: reducimos textos, agrandamos botones para dedos,
    y evitamos que el texto de la tabla se rompa feo */
 @media (max-width: 575.98px) {
-  :root {
-    --admin-font-base: 1.3rem;      /* 13px */
-    --admin-font-label: 1.2rem;     /* 12px */
-    --admin-font-titulo: 1.8rem;    /* 18px */
-    --admin-font-tabla-header: 1.1rem; /* 11px */
-    --admin-btn-icono-size: 3.4rem; /* 34px */
-  }
- 
-  #submit-btn,
-  #cancel-edit-btn {
-    padding: 1.3rem 1.8rem; /* botones más grandes = más fáciles de tocar */
-  }
- 
-  .table th,
-  .table td {
-    padding: 0.8rem 0.6rem;
-    white-space: nowrap; /* la tabla ya tiene scroll horizontal por .table-responsive */
-  }
- 
-  #products-table-body img {
-    width: 36px;
-    height: 36px;
-  }
- 
-  [data-filter] {
-    font-size: 1rem;
-    padding: 0.5rem 0.9rem;
-  }
- 
-  .pagination .page-link {
-    font-size: 1.2rem;
-    padding: 0.5rem 0.9rem;
-  }
-}
- 
+    :root {
+        --admin-font-base: 1.3rem;
+        /* 13px */
+        --admin-font-label: 1.2rem;
+        /* 12px */
+        --admin-font-titulo: 1.8rem;
+        /* 18px */
+        --admin-font-tabla-header: 1.1rem;
+        /* 11px */
+        --admin-btn-icono-size: 3.4rem;
+        /* 34px */
+    }
 
+    #submit-btn,
+    #cancel-edit-btn {
+        padding: 1.3rem 1.8rem;
+        /* botones más grandes = más fáciles de tocar */
+    }
+
+    .table th,
+    .table td {
+        padding: 0.8rem 0.6rem;
+        white-space: nowrap;
+        /* la tabla ya tiene scroll horizontal por .table-responsive */
+    }
+
+    #products-table-body img {
+        width: 36px;
+        height: 36px;
+    }
+
+    [data-filter] {
+        font-size: 1rem;
+        padding: 0.5rem 0.9rem;
+    }
+
+    .pagination .page-link {
+        font-size: 1.2rem;
+        padding: 0.5rem 0.9rem;
+    }
+}
