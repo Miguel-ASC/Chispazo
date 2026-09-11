@@ -26,8 +26,8 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/calculadorastyle.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/calculadorastyle.css" />
   </head>
 
   <body class="calculator-page">
@@ -35,7 +35,7 @@
       <div class="navegacion">
         <div class="navegacion__logo">
           <a class="logo" href="index.html">
-            <img class="logo__imagen" src="img/logo.png" alt="Logo Chispazo" />
+            <img class="logo__imagen" src="../img/logo.png" alt="Logo Chispazo" />
           </a>
         </div>
 
@@ -85,7 +85,6 @@
         <div class="main-container">
           <div class="tabs-container">
             <div class="tabs" role="tablist" aria-label="Número de bandas">
-              <!-- NUEVO: id "tab-btn-4" y atributo data-mode para poder engancharle el click desde JS -->
               <button
                 id="tab-btn-4"
                 class="tab active"
@@ -105,7 +104,6 @@
               >
                 5 bandas
               </button>
-              <!-- NUEVO: quitamos "disabled" y agregamos id "tab-btn-6" para activar este modo -->
               <button
                 id="tab-btn-6"
                 class="tab"
@@ -117,10 +115,16 @@
                 6 bandas
               </button>
             </div>
-            <button id="btn-open-modal" class="btn-instructions" type="button">
-              <i class="bi bi-info-circle" aria-hidden="true"></i>
-              Instrucciones y diagrama
-            </button>
+            <div class="tabs-actions">
+              <button id="btn-open-modal" class="btn-instructions" type="button">
+                <i class="bi bi-info-circle" aria-hidden="true"></i>
+                Instrucciones y diagrama
+              </button>
+              <button id="btn-reset" class="btn-instructions" type="button">
+                <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+                Reiniciar
+              </button>
+            </div>
           </div>
 
           <div class="calculator-content">
@@ -135,17 +139,11 @@
                 <div class="terminal-wire"></div>
                 <div class="resistor-cap"></div>
                 <div class="resistor-body">
-                  <!-- Bandas renombradas de band1-band4 a band1-band6 para dejar espacio
-                       a la 3ª cifra (band3) y al coeficiente de temperatura (band6) -->
                   <div id="band1" class="band"></div>
                   <div id="band2" class="band"></div>
-                  <!-- NUEVO: 3ª banda de cifra significativa, solo visible en modo 6 bandas -->
                   <div id="band3" class="band d-none"></div>
-                  <!-- Antes era band3 (multiplicador), ahora es band4 -->
                   <div id="band4" class="band"></div>
-                  <!-- Antes era band4 (tolerancia), ahora es band5 -->
                   <div id="band5" class="band"></div>
-                  <!-- NUEVO: 6ª banda, coeficiente de temperatura, solo visible en modo 6 bandas -->
                   <div id="band6" class="band d-none"></div>
                 </div>
                 <div class="resistor-cap"></div>
@@ -182,7 +180,6 @@
                   </div>
                 </div>
 
-                <!-- NUEVO: columna completa para la 3ª cifra, oculta por defecto (d-none) -->
                 <div class="control-column d-none" id="col-digit3">
                   <span class="control-label">3ª cifra</span>
                   <div class="indicator-line"></div>
@@ -227,7 +224,6 @@
                   </div>
                 </div>
 
-                <!-- NUEVO: columna completa para el coeficiente de temperatura, oculta por defecto -->
                 <div class="control-column d-none" id="col-tempco">
                   <span class="control-label">Coef. temperatura</span>
                   <div class="indicator-line"></div>
@@ -254,7 +250,6 @@
                 <span id="text-ohms">120 kΩ</span>
                 <span id="text-tolerance">5%</span>
               </div>
-              <!-- NUEVO: línea para mostrar el coeficiente de temperatura, solo en modo 6 bandas -->
               <p
                 id="text-tempco"
                 class="chispazo-equivalent d-none"
@@ -433,7 +428,6 @@
               <strong>Tolerancia:</strong> indica el margen de error posible
               respecto al valor indicado (por ejemplo, ±5%).
             </li>
-            <!-- NUEVO: explicación de la 6ª banda para el modal de instrucciones -->
             <li>
               <strong>Coeficiente de temperatura (solo 6 bandas):</strong>
               indica cuánto varía la resistencia por cada grado Celsius de
@@ -450,7 +444,7 @@
 
           <div class="modal-image-container">
             <img
-              src="img/calculadora/chart.jpg"
+              src="../img/calculadora/chart.jpg"
               alt="Diagrama del código de colores de resistencias"
               class="modal-image"
             />
@@ -471,7 +465,7 @@
             <img
               id="logo_footer"
               class="logo__imagen"
-              src="img/logo.png"
+              src="../img/logo.png"
               alt="Logo"
             />
             <p id="copyright">@2026 Chispazo. Todos los derechos reservados.</p>
@@ -512,6 +506,6 @@
     </footer>
 
     <script src="../js/cart.js"></script>
-    <script src="calculadora.js"></script>
+    <script src="../js/calculadora.js"></script>
   </body>
 </html>

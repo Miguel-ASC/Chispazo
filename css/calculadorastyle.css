@@ -113,6 +113,13 @@
   gap: 0.7rem;
 }
 
+/* NUEVO: contenedor para agrupar el botón de instrucciones y el de reiniciar */
+.tabs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .tab {
   padding: 0.75rem 1.1rem;
   color: var(--calculator-text-muted);
@@ -222,7 +229,7 @@
   top: 0;
   height: 100%;
   width: clamp(1rem, 2vw, 1.4rem);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, left 0.2s ease, right 0.2s ease;
 }
 
 #band1 {
@@ -233,12 +240,34 @@
   left: 25%;
 }
 
+/* NUEVO: 3ª cifra, solo visible en modo 6 bandas */
 #band3 {
+  left: 42%;
+}
+
+/* Multiplicador: posición por defecto (modo 4 bandas) */
+#band4 {
   left: 60%;
 }
 
-#band4 {
+/* Tolerancia: posición por defecto (modo 4 bandas), pegada al borde derecho */
+#band5 {
   right: 10%;
+}
+
+/* NUEVO: coeficiente de temperatura, solo visible en modo 6 bandas */
+#band6 {
+  right: 10%;
+}
+
+/* NUEVO: en modo 6 bandas recorremos multiplicador y tolerancia
+   para dejar espacio a la 3ª cifra y al coeficiente de temperatura */
+.resistor-body.six-bands #band4 {
+  left: 56%;
+}
+
+.resistor-body.six-bands #band5 {
+  right: 24%;
 }
 
 .controls-grid {

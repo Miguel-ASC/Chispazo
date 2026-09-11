@@ -37,7 +37,7 @@ const toleranceOptions = [
   { name: "Plata", value: 10, color: "#c0c0c0", displayValue: "10%", textColor: "#ffffff" },
 ];
 
-// NUEVO: opciones para la 6ª banda (coeficiente de temperatura, en ppm/°C).
+// Opciones para la 6ª banda (coeficiente de temperatura, en ppm/°C).
 // Solo se usa cuando currentBandMode === 6.
 const tempCoefficientOptions = [
   { name: "Marrón", value: 100, color: "#3d2314", displayValue: "100 ppm/°C", textColor: "#ffffff" },
@@ -112,28 +112,28 @@ function formatOhms(ohms) {
 
 // ---- Estado global ----
 
-// NUEVO: currentBandMode guarda si estamos calculando una resistencia
+// currentBandMode guarda si estamos calculando una resistencia
 // de 4 o de 6 bandas. Todo el código que depende del número de cifras
 // significativas revisa esta variable.
 let currentBandMode = 4;
 
 let selected1 = 1; // 1ª cifra
 let selected2 = 2; // 2ª cifra
-let selectedDigit3 = 0; // NUEVO: 3ª cifra, solo aplica en modo 6 bandas
+let selectedDigit3 = 0; // 3ª cifra, solo aplica en modo 6 bandas
 let selected3 = 4; // multiplicador
 let selected4 = 6; // tolerancia
-let selectedTempco = 5; // NUEVO: índice del coeficiente de temperatura (modo 6 bandas)
+let selectedTempco = 5; // índice del coeficiente de temperatura (modo 6 bandas)
 
 let isUpdatingFromInput = false;
 
-// MODIFICADA: ahora revisa currentBandMode para usar 2 o 3 cifras significativas.
+// Revisa currentBandMode para usar 2 o 3 cifras significativas.
 function getCurrentResistanceOhms() {
   const d1 = parseInt(band1And2Options[selected1].value);
   const d2 = parseInt(band1And2Options[selected2].value);
   const mult = multiplierOptions[selected3].value;
 
   if (currentBandMode === 6) {
-    // NUEVO: con 3 cifras, el número se arma como d1*100 + d2*10 + d3
+    // con 3 cifras, el número se arma como d1*100 + d2*10 + d3
     const d3 = parseInt(band1And2Options[selectedDigit3].value);
     return (d1 * 100 + d2 * 10 + d3) * mult;
   }
@@ -226,12 +226,16 @@ function setupToggle(triggerId, menuElement) {
   });
 }
 
-// NUEVO: función completa. Se ejecuta al hacer clic en las pestañas "4 bandas" / "6 bandas".
+// Se ejecuta al hacer clic en las pestañas "4 bandas" / "6 bandas".
 // Muestra u oculta la 3ª cifra y el coeficiente de temperatura, actualiza el estilo
-// visual de las pestañas activas, y vuelve a calcular todo con calculateFromBands().
+// visual de las pestañas activas, ajusta la posición de las bandas en el gráfico,
+// y vuelve a calcular todo con calculateFromBands().
 function setBandMode(mode) {
   currentBandMode = mode;
   const isSixBands = mode === 6;
+
+  // NUEVO: activa/desactiva la clase que reposiciona las bandas 4 y 5 en el CSS
+  document.querySelector(".resistor-body").classList.toggle("six-bands", isSixBands);
 
   document.getElementById("band3").classList.toggle("d-none", !isSixBands);
   document.getElementById("col-digit3").classList.toggle("d-none", !isSixBands);
@@ -252,10 +256,10 @@ function setBandMode(mode) {
 function populateSelects() {
   const m1 = document.getElementById("menu1");
   const m2 = document.getElementById("menu2");
-  const mDigit3 = document.getElementById("menu-digit3"); // NUEVO
+  const mDigit3 = document.getElementById("menu-digit3");
   const m3 = document.getElementById("menu3");
   const m4 = document.getElementById("menu4");
-  const mTempco = document.getElementById("menu-tempco"); // NUEVO
+  const mTempco = document.getElementById("menu-tempco");
 
   band1And2Options.forEach((opt, index) => {
     m1.appendChild(
@@ -272,7 +276,7 @@ function populateSelects() {
         calculateFromBands();
       }),
     );
-    // NUEVO: reutiliza band1And2Options (mismos colores 0-9) para la 3ª cifra
+    // reutiliza band1And2Options (mismos colores 0-9) para la 3ª cifra
     mDigit3.appendChild(
       createItem(opt.name, opt.value, opt, () => {
         selectedDigit3 = index;
@@ -302,7 +306,7 @@ function populateSelects() {
     );
   });
 
-  // NUEVO: llena el dropdown del coeficiente de temperatura
+  // llena el dropdown del coeficiente de temperatura
   tempCoefficientOptions.forEach((opt, index) => {
     mTempco.appendChild(
       createItem(opt.name, opt.displayValue, opt, () => {
@@ -315,13 +319,12 @@ function populateSelects() {
 
   setupToggle("trigger1", m1);
   setupToggle("trigger2", m2);
-  setupToggle("trigger-digit3", mDigit3); // NUEVO
+  setupToggle("trigger-digit3", mDigit3);
   setupToggle("trigger3", m3);
   setupToggle("trigger4", m4);
-  setupToggle("trigger-tempco", mTempco); // NUEVO
+  setupToggle("trigger-tempco", mTempco);
 
   document.addEventListener("click", () => {
-    // NUEVO: se agregaron mDigit3 y mTempco a la lista de menús que se cierran al hacer clic afuera
     [m1, m2, mDigit3, m3, m4, mTempco].forEach((m) => m.classList.remove("show"));
   });
 
@@ -341,9 +344,12 @@ function populateSelects() {
     }
   );
 
-  // NUEVO: conecta las pestañas "4 bandas" / "6 bandas" con setBandMode()
+  // conecta las pestañas "4 bandas" / "6 bandas" con setBandMode()
   document.getElementById("tab-btn-4").addEventListener("click", () => setBandMode(4));
   document.getElementById("tab-btn-6").addEventListener("click", () => setBandMode(6));
+
+  // NUEVO: conecta el botón de reinicio
+  document.getElementById("btn-reset").addEventListener("click", resetCalculator);
 
   const modal = document.getElementById("instruction-modal");
   const btnOpen = document.getElementById("btn-open-modal");
@@ -387,9 +393,8 @@ function updateTempcoCalculation(totalOhms, tcrPpm) {
   resultEl.innerText = `A ${targetTemp}°C: ${formatOhms(adjustedOhms)}`;
 }
 
-// MODIFICADA: ahora se ramifica según currentBandMode para pintar/calcular
+// Se ramifica según currentBandMode para pintar/calcular
 // la 3ª cifra y el coeficiente de temperatura solo cuando aplica (6 bandas).
-
 function calculateFromBands() {
   if (isUpdatingFromInput) return;
 
@@ -400,13 +405,13 @@ function calculateFromBands() {
 
   document.getElementById("band1").style.backgroundColor = opt1.color;
   document.getElementById("band2").style.backgroundColor = opt2.color;
-  document.getElementById("band4").style.backgroundColor = optMult.color; // antes band3
-  document.getElementById("band5").style.backgroundColor = optTol.color;  // antes band4
+  document.getElementById("band4").style.backgroundColor = optMult.color;
+  document.getElementById("band5").style.backgroundColor = optTol.color;
 
   let totalOhms;
 
   if (currentBandMode === 6) {
-    // NUEVO: bloque completo para el cálculo con 3 cifras + coeficiente de temperatura
+    // bloque completo para el cálculo con 3 cifras + coeficiente de temperatura
     const opt3 = band1And2Options[selectedDigit3];
     const optTempco = tempCoefficientOptions[selectedTempco];
 
@@ -420,6 +425,9 @@ function calculateFromBands() {
 
     document.getElementById("text-tempco").innerText =
       `Coeficiente de temperatura: ${optTempco.displayValue}`;
+
+    // NUEVO: recalcula el ajuste por temperatura cada vez que cambian las bandas
+    updateTempcoCalculation(totalOhms, optTempco.value);
   } else {
     // Comportamiento original de 4 bandas, sin cambios
     const d1 = parseInt(opt1.value);
@@ -448,7 +456,7 @@ function calculateFromBands() {
   updatePower();
 }
 
-// MODIFICADA: ahora tiene dos caminos según currentBandMode.
+// Tiene dos caminos según currentBandMode.
 function calculateFromInput() {
   const inputVal = parseFloat(document.getElementById("num-input").value);
   const unitMult = parseFloat(document.getElementById("unit-select").value);
@@ -465,7 +473,7 @@ function calculateFromInput() {
   let minDiff = Infinity;
 
   if (currentBandMode === 6) {
-    // NUEVO: bloque completo. Con 3 cifras significativas se necesita un
+    // Con 3 cifras significativas se necesita un
     // bucle extra (bestD3) para probar todas las combinaciones posibles.
     for (let i = 0; i < band1And2Options.length; i++) {
       for (let j = 0; j < band1And2Options.length; j++) {
@@ -527,13 +535,44 @@ function calculateFromInput() {
 
   document.getElementById("band1").style.backgroundColor = band1And2Options[selected1].color;
   document.getElementById("band2").style.backgroundColor = band1And2Options[selected2].color;
-  document.getElementById("band4").style.backgroundColor = multiplierOptions[selected3].color; // antes band3
+  document.getElementById("band4").style.backgroundColor = multiplierOptions[selected3].color;
 
   document.getElementById("text-ohms").innerText = formatOhms(targetOhms);
   updateChispazoEquivalent(targetOhms);
   isUpdatingFromInput = false;
 
   updatePower();
+}
+
+// NUEVO: reinicia la calculadora a sus valores por defecto (4 bandas, 120 kΩ 5%)
+function resetCalculator() {
+  selected1 = 1;
+  selected2 = 2;
+  selectedDigit3 = 0;
+  selected3 = 4;
+  selected4 = 6;
+  selectedTempco = 5;
+
+  document.getElementById("trigger1").innerText = band1And2Options[selected1].value;
+  document.getElementById("trigger2").innerText = band1And2Options[selected2].value;
+  document.getElementById("trigger-digit3").innerText = band1And2Options[selectedDigit3].value;
+  document.getElementById("trigger3").innerText = multiplierOptions[selected3].displayValue;
+  document.getElementById("trigger4").innerText = toleranceOptions[selected4].displayValue;
+  document.getElementById("trigger-tempco").innerText = tempCoefficientOptions[selectedTempco].displayValue;
+
+  document.getElementById("power-voltage").value = "";
+  document.getElementById("power-current").value = "";
+  document.getElementById("current-unit-select").value = "0.001";
+  document.getElementById("use-calculated-r").checked = true;
+  document.getElementById("text-power").textContent = "--";
+  document.getElementById("power-error").textContent = "";
+
+  const tempInput = document.getElementById("temp-target");
+  if (tempInput) tempInput.value = "25";
+  const tempcoResult = document.getElementById("text-tempco-result");
+  if (tempcoResult) tempcoResult.innerText = "";
+
+  setBandMode(4); // vuelve a 4 bandas y recalcula todo
 }
 
 window.addEventListener("DOMContentLoaded", populateSelects);
