@@ -1,0 +1,94 @@
+<nav>
+    <div class="navegacion">
+      <div class="navegacion__logo">
+        <a class="logo" href="/index.html">
+          <img class="logo__imagen" src="/img/logo.png" alt="Logo Chispazo" />
+        </a>
+      </div>
+  <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
+  <label for="menu-toggle" class="navegacion__botondesplegable" aria-label="Abrir menú">
+    &#9776;
+  </label>
+
+  <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
+  <div class="navegacion__contenido">
+    <div class="navegacion__pestañas">
+      <a class="navegacion__etiqueta" href="/index.html">Inicio</a>
+
+      <!-- CONTENEDOR PRINCIPAL DEL MENÚ DESPLEGABLE -->
+      <div class="dropdown-menu-container">
+        <a href="/Html/productos.html" class="navegacion__etiqueta">Productos ▾</a>
+
+        <!-- SUBMENÚ DE ANCHO COMPLETO -->
+        <div class="mega-submenu">
+          <div class="mega-submenu-inner">
+            <div class="submenu-columnas">
+
+              <div class="submenu-col">
+                <h6 class="submenu-titulo">Pasivos y Semiconductores</h6>
+                <ul class="submenu-lista">
+                  <li><a href="productos.html?categoria=Resistencias">Resistencias</a></li>
+                  <li><a href="productos.html?categoria=Capacitores">Capacitores</a></li>
+                  <li><a href="productos.html?categoria=Semiconductores">Semiconductores</a></li>
+                  <li><a href="productos.html?categoria=Bobinas%20e%20inductores">Bobinas e Inductores</a></li>
+                  <li><a href="productos.html?categoria=Conectores%20e%20cables">Conectores y cables</a></li>
+                  <li><a href="productos.html?categoria=Compuertas%20lógicas">Compuertas lógicas</a></li>
+                </ul>
+              </div>
+
+              <div class="submenu-col">
+                <h6 class="submenu-titulo">Módulos y Control</h6>
+                <ul class="submenu-lista">
+                  <li><a href="productos.html?categoria=Módulos%20y%20placas">Módulos y Placas</a></li>
+                  <li><a href="productos.html?categoria=Sensores">Sensores</a></li>
+                  <li><a href="productos.html?categoria=Actuadores">Actuadores</a></li>
+                  <li><a href="productos.html?categoria=Alimentación">Alimentación</a></li>
+                  <li><a href="productos.html?categoria=Interfaz%20y%20entrada">Interfaz y entrada</a></li>
+                </ul>
+              </div>
+
+              <div class="submenu-col">
+                <h6 class="submenu-titulo">Conectividad y Redes</h6>
+                <ul class="submenu-lista">
+                  <li><a href="productos.html?categoria=Conectores%20y%20cables">Conectores y Cables</a></li>
+                  <li><a href="productos.html?categoria=IoT%20y%20domótica">IoT y domótica</a></li>
+                  <li><a href="productos.html?categoria=Redes%20y%20conectividad">Redes y conectividad</a></li>
+                  <li><a href="productos.html?categoria=Automatización%20Industrial">Automatización industrial</a></li>
+                </ul>
+              </div>
+
+              <div class="submenu-col">
+                <h6 class="submenu-titulo">Herramientas y Kits</h6>
+                <ul class="submenu-lista">
+                  <li><a href="productos.html?categoria=Instrumentación">Instrumentación</a></li>
+                  <li><a href="productos.html?categoria=Soldadura">Soldadura</a></li>
+                  <li><a href="productos.html?categoria=ESD%20y%20seguridad">ESD y seguridad</a></li>
+                  <li><a href="productos.html?categoria=Repuestos%20y%20reparación">Repuestos y reparación</a></li>
+                  <li><a href="productos.html?categoria=Kits%20para%20principiantes">Kits para principiantes</a></li>
+                  <li><a href="productos.html?categoria=Kits%20de%20manos%20robóticas">Kits de manos robóticas</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a class="navegacion__etiqueta" href="/Html/about_us.html">Nosotros</a>
+      <a class="navegacion__etiqueta" href="/Html/contacto.html">Contacto</a>
+    </div>
+
+    <div class="navegacion__busqueda">
+      <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
+      <button type="submit">
+        🔍
+      </button>
+    </div>
+
+    <div class="navegacion__usuarios">
+      <a href="/Html/perfil.html"><img src="/img/perfil.png" alt="usuario" class="navegacion__imagen" /></a>
+      <a href="/Html/cart.html"><img src="/img/carrito.png" alt="carrito" class="navegacion__imagen" /><span id="cartCount"
+          class="cart-count" hidden>0</span></a>
+    </div>
+  </div>
+</nav>
