@@ -16,6 +16,9 @@ async function cargarComponente(id, archivo) {
         );
 
         document.getElementById(id).innerHTML = contenido;
+        window.dispatchEvent(
+            new CustomEvent("chispazo:component-loaded", { detail: { id } })
+        );
 
     } catch (error) {
 
