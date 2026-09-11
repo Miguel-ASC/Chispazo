@@ -21,16 +21,17 @@ async function cargarComponente(id, archivo) {
     }
 }
 
+const rutaBase = new URL("../", document.currentScript.src);
 
 // Cargar NAV
 cargarComponente(
     "nav-container",
-    "/Html/nav.html"
+    new URL("Html/nav.html", rutaBase).href
 );
 
 
 // Cargar FOOTER
 cargarComponente(
     "footer-container",
-    "/Html/footer.html"
+    new URL("Html/footer.html", rutaBase).href
 );
