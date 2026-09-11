@@ -154,6 +154,7 @@ nav {
 
 .navegacion__imagen {
     color: var(--color--blanco);
+    width: 3rem;
 }
 
 .navegacion__imagen:hover{

@@ -1,0 +1,26 @@
+    /* Estilo para el contenedor con el ojo del campo de contraseña */
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper input {
+            padding-right: 40px; /* Espacio para que el texto no quede debajo del ojo */
+            width: 100%;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+        .toggle-password:hover {
+            color: #212529;
+        }

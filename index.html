@@ -2,341 +2,246 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-  href="https://fonts.googleapis.com/css2?family=Nunito:wght@400..900&display=swap"
-  rel="stylesheet"
-/>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css" />
-    <title>Inicio - Chispazo</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <title>Inicio - Chispazo</title>
 </head>
 
 <body>
-    <nav>
-        <div class="navegacion">
-            <div class="navegacion__logo">
-                <a class="logo" href="index.html">
-                    <img class="logo__imagen" src="img/logo.png" alt="Logo" />
-                </a>
-            </div>
 
-            <!-- Checkbox oculto para controlar el estado del menú -->
-            <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
+  <!--************************************Nav bar*********************************************** -->
+  <div id="nav-container"></div>
 
-            <!-- Botón visible en móviles -->
-            <label for="menu-toggle" class="navegacion__botondesplegable">
-                &#9776;
-                <!-- Ícono de 3 líneas -->
-            </label>
+  <main class="bg-black text-white">
 
-            <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
-            <div class="navegacion__contenido">
-                <div class="navegacion__pestañas">
-                    <a class="navegacion__etiqueta" href="index.html">Inicio</a>
-                    <a class="navegacion__etiqueta" href="productos.html">Productos</a>
-                    <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
-                    <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
-                    <!-- <a class="navegacion__etiqueta" href="admin.html">Admin</a> -->
-                </div>
 
-                <div class="navegacion__busqueda">
-                    <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
-                    <button type="submit">
-                        🔍
-                    </button>
-                </div>
-
-                <div class="navegacion__usuarios">
-                    <a href="perfil.html" class="navegacion__imagen"><i class="fa-regular fa-user fa-2xl "></i></a>
-                    <a href="cart.html" class="navegacion__imagen"><i class="fa-solid fa-cart-shopping fa-2xl"></i><span id="cartCount" class="cart-count" hidden>0</span></a>
-                </div>
-            </div>
+    <!-- Sección Hero principal replazaa el carrusel-->
+    <section>
+      <div id="carouselExampleCaptions" class="carousel slide hero-carrusel" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
         </div>
-    </nav>
-
-    <main class="bg-black text-white">
-
-    
-            <!-- Sección Hero principal replazaa el carrusel-->
-  <section>
-  <div id="carouselExampleCaptions" class="carousel slide hero-carrusel" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="img/Img1.png" class="d-block w-100" alt="Kits Chispazo" />
-        <div class="hero-carrusel__overlay"></div>
-        <div class="carousel-caption">
-          <h1 class="fw-bold mb-3">Haz realidad tus proyectos tecnológicos</h1>
-          <p class="mb-4">
-            Descubre componentes, sensores y kits STEM diseñados para makers,
-            ingenieros y estudiantes con alto rendimiento y precisión garantizada.
-          </p>
-          <a href="productos.html" class="btn btn-hero-dorado btn-lg fw-bold px-4 rounded-3">Explorar Catálogo</a>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="img/Img2.png" class="d-block w-100" alt="Aprende electrónica" />
-        <div class="hero-carrusel__overlay"></div>
-        <div class="carousel-caption">
-          <h1 class="fw-bold mb-3">Aprende, experimenta y crea</h1>
-          <p class="mb-4">
-            Kits ideales para iniciar en la electrónica, programación y
-            robótica desde cero.
-          </p>
-          <a href="productos.html" class="btn btn-hero-dorado btn-lg fw-bold px-4 rounded-3">Explorar Catálogo</a>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="img/Img3.png" class="d-block w-100" alt="Componentes electrónicos" />
-        <div class="hero-carrusel__overlay"></div>
-        <div class="carousel-caption">
-          <h1 class="fw-bold mb-3">Todo para tu próximo invento</h1>
-          <p class="mb-4">
-            Explora nuestro catálogo completo y encuentra las piezas que
-            te faltan.
-          </p>
-          <a href="productos.html" class="btn btn-hero-dorado btn-lg fw-bold px-4 rounded-3">Explorar Catálogo</a>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Siguiente</span>
-    </button>
-  </div>
-</section>
-       <!--aqui termino-->
-
-
-
-     <!-- Sección 1: Propuesta de Valor / Beneficios -->
-<section class="py-5 seccion-beneficios">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold text-uppercase tracking-wide titulo-destacado">
-        ¿Por qué elegir Chispazo?
-      </h2>
-      <p class="text-white-50 ">
-        Impulsamos tus proyectos electrónicos desde la primera chispa.
-      </p>
-    </div>
-    <div class="row g-4 text-center">
-      <div class="col-md-4">
-        <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
-          <div class="icono-caja icono-caja--naranja">⚡</div>
-          <h3 class="fw-bold text-white mb-2">Envíos Rápidos</h3>
-          <p class="text-white-50 small mb-0 textos-card">
-            Recibe tus componentes y kits STEM directo a la puerta de tu
-            hogar o escuela.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
-          <div class="icono-caja icono-caja--azul">🛡️</div>
-          <h3 class="fw-bold text-white mb-2">Calidad Garantizada</h3>
-          <p class="text-white-50 small mb-0 textos-card">
-            Todos nuestros sensores y microcontroladores están probados
-            para asegurar su funcionamiento.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
-          <div class="icono-caja icono-caja--dorado">🤝</div>
-          <h3 class="fw-bold text-white mb-2">Soporte Maker</h3>
-          <p class="text-white-50 small mb-0 textos-card">
-            Te acompañamos con documentación clara para que no te atores
-            en tus tareas o prototipos, con absoluta confianza.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-  
-            
-           <!--------------------------------EXPLORA POR TIPO DE PROYECTO------------------>
-
-     <!-- Sección 2: Categorías Principales (Acceso Rápido) -->
-<section class="py-5 seccion-verde">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold text-white">Explora por Tipo de Proyecto</h2>
-      <p class="text-white-50">
-        Encuentra exactamente el tipo de material que necesitas
-      </p>
-    </div>
-    <div class="row g-4">
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
-          <div class="tarjeta-custom__img-container">
-            <img src="img/microcontrolador.jpg"  class="imgindex"alt="Microcontroladores" />
-            <div class="etiqueta-badge">
-              <span class="badge">MCU / IOT</span>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/img/Img1.png" class="d-block w-100" alt="Kits Chispazo" />
+            <div class="hero-carrusel__overlay"></div>
+            <div class="carousel-caption">
+              <h1 class="fw-bold mb-3">Haz realidad tus proyectos tecnológicos</h1>
+              <p class="mb-4">
+                Descubre componentes, sensores y kits STEM diseñados para makers,
+                ingenieros y estudiantes con alto rendimiento y precisión garantizada.
+              </p>
+              <a href="/Html/productos.html" class="btn btn-hero-dorado btn-lg fw-bold px-4 rounded-3">Explorar Catálogo</a>
             </div>
           </div>
-          <div class="card-body-custom text-start">
-            <h5 class="card-title-custom mb-1">Microcontroladores</h5>
-            <p class="descripcion-producto mb-3">Arduino, ESP32, STM32</p>
-            <a href="productos.html" class="btn btn-outline-warning btn-sm fw-semibold"
-              >Ver todo →</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
-          <div class="tarjeta-custom__img-container">
-            <img src="img/sensores.jpg"  class="imgindex" alt="Sensores" />
-            <div class="etiqueta-badge">
-              <span class="badge">ANALOG / DIGITAL</span>
+          <div class="carousel-item">
+            <img src="img/img2.png" class="d-block w-100" alt="Aprende electrónica" />
+            <div class="hero-carrusel__overlay"></div>
+            <div class="carousel-caption">
+              <h1 class="fw-bold mb-3">Aprende, experimenta y crea</h1>
+              <p class="mb-4">
+                Kits ideales para iniciar en la electrónica, programación y
+                robótica desde cero.
+              </p>
+              <a href="/Html/productos.html" class="btn btn-hero-dorado btn-lg fw-bold px-4 rounded-3">Explorar Catálogo</a>
             </div>
           </div>
-          <div class="card-body-custom text-start">
-            <h5 class="card-title-custom mb-1">Sensores</h5>
-            <p class="descripcion-producto mb-3">Temperatura, Movimiento, Gas</p>
-            <a href="productos.html" class="btn btn-outline-warning btn-sm fw-semibold"
-              >Ver todo →</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
-          <div class="tarjeta-custom__img-container">
-            <img src="img/kitsstem.jpg" class="imgindex" alt="Kits STEM" />
-            <div class="etiqueta-badge">
-              <span class="badge">BASICS</span>
+          <div class="carousel-item">
+            <img src="/img/img3.png" class="d-block w-100" alt="Componentes electrónicos" />
+            <div class="hero-carrusel__overlay"></div>
+            <div class="carousel-caption">
+              <h1 class="fw-bold mb-3">Todo para tu próximo invento</h1>
+              <p class="mb-4">
+                Explora nuestro catálogo completo y encuentra las piezas que
+                te faltan.
+              </p>
+              <a href="/Html/productos.html" class="btn btn-hero-dorado btn-lg fw-bold px-4 rounded-3">Explorar Catálogo</a>
             </div>
           </div>
-          <div class="card-body-custom text-start">
-            <h5 class="card-title-custom mb-1">Kits STEM</h5>
-            <p class="descripcion-producto mb-3">Principiantes y Educación</p>
-            <a href="productos.html" class="btn btn-outline-warning btn-sm fw-semibold"
-              >Ver todo →</a
-            >
-          </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
       </div>
+    </section>
+    <!--aqui termino-->
 
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
-          <div class="tarjeta-custom__img-container">
-            <img src="img/herramientas.jpg"  class="imgindex" alt="Herramientas" />
-            <div class="etiqueta-badge">
-              <span class="badge">BENCH / TOOLS</span>
-            </div>
-          </div>
-          <div class="card-body-custom text-start">
-            <h5 class="card-title-custom mb-1">Herramientas</h5>
-            <p class="descripcion-producto mb-3">Soldadura, Multímetros, Pinzas</p>
-            <a href="productos.html" class="btn btn-outline-warning btn-sm fw-semibold"
-              >Ver todo →</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-   <!-- Sección 3: Call to Action (CTA) -->
-<section class="py-5 text-center cta-fondo-verde">
-  <div class="container py-3">
-    <div class="cta-icono-circulo">
-      <i class="bi bi-gear-fill"></i>
-    </div>
-    <h2 class="fw-bold mb-3 text-white">
-      ¿Listo para comenzar tu próximo prototipo?
-    </h2>
-    <p class="text-white-50 mb-4">
-      Revisa nuestro catálogo completo y dale vida a tus ideas electrónicas
-      con hardware confiable.
-    </p>
-    <a href="productos.html" class="btn btn-verde-pill btn-lg fw-bold px-4">
-      Ir a Productos
-    </a>
-  </div>
-</section>
-       
 
-      
-          
-    <!-- *********************************footer******************************************* -->
-    <footer>
+
+    <!-- Sección 1: Propuesta de Valor / Beneficios -->
+    <section class="py-5 seccion-beneficios">
       <div class="container">
-        <div class="row">
-          <div class="col-md-3 mb-3">
-           <img id="logo_footer" class="logo__imagen" src="img/logo.png" alt="Logo">
-            <p id="copyright">@2026 Chispazo. Todos los derechos reservados.</p>
+        <div class="text-center mb-5">
+          <h2 class="fw-bold text-uppercase tracking-wide titulo-destacado">
+            ¿Por qué elegir Chispazo?
+          </h2>
+          <p class="text-white-50 ">
+            Impulsamos tus proyectos electrónicos desde la primera chispa.
+          </p>
+        </div>
+        <div class="row g-4 text-center">
+          <div class="col-md-4">
+            <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
+              <div class="icono-caja icono-caja--naranja">⚡</div>
+              <h3 class="fw-bold text-white mb-2">Envíos Rápidos</h3>
+              <p class="text-white-50 small mb-0 textos-card">
+                Recibe tus componentes y kits STEM directo a la puerta de tu
+                hogar o escuela.
+              </p>
+            </div>
           </div>
-
-          <div class="col-md-3 mb-3" id="fot1">
-            <a id="us" href="about_us.html">Sobre Nosotros</a>
-            <ul class="list-unstyled">
-              <li class="footer_text"><a href="#">Envíos</a></li>
-              <li class="footer_text">
-                <a href="#">Términos y Condiciones</a>
-              </li>
-            </ul>
+          <div class="col-md-4">
+            <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
+              <div class="icono-caja icono-caja--azul">🛡️</div>
+              <h3 class="fw-bold text-white mb-2">Calidad Garantizada</h3>
+              <p class="text-white-50 small mb-0 textos-card">
+                Todos nuestros sensores y microcontroladores están probados
+                para asegurar su funcionamiento.
+              </p>
+            </div>
           </div>
-
-          <div class="col-md-3 mb-3" id="fot2">
-            <a id="usa" href="about_us.html">Contactenos</a>
-            <ul class="list-unstyled">
-              <li class="footer_text"><a href="#">Privacidad</a></li>
-              <li class="footer_text"><a href="#">Soporte Técnico</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-3 mb-3">
-            <h5>Síguenos en</h5>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-youtube"></i></a>
-
-            <h5 class="mt-3">Pagos Seguros</h5>
-            <i class="bi bi-credit-card-2-front"></i>
-            <i class="bi bi-paypal"></i>
-            <i class="bi bi-credit-card"></i>
+          <div class="col-md-4">
+            <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
+              <div class="icono-caja icono-caja--dorado">🤝</div>
+              <h3 class="fw-bold text-white mb-2">Soporte Maker</h3>
+              <p class="text-white-50 small mb-0 textos-card">
+                Te acompañamos con documentación clara para que no te atores
+                en tus tareas o prototipos, con absoluta confianza.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </footer>
+    </section>
+
+
+    <!--------------------------------EXPLORA POR TIPO DE PROYECTO------------------>
+
+    <!-- Sección 2: Categorías Principales (Acceso Rápido) -->
+    <section class="py-5 seccion-verde">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold text-white">Explora por Tipo de Proyecto</h2>
+          <p class="text-white-50">
+            Encuentra exactamente el tipo de material que necesitas
+          </p>
+        </div>
+        <div class="row g-4">
+          <div class="col-6 col-md-3">
+            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+              <div class="tarjeta-custom__img-container">
+                <img src="img/microcontrolador.jpg" class="imgindex" alt="Microcontroladores" />
+                <div class="etiqueta-badge">
+                  <span class="badge">MCU / IOT</span>
+                </div>
+              </div>
+              <div class="card-body-custom text-start">
+                <h5 class="card-title-custom mb-1">Microcontroladores</h5>
+                <p class="descripcion-producto mb-3">Arduino, ESP32, STM32</p>
+                <a href="/Html/productos.html" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+              <div class="tarjeta-custom__img-container">
+                <img src="img/sensores.jpg" class="imgindex" alt="Sensores" />
+                <div class="etiqueta-badge">
+                  <span class="badge">ANALOG / DIGITAL</span>
+                </div>
+              </div>
+              <div class="card-body-custom text-start">
+                <h5 class="card-title-custom mb-1">Sensores</h5>
+                <p class="descripcion-producto mb-3">Temperatura, Movimiento, Gas</p>
+                <a href="/Html/productos.html" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+              <div class="tarjeta-custom__img-container">
+                <img src="img/kitsstem.jpg" class="imgindex" alt="Kits STEM" />
+                <div class="etiqueta-badge">
+                  <span class="badge">BASICS</span>
+                </div>
+              </div>
+              <div class="card-body-custom text-start">
+                <h5 class="card-title-custom mb-1">Kits STEM</h5>
+                <p class="descripcion-producto mb-3">Principiantes y Educación</p>
+                <a href="/Html/productos.html" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+              <div class="tarjeta-custom__img-container">
+                <img src="img/herramientas.jpg" class="imgindex" alt="Herramientas" />
+                <div class="etiqueta-badge">
+                  <span class="badge">BENCH / TOOLS</span>
+                </div>
+              </div>
+              <div class="card-body-custom text-start">
+                <h5 class="card-title-custom mb-1">Herramientas</h5>
+                <p class="descripcion-producto mb-3">Soldadura, Multímetros, Pinzas</p>
+                <a href="/Html/productos.html" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Sección 3: Call to Action (CTA) -->
+    <section class="py-5 text-center cta-fondo-verde">
+      <div class="container py-3">
+        <div class="cta-icono-circulo">
+          <i class="bi bi-gear-fill"></i>
+        </div>
+        <h2 class="fw-bold mb-3 text-white">
+          ¿Listo para comenzar tu próximo prototipo?
+        </h2>
+        <p class="text-white-50 mb-4">
+          Revisa nuestro catálogo completo y dale vida a tus ideas electrónicas
+          con hardware confiable.
+        </p>
+        <a href="/Html/productos.html" class="btn btn-verde-pill btn-lg fw-bold px-4">
+          Ir a Productos
+        </a>
+      </div>
+    </section>
+
+     <!-- *********************************footer******************************************* -->
+    <div id="footer-container"></div>
+
+    <script src="/js/componentes.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"></script>
     <script src="js/cart.js"></script>
-     <script src="chispita-ia.js"></script>
+    <script src="/js/chispita-ia.js"></script>
 </body>
 
 </html>
