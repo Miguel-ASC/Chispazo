@@ -24,9 +24,13 @@ async function cargarComponente(id, archivo) {
     }
 }
 
+const scriptComponentes = document.currentScript ||
+    Array.from(document.scripts).find((script) =>
+        script.src.endsWith("/js/componentes.js")
+    );
 const rutaBase = new URL(
     "../",
-    document.currentScript?.src || document.baseURI
+    scriptComponentes?.src || document.baseURI
 );
 
 // Cargar NAV
