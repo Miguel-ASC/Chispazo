@@ -7,6 +7,16 @@
 
 const CART_STORAGE_KEY = "cart";
 const MAX_POR_PRODUCTO = 10;
+
+function normalizarImagenProducto(ruta) {
+  if (!ruta || ruta.startsWith("data:") || /^https?:\/\//.test(ruta)) {
+    return ruta;
+  }
+
+  const nombreArchivo = ruta.replace(/^.*(?:\/|^)img\//, "");
+  return new URL(`../img/${nombreArchivo}`, document.baseURI).href;
+}
+
 const storedProducts = localStorage.getItem("products");
 const products = storedProducts
   ? JSON.parse(storedProducts)
@@ -16,7 +26,7 @@ const products = storedProducts
         name: product.name,
         desc: product.description,
         price: Number(product.precio),
-        image: product.img,
+        image: normalizarImagenProducto(product.img),
       }))
   : [];
 let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || "{}");

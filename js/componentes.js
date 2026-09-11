@@ -10,7 +10,10 @@ async function cargarComponente(id, archivo) {
             );
         }
 
-        const contenido = await response.text();
+        const contenido = (await response.text()).replace(
+            /(src|href)="\/([^"]*)"/g,
+            (_, atributo, ruta) => `${atributo}="${new URL(ruta, rutaBase).href}"`
+        );
 
         document.getElementById(id).innerHTML = contenido;
 
@@ -21,7 +24,10 @@ async function cargarComponente(id, archivo) {
     }
 }
 
-const rutaBase = new URL("../", document.currentScript.src);
+const rutaBase = new URL(
+    "../",
+    document.currentScript?.src || document.baseURI
+);
 
 // Cargar NAV
 cargarComponente(
