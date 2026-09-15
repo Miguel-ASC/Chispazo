@@ -1,26 +1,213 @@
-    /* Estilo para el contenedor con el ojo del campo de contraseña */
-        .password-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        .password-wrapper input {
-            padding-right: 40px; /* Espacio para que el texto no quede debajo del ojo */
-            width: 100%;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 12px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #6c757d;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 5;
-        }
-        .toggle-password:hover {
-            color: #212529;
-        }
+/* ==========================================
+   1. Ojito de Ver/Ocultar Contraseña
+   ========================================== */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Espacio interno a la derecha del input para que el texto no tape el ojo */
+.password-wrapper .perfil-input {
+    padding-right: 45px !important;
+    width: 100%;
+}
+
+/* Estilo y superposición del botón de ojo */
+.toggle-password, 
+#btn-toggle-edit-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100 !important; /* Fuerza a que quede por encima del input */
+}
+
+.toggle-password:hover, 
+#btn-toggle-edit-password:hover {
+    color: #ffc107;
+}
+
+/* ==========================================
+   2. Layout Principal de Edición (2 Columnas)
+   ========================================== */
+.edit-profile-header h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+}
+
+.perfil-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.perfil-col-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.perfil-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* ==========================================
+   3. Campo Contraseña y Botón Modificar al lado
+   ========================================== */
+.password-action-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.password-action-container .password-wrapper {
+    flex: 1;
+}
+
+.btn-modificar-pass {
+    background-color: #1a2c4e;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.6rem 1.4rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-modificar-pass:hover {
+    background-color: #253a66;
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+/* ==========================================
+   4. Columna Derecha: Foto de Perfil (Avatar)
+   ========================================== */
+.perfil-col-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+}
+
+.avatar-title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.avatar-preview-container {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #ffc107;
+    background-color: #2b3035;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    margin-bottom: 1.2rem;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-file-wrapper {
+    width: 100%;
+}
+
+.avatar-file-input {
+    width: 100%;
+    font-size: 0.8rem;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 6px;
+}
+
+/* ==========================================
+   5. Adaptabilidad Responsiva
+   ========================================== */
+@media (max-width: 850px) {
+    .perfil-grid-layout {
+        grid-template-columns: 1fr;
+    }
+    .perfil-col-avatar {
+        order: -1;
+        margin-bottom: 1.5rem;
+        padding-top: 0;
+    }
+    .perfil-row-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Botón de Selección de Archivo Personalizado */
+.custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #333333;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.custom-file-upload:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+/* Parte izquierda: Texto 'Seleccionar archivo' */
+.btn-file-text {
+    font-weight: 600;
+    padding-right: 10px;
+    border-right: 1px solid #dee2e6;
+    color: #212529;
+}
+
+/* Parte derecha: Nombre del archivo o estado */
+.file-name-text {
+    padding-left: 10px;
+    color: #6c757d;
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

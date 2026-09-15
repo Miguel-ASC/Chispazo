@@ -142,11 +142,13 @@ nav {
 }
 
 .navegacion__login-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 3rem;
-  text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .navegacion__login-link.login-activo {
@@ -2010,5 +2012,111 @@ nav,
   .pagination .page-link {
     font-size: 1.2rem;
     padding: 0.5rem 0.9rem;
+  }
+}
+
+/* ==========================================
+   Contenedor para control del Hover
+   ========================================== */
+.user-dropdown-container {
+  position: relative;
+}
+
+/* 
+  Área invisible (puente) para evitar que el submenú 
+  se cierre al desplazar el cursor desde el icono hacia abajo 
+*/
+.user-dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: transparent;
+}
+
+/* Soporte por si se pasa el ratón sobre el contenedor padre en CSS */
+.user-dropdown-container:hover .user-dropdown-menu {
+  display: block;
+}
+
+/*=============================================
+    SUBMENÚ FLOTANTE PERFIL (DROPDOWN)
+=============================================*/
+.user-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 200px;
+  background-color: #122b24;
+  border: 1px solid var(--color--VerdeMedio);
+  border-top: 3px solid var(--color--Amarillo);
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  padding: 0.5rem 0;
+}
+
+.user-dropdown-menu.show {
+  display: block;
+  animation: fadeInDropdown 0.2s ease-out;
+}
+
+.user-dropdown-header {
+  padding: 0.8rem 1rem;
+  font-family: var(--fuente--parrafos);
+  font-size: 1.3rem;
+  color: var(--color--blanco);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: left;
+}
+
+.user-dropdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-dropdown-list li a,
+.btn-logout-dropdown {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  color: var(--color--blanco);
+  font-family: var(--fuente--parrafos);
+  font-size: 1.3rem;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.user-dropdown-list li a:hover,
+.btn-logout-dropdown:hover {
+  background-color: var(--color--VerdeOscuro);
+  color: var(--color--Amarillo);
+}
+
+.btn-logout-dropdown {
+  color: #ff6b6b;
+}
+
+.btn-logout-dropdown:hover {
+  color: #ff4d4d;
+}
+
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
