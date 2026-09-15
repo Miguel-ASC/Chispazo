@@ -10,9 +10,15 @@ async function cargarComponente(id, archivo) {
             );
         }
 
-        const contenido = await response.text();
+        const contenido = (await response.text()).replace(
+            /(src|href)="\/([^"]*)"/g,
+            (_, atributo, ruta) => `${atributo}="${new URL(ruta, rutaBase).href}"`
+        );
 
         document.getElementById(id).innerHTML = contenido;
+        window.dispatchEvent(
+            new CustomEvent("chispazo:component-loaded", { detail: { id } })
+        );
 
     } catch (error) {
 
@@ -21,16 +27,24 @@ async function cargarComponente(id, archivo) {
     }
 }
 
+const scriptComponentes = document.currentScript ||
+    Array.from(document.scripts).find((script) =>
+        script.src.endsWith("/js/componentes.js")
+    );
+const rutaBase = new URL(
+    "../",
+    scriptComponentes?.src || document.baseURI
+);
 
 // Cargar NAV
 cargarComponente(
     "nav-container",
-    "/Html/nav.html"
+    new URL("Html/nav.html", rutaBase).href
 );
 
 
 // Cargar FOOTER
 cargarComponente(
     "footer-container",
-    "/Html/footer.html"
+    new URL("Html/footer.html", rutaBase).href
 );

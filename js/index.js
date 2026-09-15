@@ -5,9 +5,28 @@
 // Todo vive en memoria (this.items), sin localStorage.
 // =========================================================
  
+function normalizarImagenProducto(ruta) {
+  if (!ruta || ruta.startsWith("data:") || /^https?:\/\//.test(ruta)) {
+    return ruta;
+  }
+
+  const nombreArchivo = ruta.replace(/^.*(?:\/|^)img\//, "");
+  return new URL(`../img/${nombreArchivo}`, document.baseURI).href;
+}
+
 // 1. Instanciamos el controlador de productos
 //    (el constructor ya intenta cargar productos guardados en localStorage)
 const productsController = new ProductsController();
+
+const productosConImagenNormalizada = productsController.items.map((product) => ({
+  ...product,
+  img: normalizarImagenProducto(product.img),
+}));
+
+if (JSON.stringify(productosConImagenNormalizada) !== JSON.stringify(productsController.items)) {
+  productsController.items = productosConImagenNormalizada;
+  productsController.saveToStorage();
+}
  
 // 2. Creamos los 10 productos de muestra SOLO si todavía no hay nada
 //    guardado en localStorage (para no duplicarlos en cada recarga)
@@ -16,7 +35,7 @@ productsController.addProduct(
   "Resistencias",
   "Valores disponibles: (10W a 1MW). Alta precisión para control de corriente en circuitos.",
   "15.00",
-  "/img/Resistencias.jpg",
+  "../img/Resistencias.jpg",
   "2024-05-01",
   "Componentes Pasivos"
 );
@@ -25,7 +44,7 @@ productsController.addProduct(
   "Capacitores",
   "Valores disponibles: (10pF–100nF). Filtrado de señal y desacople en fuentes de poder.",
   "25.00",
-  "/img/Capacitores.jpg",
+  "../img/Capacitores.jpg",
   "2024-05-01",
   "Componentes Pasivos"
 );
@@ -34,7 +53,7 @@ productsController.addProduct(
   "Semiconductores",
   "Valores disponibles: 1N4001–1N4007. Diodos rectificadores de propósito general.",
   "30.00",
-  "/img/Diodos.jpg",
+  "../img/Diodos.jpg",
   "2024-05-02",
   "Semiconductores"
 );
@@ -43,7 +62,7 @@ productsController.addProduct(
   "Bobinas e Inductores",
   "Valores disponibles: (10uH–10mH). Almacenamiento de energía en campos magnéticos.",
   "45.00",
-  "/img/Bobinas.jpg",
+  "../img/Bobinas.jpg",
   "2024-05-02",
   "Componentes Pasivos"
 );
@@ -52,7 +71,7 @@ productsController.addProduct(
   "Conectores y Cables",
   "Valores disponibles: 2.54mm (macho/hembra). Cables Dupont para prototipado rápido.",
   "35.00",
-  "/img/Conectores.jpg",
+  "../img/Conectores.jpg",
   "2024-05-03",
   "Conectores y Cables"
 );
@@ -61,7 +80,7 @@ productsController.addProduct(
   "Módulos y Placas",
   "Wi-Fi & Bluetooth dual core con antenas integradas.",
   "145.00",
-  "/img/esp32_esp8266.jpg",
+  "../img/esp32_esp8266.jpg",
   "2024-05-03",
   "Microcontroladores"
 );
@@ -70,7 +89,7 @@ productsController.addProduct(
   "Sensores",
   "Valores disponibles: (MQ-2, MQ-3, MQ-7, MQ-135). Detección analógica y digital.",
   "85.00",
-  "/img/sensor-de-gas-y-aire-MQ-2.jpg",
+  "../img/sensor-de-gas-y-aire-MQ-2.jpg",
   "2024-05-04",
   "Sensores"
 );
@@ -79,7 +98,7 @@ productsController.addProduct(
   "Actuadores",
   "Valores disponibles: (12V, 24V). Control de flujo magnético en sistemas neumáticos o de agua.",
   "190.00",
-  "/img/valvulas_solenoides24v.jpg",
+  "../img/valvulas_solenoides24v.jpg",
   "2024-05-04",
   "Actuadores"
 );
@@ -88,7 +107,7 @@ productsController.addProduct(
   "Alimentación",
   "Valores disponibles: (LiPo, Li-ion 18650, alcalinas). Soluciones portátiles de energía.",
   "120.00",
-  "/img/Baterías (LiPo, Li-ion 18650, alcalinas).jpg",
+  "../img/Baterías (LiPo, Li-ion 18650, alcalinas).jpg",
   "2024-05-05",
   "Alimentación"
 );
@@ -97,7 +116,7 @@ productsController.addProduct(
   "Interfaz y entrada",
   "Pantallas táctiles resistivas y capacitivas para proyectos con interacción de usuario.",
   "120.00",
-  "/img/pantalla tactil resistiva-capacitiva.jpg",
+  "../img/pantalla tactil resistiva-capacitiva.jpg",
   "2024-05-05",
   "Interfaz y Entrada"
 );
