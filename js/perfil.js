@@ -28,6 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-]).{8,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // --- Lógica de Carga Inicial desde LocalStorage ---
+    const recordarmeCheck = document.getElementById('recordarme');
+    const loginEmailInput = document.getElementById('login-email');
+
+    // Recuperar correo guardado si existía "Recordarme"
+    const savedEmail = localStorage.getItem('chispazo_saved_email');
+    if (savedEmail && loginEmailInput && recordarmeCheck) {
+        loginEmailInput.value = savedEmail;
+        recordarmeCheck.checked = true;
+    }
+
     // --- Lógica de Mostrar / Ocultar Contraseña (Ojo) ---
     const togglePasswordButtons = document.querySelectorAll('.toggle-password');
     togglePasswordButtons.forEach(btn => {
@@ -81,10 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === modal) cerrarModal();
     });
 
-    // --- Validaciones del Formulario de Inicio de Sesión ---
+    // --- Validaciones + Lógica del Formulario de Inicio de Sesión ---
     const formLogin = document.getElementById('form-login');
     if (formLogin) {
         formLogin.addEventListener('submit', (e) => {
+            e.preventDefault(); // Siempre se previene el envío nativo del formulario
+
             const emailInput = document.getElementById('login-email');
             const passInput = document.getElementById('login-password');
 
@@ -93,13 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Validar correo
             if (!emailInput.value.trim()) {
-                e.preventDefault();
                 emailInput.setCustomValidity('Por favor ingresa tu correo electrónico.');
                 emailInput.reportValidity();
                 return;
             }
             if (!emailRegex.test(emailInput.value.trim())) {
-                e.preventDefault();
                 emailInput.setCustomValidity('Ingresa una dirección de correo electrónico válida.');
                 emailInput.reportValidity();
                 return;
@@ -107,17 +118,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Validar contraseña
             if (!passInput.value) {
-                e.preventDefault();
                 passInput.setCustomValidity('Por favor ingresa tu contraseña.');
                 passInput.reportValidity();
                 return;
             }
             if (!passwordRegex.test(passInput.value)) {
-                e.preventDefault();
                 passInput.setCustomValidity('La contraseña debe incluir al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.');
                 passInput.reportValidity();
                 return;
             }
+
+            // --- VERIFICACIÓN CONTRA USUARIOS PRE ALMACENADOS ---
+            const usuarios = JSON.parse(localStorage.getItem('chispazo_usuarios')) || [];
+            const emailIngresado = emailInput.value.trim().toLowerCase();
+
+            const usuarioValido = usuarios.find(u =>
+                u.email === emailIngresado && u.password === passInput.value
+            );
+
+            if (!usuarioValido) {
+                passInput.setCustomValidity('Correo o contraseña incorrectos.');
+                passInput.reportValidity();
+                return;
+            }
+
+            // Recordarme
+            if (recordarmeCheck && recordarmeCheck.checked) {
+                localStorage.setItem('chispazo_saved_email', emailInput.value.trim());
+            } else {
+                localStorage.removeItem('chispazo_saved_email');
+            }
+
+            // Sesión activa real, basada en el usuario encontrado
+            localStorage.setItem('chispazo_session', JSON.stringify({
+                email: usuarioValido.email,
+                nombre: usuarioValido.nombre,
+                apellido: usuarioValido.apellido,
+                fechaIngreso: new Date().toISOString()
+            }));
+
+            // --- REDIRECCIÓN A LA PÁGINA DE INICIO ---
+            window.location.href = '../index.html';
         });
 
         const loginInputs = formLogin.querySelectorAll('input');
@@ -126,10 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Validaciones del Formulario de Registro ---
+    // --- Validaciones + Lógica del Formulario de Registro ---
     const formRegistro = document.getElementById('form-registro');
     if (formRegistro) {
         formRegistro.addEventListener('submit', (e) => {
+            e.preventDefault(); // Siempre se previene el envío nativo del formulario
+
             const nombreInput = document.getElementById('reg-nombre');
             const apellidoInput = document.getElementById('reg-apellido');
             const emailInput = document.getElementById('reg-email');
@@ -144,13 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // 1. Validar Nombre
             const textoRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
             if (!nombreInput.value.trim() || nombreInput.value.trim().length < 2) {
-                e.preventDefault();
                 nombreInput.setCustomValidity('El nombre debe tener al menos 2 caracteres.');
                 nombreInput.reportValidity();
                 return;
             }
             if (!textoRegex.test(nombreInput.value.trim())) {
-                e.preventDefault();
                 nombreInput.setCustomValidity('El nombre solo debe contener letras.');
                 nombreInput.reportValidity();
                 return;
@@ -158,13 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 2. Validar Apellido
             if (!apellidoInput.value.trim() || apellidoInput.value.trim().length < 2) {
-                e.preventDefault();
                 apellidoInput.setCustomValidity('El apellido debe tener al menos 2 caracteres.');
                 apellidoInput.reportValidity();
                 return;
             }
             if (!textoRegex.test(apellidoInput.value.trim())) {
-                e.preventDefault();
                 apellidoInput.setCustomValidity('El apellido solo debe contener letras.');
                 apellidoInput.reportValidity();
                 return;
@@ -172,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 3. Validar Correo Electrónico
             if (!emailRegex.test(emailInput.value.trim())) {
-                e.preventDefault();
                 emailInput.setCustomValidity('Ingresa un correo electrónico válido.');
                 emailInput.reportValidity();
                 return;
@@ -180,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 4. Validar Contraseña
             if (!passwordRegex.test(passwordInput.value)) {
-                e.preventDefault();
                 passwordInput.setCustomValidity('La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial (@$!%*?&.#_-).');
                 passwordInput.reportValidity();
                 return;
@@ -188,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 5. Validar Coincidencia de Contraseñas
             if (passwordInput.value !== confirmPasswordInput.value) {
-                e.preventDefault();
                 confirmPasswordInput.setCustomValidity('Las contraseñas no coinciden.');
                 confirmPasswordInput.reportValidity();
                 return;
@@ -196,11 +232,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 6. Validar Aceptación de Términos
             if (!terminosInput.checked) {
-                e.preventDefault();
                 terminosInput.setCustomValidity('Debes aceptar los Términos y Condiciones.');
                 terminosInput.reportValidity();
                 return;
             }
+
+            // --- PERSISTENCIA EN LOCALSTORAGE (REGISTRO) ---
+            const usuarios = JSON.parse(localStorage.getItem('chispazo_usuarios')) || [];
+            const emailNuevo = emailInput.value.trim().toLowerCase();
+
+            const yaExiste = usuarios.some(u => u.email === emailNuevo);
+            if (yaExiste) {
+                emailInput.setCustomValidity('Este correo ya está registrado.');
+                emailInput.reportValidity();
+                return;
+            }
+
+            usuarios.push({
+                nombre: nombreInput.value.trim(),
+                apellido: apellidoInput.value.trim(),
+                email: emailNuevo,
+                password: passwordInput.value,
+                registroFecha: new Date().toISOString()
+            });
+
+            localStorage.setItem('chispazo_usuarios', JSON.stringify(usuarios));
+
+            alert('¡Cuenta creada con éxito! Ahora inicia sesión.');
+
+            // Limpiar el formulario y regresar a la pestaña de login
+            formRegistro.reset();
+            mostrarFormulario('login');
         });
 
         const regInputs = formRegistro.querySelectorAll('input');
