@@ -40,7 +40,6 @@
   <main class="bg-black text-white">
     <div class="container my-4">
       <h1 class="titulo-catalogo text-center">PANEL ADMINISTRATIVO</h1>
-
     </div>
 
     <section class="pb-5 bg-black">
@@ -55,7 +54,7 @@
                 Nuevo Producto
               </h3>
 
-              <!-- Alertas de Bootstrap: aquí se listan los errores o el mensaje de éxito -->
+              <!-- Alertas de Bootstrap -->
               <div id="form-alert-error" class="alert alert-danger d-none" role="alert"></div>
               <div id="form-alert-success" class="alert alert-success d-none" role="alert"></div>
 
@@ -63,6 +62,7 @@
                 <!-- id oculto: vacío = creación, con valor = edición -->
                 <input type="hidden" id="product-id" value="" />
 
+                <!-- 1. Nombre -->
                 <div class="mb-3">
                   <label for="name" class="form-label textos">Nombre del producto</label>
                   <input type="text" class="form-control textos" id="name" placeholder="Ej. Resistencias" maxlength="100" />
@@ -71,15 +71,17 @@
                   </div>
                 </div>
 
+                <!-- 2. Descripción -->
                 <div class="mb-3">
                   <label for="description" class="form-label textos">Descripción</label>
                   <textarea class="form-control textos" id="description" rows="3" maxlength="300"
                     placeholder="Detalle técnico del producto"></textarea>
                   <div class="invalid-feedback">
-                   <p>El nombre es obligatorio (mínimo 3 caracteres).</p>
+                    <p>La descripción debe tener al menos 10 caracteres.</p>
                   </div>
                 </div>
 
+                <!-- 3. Precio y Categoría -->
                 <div class="row">
                   <div class="col-sm-6 mb-3">
                     <label for="precio" class="form-label textos">Precio (MXN)</label>
@@ -93,10 +95,10 @@
                     <label for="categoria" class="form-label textos">Categoría</label>
                     <select class="form-select textos" id="categoria">
                       <option value="" selected disabled>Selecciona...</option>
-                        <option value="Resistencias">Resistencias</option>
+                      <option value="Resistencias">Resistencias</option>
                       <option value="Capacitores">Capacitores</option>
                       <option value="Semiconductores">Semiconductores</option>
-                        <option value="Bobinas e inductores">Bobinas e inductores</option>
+                      <option value="Bobinas e inductores">Bobinas e inductores</option>
                       <option value="Conectores y cables">Conectores y cables</option>
                       <option value="Módulos y placas">Módulos y placas</option>
                       <option value="Sensores">Sensores</option>
@@ -111,8 +113,8 @@
                       <option value="Repuestos y reparación">Repuestos y reparación</option>
                       <option value="Automatización Industrial">Automatización industrial</option>
                       <option value="Kits para principiantes">Kits para principiantes</option>
-                        <option value="Kits de manos robóticas">Kits de manos robóticas</option>
-                        <option value="Compuertas lógicas">Compuertas lógicas</option>
+                      <option value="Kits de manos robóticas">Kits de manos robóticas</option>
+                      <option value="Compuertas lógicas">Compuertas lógicas</option>
                     </select>
                     <div class="invalid-feedback">
                       Selecciona una categoría.
@@ -120,21 +122,32 @@
                   </div>
                 </div>
 
+                <!-- 4. Seleccionar Imagen -->
                 <div class="mb-3">
                   <label for="img" class="form-label textos">Seleccionar Imagen</label>
                   <input type="file" class="form-control" id="img" accept="image/*" />
-                   <div class="invalid-feedback">
-                      Selecciona una imagen para el producto.
-                    </div>
-                   <input type="hidden" id="current-img" value="">
-                 
+                  <div class="invalid-feedback">
+                    Selecciona una imagen para el producto.
+                  </div>
+                  <input type="hidden" id="current-img" value="">
                 </div>
 
-                <div class="mb-4" id="img-preview-wrapper" style="display: none">
+                <!-- Vista Previa Imagen -->
+                <div class="mb-3" id="img-preview-wrapper" style="display: none">
                   <label class="form-label d-block">Vista previa</label>
                   <img id="img-preview" src="" alt="Vista previa" class="img-fluid rounded" style="max-height: 140px" />
                 </div>
 
+                <!-- 5. URL del Datasheet (UBICADO DEBAJO DE LA IMAGEN) -->
+                <div class="mb-4">
+                  <label for="datasheet" class="form-label textos">URL del Datasheet</label>
+                  <input type="url" class="form-control textos" id="datasheet" placeholder="https://ejemplo.com/datasheet.pdf" />
+                  <div class="invalid-feedback">
+                    <p>Ingresa una URL válida (ej. https://...).</p>
+                  </div>
+                </div>
+
+                <!-- Botones de Acción -->
                 <div class="d-flex gap-2">
                   <button type="submit" class="btn btn-carrito-custom flex-fill" id="submit-btn">
                     Guardar Producto
@@ -168,10 +181,10 @@
               </div>
             </div>
 
-            <div class="table-responsive  p-3">
-              <table class="table table-dark table-hover align-middle mb-0 ">
+            <div class="table-responsive p-3">
+              <table class="table table-dark table-hover align-middle mb-0">
                 <thead>
-                  <tr >
+                  <tr>
                     <th scope="col">Img</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Categoría</th>
@@ -182,8 +195,6 @@
                 </thead>
                 <tbody id="products-table-body">
                   <!-- Filas generadas por js/admin.js -->
-
-                
                 </tbody>
               </table>
               <nav aria-label="Page navigation example">
