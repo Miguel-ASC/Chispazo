@@ -675,8 +675,28 @@
     padding-top: 3.5rem;
   }
 
+  /* Mantiene visible y centrado el diagrama completo del resistor */
+  .resistor-section {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .resistor-graphic {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    overflow: visible;
+  }
+
   .resistor-body {
     width: min(100%, 23rem);
+    max-width: 100%;
+    flex-shrink: 1;
+  }
+
+  .terminal-wire {
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .controls-grid {
@@ -686,6 +706,12 @@
 
   .result-single-line {
     margin-bottom: 2.5rem;
+  }
+
+  /* La sección de potencia deja de forzarse a la segunda columna */
+  .power-section {
+    grid-column: 1;
+    margin-top: 0;
   }
 }
 
@@ -707,8 +733,20 @@
     font-size: 1.2rem;
   }
 
+  .resistor-body {
+    width: min(100%, 19rem);
+  }
+
   .resistor-cap {
-    width: 1.4rem;
+    width: 1.2rem;
+  }
+
+  .terminal-wire {
+    min-width: 0;
+  }
+
+  .controls-grid {
+    grid-template-columns: 1fr;
   }
 }
 
