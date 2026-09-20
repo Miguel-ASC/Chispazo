@@ -1775,41 +1775,56 @@ nav,
 @media (max-width: 767.98px) {
   .dropdown-menu-container {
     width: 100%;
-    display: block;
+    position: relative !important;
+    display: inline-block;
     padding-bottom: 0;
     margin-bottom: 0;
   }
 
-  /* Estado Oculto/Colapsado en Móvil */
+  /* Tarjeta Flotante Lateral */
   .mega-submenu {
     position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    width: 100% !important;
-    background-color: #122b24 !important;
-    max-height: 0;
-    overflow: hidden;
+    top: 100% !important; 
+    left: 85px !important;
+    right: auto !important;
+    width: calc(100vw - 100px) !important;
+    max-width: 300px !important;
+    max-height: 60vh !important; 
+    overflow-y: auto !important;
+    background: #0d1f17 !important;
+    border: 1px solid var(--color--VerdeMedio) !important;
+    border-top: 3px solid var(--color--Amarillo) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8) !important;
+    padding: 1.2rem !important;
+    z-index: 10005 !important;
+
     opacity: 0;
     visibility: hidden;
-    padding: 0 1rem !important;
-    border-top: none !important;
-    box-shadow: none !important;
-    transition:
-      max-height 0.35s ease-out,
-      opacity 0.25s ease,
-      visibility 0.25s ease;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.98);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.25s ease,
+                visibility 0.25s ease;
   }
 
-  /* Estado Desplegado al dar Tap / Clic en Móvil */
-  .dropdown-menu-container:focus-within .mega-submenu,
+  .mega-submenu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 8px solid var(--color--Amarillo);
+  }
+
   .mega-submenu.activo {
-    position: relative !important;
-    top: 0 !important;
-    max-height: 2500px !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    padding: 1rem 0.5rem !important;
+    transform: translateY(0) scale(1) !important;
   }
 
   .mega-submenu-inner {
@@ -1817,37 +1832,57 @@ nav,
   }
 
   .submenu-columnas {
-    display: grid;
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 1.2rem !important;
   }
 
   .submenu-titulo {
-    color: #dfa225;
-    font-family: var(--fuente--titulos);
-    font-size: 1.15rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 5px;
+    color: var(--color--Amarillo) !important;
+    font-family: var(--fuente--titulos) !important;
+    font-size: 1.2rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 0.5rem !important;
+    padding-bottom: 0.3rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
   .submenu-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .submenu-lista li {
-    margin-bottom: 8px;
+    margin-bottom: 0.4rem !important;
   }
 
   .submenu-lista a {
-    color: #ffffff;
-    font-family: var(--fuente--parrafos);
-    font-size: 1.05rem;
-    text-decoration: none;
+    color: #ffffff !important;
+    font-family: var(--fuente--parrafos) !important;
+    font-size: 1.1rem !important;
+    text-decoration: none !important;
+    display: block !important;
+    padding: 0.5rem 0.8rem !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s ease, color 0.2s ease !important;
+  }
+
+  .submenu-lista a:active,
+  .submenu-lista a:hover {
+    color: var(--color--Amarillo) !important;
+    background: var(--color--VerdeOscuro) !important;
+  }
+
+  .mega-submenu::-webkit-scrollbar {
+    width: 4px;
+  }
+  .mega-submenu::-webkit-scrollbar-thumb {
+    background: var(--color--VerdeMedio);
+    border-radius: 4px;
   }
 }
 
