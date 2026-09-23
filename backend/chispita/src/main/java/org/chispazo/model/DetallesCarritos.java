@@ -17,8 +17,8 @@ public class DetallesCarritos {
     @JoinColumn(name = "id_producto", nullable = false)
     private Productos producto;  // ← debe ser "producto", no "productos"
 
-    @Column (name = "cantidad", nullable = false)
-    private  int cantidad;
+    @Column(name = "cantidad", nullable = false)
+    private int cantidad;
 
     public DetallesCarritos() {
     }
