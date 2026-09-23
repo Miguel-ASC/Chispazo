@@ -1,2 +1,9 @@
 .env
 node_modules/
+
+
+.idea/
+
+Chispazo/backend/.idea/
+
+Chispazo/backend/chispita/src/main/resources/application.properties
