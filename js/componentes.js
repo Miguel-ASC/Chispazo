@@ -48,3 +48,68 @@ cargarComponente(
     "footer-container",
     new URL("Html/footer.html", rutaBase).href
 );
+
+// =========================================================
+// MEGA SUBMENÚ "Productos" — hover en escritorio, tap en móvil
+// =========================================================
+
+function attachMegaSubmenuHandlers() {
+  const dropdownContainer = document.querySelector(".dropdown-menu-container");
+  const megaSubmenu = document.querySelector(".mega-submenu");
+  const trigger = dropdownContainer ? dropdownContainer.querySelector(":scope > a") : null;
+
+  if (!dropdownContainer || !megaSubmenu || !trigger || dropdownContainer.dataset.menuBound === "1") {
+    return;
+  }
+  dropdownContainer.dataset.menuBound = "1";
+
+  const esMovil = () => window.matchMedia("(max-width: 767.98px)").matches;
+  let timerOcultar;
+
+  const mantenerMenuAbierto = () => {
+    clearTimeout(timerOcultar);
+    megaSubmenu.classList.add("activo");
+  };
+
+  const programarCierreMenu = () => {
+    timerOcultar = setTimeout(() => {
+      megaSubmenu.classList.remove("activo");
+    }, 250);
+  };
+
+  // Hover: solo debe aplicar en escritorio
+  dropdownContainer.addEventListener("mouseenter", () => {
+    if (!esMovil()) mantenerMenuAbierto();
+  });
+  dropdownContainer.addEventListener("mouseleave", () => {
+    if (!esMovil()) programarCierreMenu();
+  });
+  megaSubmenu.addEventListener("mouseenter", () => {
+    if (!esMovil()) mantenerMenuAbierto();
+  });
+  megaSubmenu.addEventListener("mouseleave", () => {
+    if (!esMovil()) programarCierreMenu();
+  });
+
+  // Tap en móvil: el primer toque abre/cierra el submenú en vez
+  // de navegar. En escritorio dejamos que el click navegue normal.
+  trigger.addEventListener("click", (event) => {
+    if (!esMovil()) return;
+    event.preventDefault();
+    megaSubmenu.classList.toggle("activo");
+  });
+
+  // Cierra el submenú si el usuario toca fuera de él (solo móvil)
+  document.addEventListener("click", (event) => {
+    if (!esMovil()) return;
+    if (!dropdownContainer.contains(event.target)) {
+      megaSubmenu.classList.remove("activo");
+    }
+  });
+}
+
+window.addEventListener("chispazo:component-loaded", (event) => {
+  if (event.detail && event.detail.id === "nav-container") {
+    attachMegaSubmenuHandlers();
+  }
+});
