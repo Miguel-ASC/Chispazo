@@ -1,5 +1,8 @@
 (function () {
   const sessionKey = "chispazo_session";
+  const scriptActual = document.currentScript;
+  const rutaProyecto = new URL("../", scriptActual?.src || document.baseURI);
+  const rutaPerfil = new URL("Html/perfil.html", rutaProyecto).href;
 
   function obtenerSesion() {
     try {
@@ -27,7 +30,7 @@
     iconoLogin.classList.remove("login-activo");
     iconoLogin.setAttribute("title", "Iniciar sesión / Registrarse");
     iconoLogin.setAttribute("aria-label", "Iniciar sesión / Registrarse");
-    iconoLogin.setAttribute("href", "/Html/perfil.html");
+    iconoLogin.setAttribute("href", rutaPerfil);
 
     const submenuPrevio = document.getElementById("user-dropdown-menu");
     if (submenuPrevio) submenuPrevio.remove();
@@ -62,7 +65,7 @@
       </div>
       <ul class="user-dropdown-list">
         <li>
-          <a href="/Html/perfil.html">
+          <a href="${rutaPerfil}">
             <i class="fa-solid fa-user me-2"></i> Mi Perfil
           </a>
         </li>

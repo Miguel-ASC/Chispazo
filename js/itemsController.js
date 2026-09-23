@@ -16,10 +16,10 @@
  */
 class ProductsController {
   static STORAGE_KEY = "products";
- 
+
   constructor(currentId = 0) {
     const storedData = this.loadFromStorage();
- 
+
     if (storedData) {
       this.items = storedData.items;
       this.currentId = storedData.currentId;
@@ -28,13 +28,14 @@ class ProductsController {
       this.currentId = currentId;
     }
   }
- 
+
   /**
    * Agrega un nuevo producto al arreglo this.items y lo guarda en localStorage
+   * Se agrega el parámetro datasheet antes de activo.
    */
-  addProduct(name, description, precio, img, createdAt, categoria, activo = true) {
+  addProduct(name, description, precio, img, createdAt, categoria, datasheet = "", activo = true) {
     this.currentId++;
- 
+
     const newProduct = {
       id: this.currentId,
       name: name,
@@ -43,52 +44,53 @@ class ProductsController {
       img: img,
       createdAt: createdAt,
       categoria: categoria,
+      datasheet: datasheet, // <-- Guardamos la URL del datasheet
       activo: activo,
     };
- 
+
     this.items.push(newProduct);
     this.saveToStorage();
- 
+
     return newProduct;
   }
- 
+
   getProductById(id) {
     return this.items.find((product) => product.id === Number(id));
   }
- 
+
   updateProduct(id, updatedFields) {
     const product = this.getProductById(id);
     if (!product) return null;
- 
+
     Object.assign(product, updatedFields);
     this.saveToStorage();
- 
+
     return product;
   }
- 
+
   deactivateProduct(id) {
     return this.updateProduct(id, { activo: false });
   }
- 
+
   activateProduct(id) {
     return this.updateProduct(id, { activo: true });
   }
- 
+
   removeProduct(id) {
     this.items = this.items.filter((product) => product.id !== Number(id));
     this.saveToStorage();
   }
- 
+
   getActiveProducts() {
     return this.items.filter((product) => product.activo);
   }
- 
+
   saveToStorage() {
     const dataToStore = {
       items: this.items,
       currentId: this.currentId,
     };
- 
+
     try {
       localStorage.setItem(ProductsController.STORAGE_KEY, JSON.stringify(dataToStore));
     } catch (error) {
@@ -98,12 +100,12 @@ class ProductsController {
       throw error;
     }
   }
- 
+
   loadFromStorage() {
     const raw = localStorage.getItem(ProductsController.STORAGE_KEY);
     return raw ? JSON.parse(raw) : null;
   }
- 
+
   clearStorage() {
     localStorage.removeItem(ProductsController.STORAGE_KEY);
     this.items = [];
@@ -158,6 +160,7 @@ class ProductsController {
           item.img,
           item.createdAt || new Date().toISOString(),
           item.categoria,
+          item.datasheet || "", // <-- Pasa el datasheet inicial si existe
           item.activo !== undefined ? item.activo : true
         );
       });

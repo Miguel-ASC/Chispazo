@@ -91,11 +91,9 @@ nav {
   justify-content: space-between;
   padding: 1rem;
 
-  background: radial-gradient(
-    ellipse 70% 150% at center,
-    var(--color--VerdeOscuro) 0%,
-    var(--color--negro) 80%
-  );
+  background: radial-gradient(ellipse 70% 150% at center,
+      var(--color--VerdeOscuro) 0%,
+      var(--color--negro) 80%);
 
   border-bottom: 1px solid var(--color--VerdeMedio);
   box-shadow: 0 2px 12px rgba(69, 85, 80, 0.2);
@@ -142,13 +140,13 @@ nav {
 }
 
 .navegacion__login-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .navegacion__login-link.login-activo {
@@ -158,15 +156,24 @@ nav {
     0 0 14px rgba(255, 214, 102, 0.9);
 }
 
+.navegacion__login-link.login-activo>img {
+  display: block;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .navegacion__login-link.login-activo .navegacion__imagen {
-  filter: drop-shadow(0 0 4px var(--color--Amarillo)) brightness(1.12)
-    saturate(1.15);
+  filter: drop-shadow(0 0 4px var(--color--Amarillo)) brightness(1.12) saturate(1.15);
 }
 
 .navegacion__usuarios a:hover .navegacion__imagen {
   transform: scale(1.12);
-  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%)
-    hue-rotate(2deg) brightness(104%) contrast(102%);
+  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%) hue-rotate(2deg) brightness(104%) contrast(102%);
 }
 
 .navegacion__etiqueta {
@@ -193,8 +200,7 @@ nav {
 
 .navegacion__usuarios a:hover .navegacion__imagen {
   transform: scale(1.12);
-  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%)
-    hue-rotate(2deg) brightness(104%) contrast(102%);
+  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%) hue-rotate(2deg) brightness(104%) contrast(102%);
 }
 
 .perfil-sesion-panel {
@@ -283,7 +289,7 @@ nav {
   }
 }
 
-.navegacion__checkbox:checked ~ .navegacion__contenido {
+.navegacion__checkbox:checked~.navegacion__contenido {
   display: flex;
 }
 
@@ -503,11 +509,9 @@ nav {
 }
 
 .cta-fondo-verde {
-  background: radial-gradient(
-    ellipse 60% 70% at center,
-    var(--color--VerdeOscuro) 0%,
-    var(--color--negro) 70%
-  );
+  background: radial-gradient(ellipse 60% 70% at center,
+      var(--color--VerdeOscuro) 0%,
+      var(--color--negro) 70%);
 }
 
 /*=========
@@ -628,11 +632,9 @@ nav {
     Footer
 ===========*/
 footer {
-  background: radial-gradient(
-    ellipse 70% 150% at center,
-    var(--color--VerdeOscuro) 0%,
-    var(--color--negro) 80%
-  );
+  background: radial-gradient(ellipse 70% 150% at center,
+      var(--color--VerdeOscuro) 0%,
+      var(--color--negro) 80%);
 
   border-top: 1px solid var(--color--VerdeMedio);
   box-shadow: 0 2px 12px rgba(69, 85, 80, 0.2);
@@ -1014,8 +1016,8 @@ footer i:hover {
   color: #ffffff;
 }
 
-.carrito-contenido > .container,
-.seccion-verde > .container {
+.carrito-contenido>.container,
+.seccion-verde>.container {
   max-width: 1200px;
 }
 
@@ -1185,7 +1187,7 @@ footer i:hover {
   background-color: #111;
 }
 
-.seccion-verde > .container > h2 {
+.seccion-verde>.container>h2 {
   color: #fff;
   font-size: 4.8rem;
 }
@@ -1224,6 +1226,7 @@ footer i:hover {
 }
 
 @media (max-width: 991px) {
+
   .cart-header,
   .cart-item {
     grid-template-columns: 6.5rem minmax(12rem, 1fr) 7rem 8rem 7rem 2rem;
@@ -1964,6 +1967,7 @@ nav,
 
 /* Tablet: formulario y tabla se apilan en columnas completas */
 @media (max-width: 991.98px) {
+
   .col-lg-5,
   .col-lg-7 {
     width: 100%;
@@ -2115,6 +2119,7 @@ nav,
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
