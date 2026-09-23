@@ -1732,48 +1732,12 @@ nav,
   transform: translateX(4px);
 }
 
-/* Adjustes ÚNICAMENTE para Celulares / Pantallas Pequeñas */
-@media (max-width: 767.98px) {
-  .dropdown-menu-container {
-    width: 100%;
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-
-  .mega-submenu {
-    position: static !important;
-    width: 100% !important;
-    box-shadow: none !important;
-    border-top: none !important;
-    padding: 0 1rem !important;
-    max-height: 0;
-    overflow: hidden;
-    transition:
-      max-height 0.35s ease-out,
-      opacity 0.25s ease,
-      visibility 0.25s ease;
-  }
-
-  .mega-submenu.activo {
-    max-height: 2000px !important;
-    padding: 1.5rem 1rem !important;
-  }
-
-  .mega-submenu-inner {
-    padding: 0 !important;
-  }
-
-  .submenu-columnas {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-  }
-}
-
 /*==========================================================
-    MEGA SUBMENÚ - 2. MÓVIL (Pantallas < 768px)
+    MEGA SUBMENÚ - MÓVIL (Pantallas < 768px)
 ==========================================================*/
 @media (max-width: 767.98px) {
   .dropdown-menu-container {
+    position: relative !important;
     width: 100%;
     display: block;
     padding-bottom: 0;
@@ -1783,33 +1747,33 @@ nav,
   /* Estado Oculto/Colapsado en Móvil */
   .mega-submenu {
     position: absolute !important;
-    top: 100% !important;
+    top: calc(100% + 0.5rem) !important;
     left: 0 !important;
-    width: 100% !important;
+    width: min(88%, 320px) !important;
+    max-height: calc(100vh - 160px) !important;
+    overflow-y: auto !important;
     background-color: #122b24 !important;
-    max-height: 0;
-    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 12px !important;
     opacity: 0;
     visibility: hidden;
-    padding: 0 1rem !important;
+    transform: translateY(-8px);
+    padding: 1.25rem !important;
     border-top: none !important;
-    box-shadow: none !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
     transition:
-      max-height 0.35s ease-out,
-      opacity 0.25s ease,
-      visibility 0.25s ease;
+      opacity 0.2s ease,
+      visibility 0.2s ease,
+      transform 0.2s ease;
   }
 
   /* Estado Desplegado al dar Tap / Clic en Móvil */
   .dropdown-menu-container:focus-within .mega-submenu,
   .mega-submenu.activo {
-    position: relative !important;
-    top: 0 !important;
-    max-height: 2500px !important;
     opacity: 1 !important;
     visibility: visible !important;
+    transform: translateY(0) !important;
     pointer-events: auto !important;
-    padding: 1rem 0.5rem !important;
   }
 
   .mega-submenu-inner {

@@ -1,4 +1,4 @@
-create database e_commer;
+gcreate database e_commer;
 
 use e_commer;
 
