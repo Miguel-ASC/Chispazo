@@ -38,3 +38,6 @@ out/
 
 
 !**/src/resources/application.properties/out/
+
+### IntelliJ ###
+.idea/
