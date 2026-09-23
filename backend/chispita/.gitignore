@@ -36,8 +36,12 @@ out/
 ### VS Code ###
 .vscode/
 
+/src/main/resources/application.properties
 
+<<<<<<< HEAD
 !**/src/resources/application.properties/out/
 
 ### IntelliJ ###
+=======
+>>>>>>> 8fe8250b4a2776a663bf2d874e4683f066030960
 .idea/
