@@ -5,8 +5,8 @@ node_modules/
 
  
 
-Chispazo/backend/.idea/
+backend/.idea/
 
  
 
-Chispazo/backend/chispita/src/main/resources/application.properties
+backend/chispita/src/main/resources/application.properties
