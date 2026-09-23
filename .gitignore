@@ -10,3 +10,9 @@ Chispazo/backend/.idea/
  
 
 backend/chispita/src/main/resources/application.properties
+
+
+
+
+backend/chispita/bin/
+backend/chispita/build/
