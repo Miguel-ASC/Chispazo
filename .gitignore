@@ -3,11 +3,9 @@ node_modules/
 
 .idea/
 
- 
 
-Chispazo/backend/.idea/
+backend/.idea/
 
- 
 
 *.properties
 
