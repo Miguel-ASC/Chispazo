@@ -35,7 +35,7 @@ public class Productos {
     private Categorias categoria;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleCarritos> detalleCarritos = new ArrayList<>();
+    private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallesPedidos> detallesPedidos = new ArrayList<>();
@@ -111,12 +111,12 @@ public class Productos {
         this.categoria = categoria;
     }
 
-    public List<DetalleCarritos> getDetalleCarritos() {
-        return detalleCarritos;
+    public List<DetallesCarritos> getDetalleCarritos() {
+        return detallesCarritos;
     }
 
-    public void setDetalleCarritos(List<DetalleCarritos> detalleCarritos) {
-        this.detalleCarritos = detalleCarritos;
+    public void setDetalleCarritos(List<DetallesCarritos> detallesCarritos) {
+        this.detallesCarritos = detallesCarritos;
     }
 
     public List<DetallesPedidos> getDetallesPedidos() {

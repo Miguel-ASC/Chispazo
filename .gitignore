@@ -9,7 +9,7 @@ Chispazo/backend/.idea/
 
  
 
-backend/chispita/src/main/resources/application.properties
+*.properties
 
 
 

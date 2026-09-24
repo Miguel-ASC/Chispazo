@@ -8,13 +8,15 @@ import java.math.BigDecimal;
 @Table(name = "detalles_pedidos")
 public class DetallesPedidos {
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "id_pedido", nullable = false)
     private Pedidos pedidos;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "id_producto", nullable = false)
-    private Productos productos;
+    private Productos producto;  // ← se llama "productos"
 
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
@@ -25,7 +27,8 @@ public class DetallesPedidos {
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subtotal;
 
-    public DetallesPedidos() {}
+    public DetallesPedidos() {
+    }
 
     // Getter & Setter
 
@@ -54,11 +57,11 @@ public class DetallesPedidos {
     }
 
     public Productos getProductos() {
-        return productos;
+        return producto;
     }
 
     public void setProductos(Productos productos) {
-        this.productos = productos;
+        this.producto = productos;
     }
 
     public Pedidos getPedidos() {
