@@ -7,7 +7,7 @@ node_modules/
 backend/.idea/
 
 
-backend/chispita/src/main/resources/application.properties
+*.properties
 
 
 

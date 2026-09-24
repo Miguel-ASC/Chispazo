@@ -1,6 +1,7 @@
 package org.chispazo.model;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Direcciones {
     // Relación con usuarios (muchas direcciones pueden pertenecer a un usuario)
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuarios usuario;
+    private Usuarios usuarios;
 
     // Relación con pedidos (una dirección puede tener varios pedidos asociados)
     @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -98,11 +99,11 @@ public class Direcciones {
     }
 
     public Usuarios getUsuario() {
-        return usuario;
+        return usuarios;
     }
 
     public void setUsuario(Usuarios usuario) {
-        this.usuario = usuario;
+        this.usuarios = usuario;
     }
 
     public List<Pedidos> getPedidos() {
@@ -122,7 +123,7 @@ public class Direcciones {
                 ", calle='" + calle + '\'' +
                 ", numero='" + numero + '\'' +
                 ", cp='" + cp + '\'' +
-                ", usuario=" + usuario +
+                ", usuario=" + usuarios +
                 '}';
     }
 }

@@ -11,23 +11,23 @@ public class Usuarios {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id_usuario")
-    private Long idUsuario ;
+    @Column(name = "id_usuario")
+    private Long idUsuario;
 
     @Column(name = "nombre", nullable = false, length = 67)
-    private String  nombre ;
+    private String nombre;
 
     @Column(name = "apellidos", nullable = false, length = 100)
-    private String apellidos ;
+    private String apellidos;
 
     @Column(name = "email", unique = true, nullable = false, length = 100)
-    private  String email ;
+    private String email;
 
     @Column(name = "password", nullable = false, length = 30)
-    private  String password ;
+    private String password;
 
-    @Column(name = "telefono",unique = true , nullable = false, length = 10)
-    private String telefono ;
+    @Column(name = "telefono", unique = true, nullable = false, length = 10)
+    private String telefono;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
@@ -44,7 +44,7 @@ public class Usuarios {
     private List<Direcciones> direcciones = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pedidos> pedidos= new ArrayList<>();
+    private List<Pedidos> pedidos = new ArrayList<>();
 
     public Usuarios() {
     }
@@ -57,7 +57,6 @@ public class Usuarios {
         this.password = password;
         this.telefono = telefono;
         this.rol = rol;
-
 
 
     }

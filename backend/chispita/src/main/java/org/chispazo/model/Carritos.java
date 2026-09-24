@@ -13,16 +13,17 @@ public class Carritos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_carrito")
     private Long idCarritos;
+
     @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fecha;
 
     @ManyToOne
     @JoinColumn(name = "carritos_id_user")
-    private Usuarios usuario;
+    private Usuarios usuarios;
 
 
     @OneToMany(mappedBy = "carritos", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleCarritos> detalleCarritos = new ArrayList<>();
+    private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
 
     public Carritos() {
     }
@@ -49,19 +50,19 @@ public class Carritos {
     }
 
     public Usuarios getUsuario() {
-        return usuario;
+        return usuarios;
     }
 
     public void setUsuario(Usuarios usuario) {
-        this.usuario = usuario;
+        this.usuarios = usuario;
     }
 
-    public List<DetalleCarritos> getDetalleCarritos() {
-        return detalleCarritos;
+    public List<DetallesCarritos> getDetalleCarritos() {
+        return detallesCarritos;
     }
 
-    public void setDetalleCarritos(List<DetalleCarritos> detalleCarritos) {
-        this.detalleCarritos = detalleCarritos;
+    public void setDetalleCarritos(List<DetallesCarritos> detallesCarritos) {
+        this.detallesCarritos = detallesCarritos;
     }
 
     @Override
@@ -69,8 +70,8 @@ public class Carritos {
         return "Carritos{" +
                 "idCarritos=" + idCarritos +
                 ", fecha=" + fecha +
-                ", usuario=" + usuario +
-                ", detalleCarritos=" + detalleCarritos +
+                ", usuario=" + usuarios +
+                ", detalleCarritos=" + detallesCarritos +
                 '}';
     }
 
