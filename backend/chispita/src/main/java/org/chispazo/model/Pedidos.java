@@ -37,7 +37,7 @@ public class Pedidos {
     @Column(name = "estado", nullable = false)
     private EstadoPedido estado;
 
-    public enum  EstadoPedido{
+    public enum EstadoPedido {
         PENDIENTE, PAGADO, EN_PROCESO, ENVIADO, ENTREGADO, CANCELADO
     }
 

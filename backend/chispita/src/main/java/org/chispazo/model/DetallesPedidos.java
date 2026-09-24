@@ -27,7 +27,8 @@ public class DetallesPedidos {
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subtotal;
 
-    public DetallesPedidos() {}
+    public DetallesPedidos() {
+    }
 
     // Getter & Setter
 
