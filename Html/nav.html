@@ -85,12 +85,31 @@
       </button>
     </div>
 
-    <div class="navegacion__usuarios">
+        <div class="navegacion__usuarios">
+      
+    <!-- Contenedor Principal (Ancla) -->
+    <div class="user-dropdown-container">
       <a id="icono-login" href="perfil.html" class="navegacion__login-link">
         <img src="/img/perfil.png" alt="usuario" class="navegacion__imagen" />
       </a>
-      <a href="/Html/cart.html"><img src="/img/carrito.png" alt="carrito" class="navegacion__imagen" /><span id="cartCount"
-          class="cart-count" hidden>0</span></a>
+
+    <!-- Submenú ("Hijo del contenedor ancla") -->
+    <div class="user-dropdown-menu">
+      <div class="user-dropdown-header">Hola, Mozart</div>
+      <ul class="user-dropdown-list">
+        <li><a href="/Html/perfil.html">👤 Mi Perfil</a></li>
+        <li><button class="btn-logout-dropdown">🚪 Cerrar sesión</button></li>
+      </ul>
+     </div>
+     </div>
+
+    <!-- Icono del carrito (Queda independiente, a un lado del icono de usuario) -->
+    <a href="/Html/cart.html">
+      <img src="/img/carrito.png" alt="carrito" class="navegacion__imagen" />
+      <span id="cartCount" class="cart-count" hidden>0</span>
+    </a>
+
     </div>
+
   </div>
 </nav>

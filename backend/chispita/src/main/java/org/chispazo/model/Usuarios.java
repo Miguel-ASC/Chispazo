@@ -40,6 +40,10 @@ public class Usuarios {
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Carritos> carritos = new ArrayList<>();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 320f3e0538228760b4bb8c272e0faaaef3072fc4
 
     public Usuarios() {
     }
@@ -120,7 +124,10 @@ public class Usuarios {
         this.carritos = carritos;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 320f3e0538228760b4bb8c272e0faaaef3072fc4
 
     @Override
     public String toString() {

@@ -22,7 +22,7 @@ public class Productos {
     private String descripcion;
 
     @Column(name = "precio", nullable = false, precision = 10, scale = 2)
-    private Float precio;
+    private BigDecimal precio;
 
     @Column(name = "stock", nullable = false)
     private Integer stock;
@@ -37,13 +37,17 @@ public class Productos {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 320f3e0538228760b4bb8c272e0faaaef3072fc4
 
     // Constructor vacío (necesario para JPA)
     public Productos() {
     }
 
     // Constructor con parámetros
-    public Productos(Long idProducto, String nombre, String descripcion, Float precio, Integer stock, String imagenUrl) {
+    public Productos(Long idProducto, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -77,11 +81,11 @@ public class Productos {
         this.descripcion = descripcion;
     }
 
-    public Float getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Float precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
