@@ -22,7 +22,7 @@ public class Productos {
     private String descripcion;
 
     @Column(name = "precio", nullable = false, precision = 10, scale = 2)
-    private BigDecimal precio;
+    private Float precio;
 
     @Column(name = "stock", nullable = false)
     private Integer stock;
@@ -45,7 +45,7 @@ public class Productos {
     }
 
     // Constructor con parámetros
-    public Productos(Long idProducto, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl) {
+    public Productos(Long idProducto, String nombre, String descripcion, Float precio, Integer stock, String imagenUrl) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -79,11 +79,11 @@ public class Productos {
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getPrecio() {
+    public Float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(BigDecimal precio) {
+    public void setPrecio(Float precio) {
         this.precio = precio;
     }
 
