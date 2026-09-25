@@ -22,29 +22,29 @@ public class DetallesPedidos {
     private Integer cantidad;
 
     @Column(name = "precio_unitario", nullable = false, precision = 10, scale = 2)
-    private BigDecimal precioUnitario;
+    private Float precioUnitario;
 
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
-    private BigDecimal subtotal;
+    private Float subtotal;
 
     public DetallesPedidos() {
     }
 
     // Getter & Setter
 
-    public BigDecimal getSubtotal() {
+    public Float getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(BigDecimal subtotal) {
+    public void setSubtotal(Float subtotal) {
         this.subtotal = subtotal;
     }
 
-    public BigDecimal getPrecioUnitario() {
+    public Float getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(BigDecimal precioUnitario) {
+    public void setPrecioUnitario(Float precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 

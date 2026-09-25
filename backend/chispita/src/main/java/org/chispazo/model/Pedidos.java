@@ -14,7 +14,7 @@ public class Pedidos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido")
-    private Integer idPedido;
+    private Long idPedido;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
@@ -28,7 +28,7 @@ public class Pedidos {
     private LocalDateTime fecha;
 
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
-    private BigDecimal total;
+    private Float total;
 
     @Column(name = "metodo_pago", nullable = false, length = 50)
     private String metodoPago;
@@ -47,7 +47,7 @@ public class Pedidos {
     public Pedidos() {
     }
 
-    public Pedidos(Integer idPedido, LocalDateTime fecha, BigDecimal total, String metodoPago, EstadoPedido estado) {
+    public Pedidos(Long idPedido, LocalDateTime fecha, Float total, String metodoPago, EstadoPedido estado) {
         this.idPedido = idPedido;
         this.fecha = fecha;
         this.total = total;
@@ -55,11 +55,11 @@ public class Pedidos {
         this.estado = estado;
     }
 
-    public Integer getIdPedido() {
+    public Long getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(Integer idPedido) {
+    public void setIdPedido(Long idPedido) {
         this.idPedido = idPedido;
     }
 
@@ -87,11 +87,11 @@ public class Pedidos {
         this.fecha = fecha;
     }
 
-    public BigDecimal getTotal() {
+    public Float getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(Float total) {
         this.total = total;
     }
 
