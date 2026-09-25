@@ -37,8 +37,6 @@ public class Productos {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetallesPedidos> detallesPedidos = new ArrayList<>();
 
     // Constructor vacío (necesario para JPA)
     public Productos() {
@@ -119,13 +117,6 @@ public class Productos {
         this.detallesCarritos = detallesCarritos;
     }
 
-    public List<DetallesPedidos> getDetallesPedidos() {
-        return detallesPedidos;
-    }
-
-    public void setDetallesPedidos(List<DetallesPedidos> detallesPedidos) {
-        this.detallesPedidos = detallesPedidos;
-    }
 
     @Override
     public String toString() {

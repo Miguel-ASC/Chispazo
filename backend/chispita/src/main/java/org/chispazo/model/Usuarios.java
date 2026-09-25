@@ -40,11 +40,6 @@ public class Usuarios {
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Carritos> carritos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Direcciones> direcciones = new ArrayList<>();
-
-    @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pedidos> pedidos = new ArrayList<>();
 
     public Usuarios() {
     }
@@ -125,21 +120,7 @@ public class Usuarios {
         this.carritos = carritos;
     }
 
-    public List<Direcciones> getDirecciones() {
-        return direcciones;
-    }
 
-    public void setDirecciones(List<Direcciones> direcciones) {
-        this.direcciones = direcciones;
-    }
-
-    public List<Pedidos> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedidos> pedidos) {
-        this.pedidos = pedidos;
-    }
 
     @Override
     public String toString() {
