@@ -32,45 +32,7 @@
   </head>
 
   <body class="calculator-page">
-    <nav aria-label="Navegación principal">
-      <div class="navegacion">
-        <div class="navegacion__logo">
-          <a class="logo" href="index.html">
-            <img class="logo__imagen" src="../img/logo.png" alt="Logo Chispazo" />
-          </a>
-        </div>
-
-        <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
-        <label for="menu-toggle" class="navegacion__botondesplegable">
-          &#9776;
-          <span class="visually-hidden">Abrir menú</span>
-        </label>
-
-        <div class="navegacion__contenido">
-          <div class="navegacion__pestañas">
-            <a class="navegacion__etiqueta" href="index.html">Inicio</a>
-            <a class="navegacion__etiqueta" href="productos.html">Productos</a>
-            <a class="navegacion__etiqueta" href="about_us.html">Nosotros</a>
-            <a class="navegacion__etiqueta" href="contacto.html">Contacto</a>
-          </div>
-
-          <div class="navegacion__busqueda">
-            <input
-              type="search"
-              placeholder="Buscar productos..."
-              aria-label="Buscar productos"
-            />
-            <button type="button" aria-label="Buscar productos">🔍</button>
-          </div>
-
-          <div class="navegacion__usuarios">
-            <a href="perfil.html" class="navegacion__imagen"><i class="fa-regular fa-user fa-2xl "></i></a>
-            <a href="cart.html" class="navegacion__imagen"><i class="fa-solid fa-cart-shopping fa-2xl"></i><span id="cartCount" class="cart-count" hidden>0</span></a>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <div id="nav-container"></div>
 
     <main>
       <section class="calculator-shell" aria-labelledby="calculator-title">
@@ -464,54 +426,10 @@
       </div>
     </div>
 
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 mb-3">
-            <img
-              id="logo_footer"
-              class="logo__imagen"
-              src="../img/logo.png"
-              alt="Logo"
-            />
-            <p id="copyright">@2026 Chispazo. Todos los derechos reservados.</p>
-          </div>
+    <div id="footer-container"></div>
 
-          <div class="col-md-3 mb-3" id="fot1">
-            <a id="us" href="about_us.html">Sobre Nosotros</a>
-            <ul class="list-unstyled">
-              <li class="footer_text"><a href="#">Envíos</a></li>
-              <li class="footer_text">
-                <a href="#">Términos y Condiciones</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-md-3 mb-3" id="fot2">
-            <a id="usa" href="about_us.html">Contactenos</a>
-            <ul class="list-unstyled">
-              <li class="footer_text"><a href="#">Privacidad</a></li>
-              <li class="footer_text"><a href="#">Soporte Técnico</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-3 mb-3">
-            <h5>Síguenos en</h5>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-youtube"></i></a>
-
-            <h5 class="mt-3">Pagos Seguros</h5>
-            <i class="bi bi-credit-card-2-front"></i>
-            <i class="bi bi-paypal"></i>
-            <i class="bi bi-credit-card"></i>
-          </div>
-        </div>
-      </div>
-    </footer>
-
+    <script src="../js/componentes.js"></script>
     <script src="../js/cart.js"></script>
     <script src="../js/calculadora.js"></script>
   </body>
-</html>g
+</html>

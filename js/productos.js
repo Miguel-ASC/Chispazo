@@ -1,3 +1,4 @@
+
 function normalizarImagenProducto(ruta) {
   if (!ruta || ruta.startsWith("data:") || /^https?:\/\//.test(ruta)) {
     return ruta;
@@ -35,46 +36,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   seedProductosIniciales(productsController);
 
-  // Obtener la categoría desde la URL
   const urlParams = new URLSearchParams(window.location.search);
-  let categoriaURL = urlParams.get("categoria");
+  const categoriaURL = urlParams.get("categoria");
 
-  // Si se entra directo a productos.html sin parámetros, forzamos "Resistencias"
-  if (!categoriaURL) {
-    categoriaURL = "Resistencias";
-  }
-
-  // Normalizar el nombre de la categoría para corregir el typo del
-  // submenú ("Conectores e cables" vs "Conectores y cables")
   let categoriaBusqueda = categoriaURL;
-  if (
-    categoriaURL.toLowerCase() === "conectores e cables" ||
-    categoriaURL.toLowerCase() === "conectores y cables"
-  ) {
-    categoriaBusqueda = "Conectores y cables";
+  if (categoriaURL) {
+    if (
+      categoriaURL.toLowerCase() === "conectores e cables" ||
+      categoriaURL.toLowerCase() === "conectores y cables"
+    ) {
+      categoriaBusqueda = "Conectores y cables";
+    }
   }
 
   // Actualizar el título principal de la página
   const tituloCatalogo = document.getElementById("titulo-catalogo");
   if (tituloCatalogo) {
-    tituloCatalogo.textContent = `CATÁLOGO DE ${categoriaBusqueda.toUpperCase()}`;
+    tituloCatalogo.textContent = categoriaBusqueda
+      ? `CATÁLOGO DE ${categoriaBusqueda.toUpperCase()}`
+      : "CATÁLOGO DE PRODUCTOS";
   }
 
-  // Obtener productos filtrados (activos + de esa categoría) desde el controller.
-  // Esto incluye tanto los productos sembrados como cualquier producto
-  // nuevo creado desde admin.html, porque ambos comparten localStorage.
   const productosAMostrar = productsController.getProductsByCategory(categoriaBusqueda);
 
-  // Pintar en el contenedor HTML
   const container = document.getElementById("productos-grid");
 
   if (container) {
     container.innerHTML = "";
 
     if (!productosAMostrar || productosAMostrar.length === 0) {
+      const mensaje = categoriaBusqueda
+        ? `No se encontraron productos en la categoría "${categoriaBusqueda}".`
+        : "Aún no hay productos disponibles.";
       container.innerHTML = `
         <div class="col-12 text-center my-5 text-white">
-          <h3>No se encontraron productos en la categoría "${categoriaBusqueda}".</h3>
+          <h3>${mensaje}</h3>
         </div>`;
     } else {
       const cardsHTML = productosAMostrar.map((product) => {
