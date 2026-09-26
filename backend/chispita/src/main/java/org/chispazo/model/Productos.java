@@ -15,7 +15,7 @@ public class Productos {
     @Column(name = "id_producto")
     private Long idProducto;
 
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", unique = true, nullable = false, length = 100)
     private String nombre;
 
     @Column(name = "descripcion", columnDefinition = "TEXT")
@@ -130,4 +130,9 @@ public class Productos {
                 ", imagenUrl='" + imagenUrl + '\'' +
                 '}';
     }
+
+
+
+
+
 }
