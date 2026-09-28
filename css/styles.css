@@ -91,11 +91,9 @@ nav {
   justify-content: space-between;
   padding: 1rem;
 
-  background: radial-gradient(
-    ellipse 70% 150% at center,
-    var(--color--VerdeOscuro) 0%,
-    var(--color--negro) 80%
-  );
+  background: radial-gradient(ellipse 70% 150% at center,
+      var(--color--VerdeOscuro) 0%,
+      var(--color--negro) 80%);
 
   border-bottom: 1px solid var(--color--VerdeMedio);
   box-shadow: 0 2px 12px rgba(69, 85, 80, 0.2);
@@ -158,7 +156,7 @@ nav {
     0 0 14px rgba(255, 214, 102, 0.9);
 }
 
-.navegacion__login-link.login-activo > img {
+.navegacion__login-link.login-activo>img {
   display: block;
   flex: 0 0 40px;
   width: 40px;
@@ -170,14 +168,12 @@ nav {
 }
 
 .navegacion__login-link.login-activo .navegacion__imagen {
-  filter: drop-shadow(0 0 4px var(--color--Amarillo)) brightness(1.12)
-    saturate(1.15);
+  filter: drop-shadow(0 0 4px var(--color--Amarillo)) brightness(1.12) saturate(1.15);
 }
 
 .navegacion__usuarios a:hover .navegacion__imagen {
   transform: scale(1.12);
-  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%)
-    hue-rotate(2deg) brightness(104%) contrast(102%);
+  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%) hue-rotate(2deg) brightness(104%) contrast(102%);
 }
 
 .navegacion__etiqueta {
@@ -204,8 +200,7 @@ nav {
 
 .navegacion__usuarios a:hover .navegacion__imagen {
   transform: scale(1.12);
-  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%)
-    hue-rotate(2deg) brightness(104%) contrast(102%);
+  filter: brightness(0) saturate(100%) invert(77%) sepia(96%) saturate(1410%) hue-rotate(2deg) brightness(104%) contrast(102%);
 }
 
 .perfil-sesion-panel {
@@ -294,7 +289,7 @@ nav {
   }
 }
 
-.navegacion__checkbox:checked ~ .navegacion__contenido {
+.navegacion__checkbox:checked~.navegacion__contenido {
   display: flex;
 }
 
@@ -514,11 +509,9 @@ nav {
 }
 
 .cta-fondo-verde {
-  background: radial-gradient(
-    ellipse 60% 70% at center,
-    var(--color--VerdeOscuro) 0%,
-    var(--color--negro) 70%
-  );
+  background: radial-gradient(ellipse 60% 70% at center,
+      var(--color--VerdeOscuro) 0%,
+      var(--color--negro) 70%);
 }
 
 /*=========
@@ -639,11 +632,9 @@ nav {
     Footer
 ===========*/
 footer {
-  background: radial-gradient(
-    ellipse 70% 150% at center,
-    var(--color--VerdeOscuro) 0%,
-    var(--color--negro) 80%
-  );
+  background: radial-gradient(ellipse 70% 150% at center,
+      var(--color--VerdeOscuro) 0%,
+      var(--color--negro) 80%);
 
   border-top: 1px solid var(--color--VerdeMedio);
   box-shadow: 0 2px 12px rgba(69, 85, 80, 0.2);
@@ -1025,8 +1016,8 @@ footer i:hover {
   color: #ffffff;
 }
 
-.carrito-contenido > .container,
-.seccion-verde > .container {
+.carrito-contenido>.container,
+.seccion-verde>.container {
   max-width: 1200px;
 }
 
@@ -1196,7 +1187,7 @@ footer i:hover {
   background-color: #111;
 }
 
-.seccion-verde > .container > h2 {
+.seccion-verde>.container>h2 {
   color: #fff;
   font-size: 4.8rem;
 }
@@ -1235,6 +1226,7 @@ footer i:hover {
 }
 
 @media (max-width: 991px) {
+
   .cart-header,
   .cart-item {
     grid-template-columns: 6.5rem minmax(12rem, 1fr) 7rem 8rem 7rem 2rem;
@@ -1939,6 +1931,7 @@ nav,
 
 /* Tablet: formulario y tabla se apilan en columnas completas */
 @media (max-width: 991.98px) {
+
   .col-lg-5,
   .col-lg-7 {
     width: 100%;
@@ -1995,7 +1988,6 @@ nav,
    ========================================== */
 .user-dropdown-container {
   position: relative;
-  display: inline-block;
 }
 
 /* 
@@ -2020,16 +2012,11 @@ nav,
 /*=============================================
     SUBMENÚ FLOTANTE PERFIL (DROPDOWN)
 =============================================*/
-
 .user-dropdown-menu {
   display: none;
   position: absolute;
   top: 110%;
-
-  /* Alineación para moviles (a la izquierda) */
-  left: 0;
-  transform: none;
-
+  right: 0;
   width: 200px;
   background-color: #122b24;
   border: 1px solid var(--color--VerdeMedio);
@@ -2040,44 +2027,9 @@ nav,
   padding: 0.5rem 0;
 }
 
-/* Animación para móviles */
 .user-dropdown-menu.show {
   display: block;
-  animation: fadeInDropdownMobile 0.2s ease-out;
-}
-
-@keyframes fadeInDropdownMobile {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Centrado del menú (exclusivo para Desktop) */
-@media (min-width: 768px) {
-  .user-dropdown-menu {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .user-dropdown-menu.show {
-    animation: fadeInDropdownDesktop 0.2s ease-out;
-  }
-}
-
-@keyframes fadeInDropdownDesktop {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -8px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  animation: fadeInDropdown 0.2s ease-out;
 }
 
 .user-dropdown-header {
@@ -2109,9 +2061,7 @@ nav,
   border: none;
   cursor: pointer;
   text-align: left;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .user-dropdown-list li a:hover,
@@ -2138,4 +2088,244 @@ nav,
     opacity: 1;
     transform: translateY(0);
   }
+}
+/*=========================================================
+   INICIO — Estilos adicionales (nuevas secciones)
+   Complementa css/styles.css, no lo reemplaza.
+=========================================================*/
+
+/* Franja de slogan (Chispita + Chispazo) */
+.franja-slogan {
+  background-color: #0d1914;
+  border-top: 1px solid var(--color--VerdeMedio);
+  border-bottom: 1px solid var(--color--VerdeMedio);
+  text-align: center;
+  padding: 0.9rem 1rem;
+}
+
+.franja-slogan span {
+  font-family: var(--fuente--titulos);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--color--Amarillo);
+}
+
+/* Encabezados de sección reutilizables */
+.titulo-seccion-inicio {
+  font-family: var(--fuente--titulos);
+  font-weight: 800;
+  color: #fff;
+}
+
+.subtitulo-seccion-inicio {
+  color: var(--color--VerdeClaro);
+  font-family: var(--fuente--parrafos);
+}
+
+/* Mascotas de Chispita en las tarjetas de "¿Por qué elegir Chispazo?" */
+.mascota-beneficio {
+  width: 12rem;
+  max-width: 70%;
+  margin: 0 auto 1.4rem;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+  transition: transform 0.3s ease;
+}
+
+.tarjeta-beneficio:hover .mascota-beneficio {
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* Estrellas de valoración en tarjetas de producto */
+.valoracion-estrellas {
+  color: var(--color--Amarillo);
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.valoracion-estrellas span {
+  color: #a0b0a8;
+  font-family: var(--fuente--parrafos);
+  font-size: 1.2rem;
+  margin-left: 0.3rem;
+}
+
+/* Tarjetas de producto: reutilizan .tarjeta-custom, solo añadimos el precio+cta */
+.precio-producto-inicio {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+}
+
+/* Kits STEM: variante horizontal de .tarjeta-custom */
+.tarjeta-kit {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.tarjeta-kit .tarjeta-kit__img {
+  width: 40%;
+  min-width: 14rem;
+  height: auto;
+  object-fit: cover;
+}
+
+.tarjeta-kit .card-body-custom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .tarjeta-kit {
+    flex-direction: column;
+  }
+
+  .tarjeta-kit .tarjeta-kit__img {
+    width: 100%;
+    height: 16rem;
+  }
+}
+
+/* Herramientas para tus proyectos: variante de .tarjeta-beneficio con texto a la izquierda */
+.tarjeta-herramienta {
+  background-color: var(--color--VerdeOscuro);
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+.tarjeta-herramienta:hover {
+  background-color: #2b634d;
+}
+
+.tarjeta-herramienta .icono-caja {
+  margin: 0 0 1.2rem 0;
+}
+/* =========================================================
+   EFECTO DE ELECTRICIDAD / GLOW Y TARJETAS UNIFICADAS
+   ========================================================= */
+
+/* =========================================================
+   FRANJA SLOGAN CON PULSO ELÉCTRICO (SVG)
+   ========================================================= */
+
+.franja-slogan {
+  background-color: #050b08;
+  padding: 1.5rem 2rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.slogan-texto {
+  font-family: var(--fuente--titulos);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color--Amarillo);
+  white-space: nowrap;
+  animation: efectoElectricidad 2s infinite alternate ease-in-out;
+}
+
+/* Estilo y trazo para las líneas de pulso SVG */
+.pulso-electrico {
+  flex-grow: 1;
+  height: 35px;
+  max-width: 350px; /* Controla qué tan largas se ven las líneas en pantallas grandes */
+}
+
+.pulso-electrico path {
+  fill: none;
+  stroke: var(--color--Amarillo);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* Brillo eléctrico en la línea */
+  filter: drop-shadow(0 0 6px #ffc107) drop-shadow(0 0 12px #ff9800);
+}
+
+/* Animación del resplandor */
+@keyframes efectoElectricidad {
+  0% {
+    text-shadow: 0 0 4px #ffc107, 0 0 10px #ffc107, 0 0 18px #ff9800;
+  }
+  100% {
+    text-shadow: 0 0 8px #ffc107, 0 0 18px #ffc107, 0 0 30px #ffea00;
+  }
+}
+
+/* Opcional: Ocultar líneas en celulares muy pequeños si falta espacio */
+@media (max-width: 576px) {
+  .pulso-electrico {
+    display: none;
+  }
+  .slogan-texto {
+    font-size: 1.6rem;
+  }
+}
+/* =========================================================
+   AJUSTES GENERALES DE DISEÑO
+   ========================================================= */
+
+/* 1. Etiqueta "Basics" y Badges de Kits (Más grande, transparente y difuminada) */
+.tarjeta-kit .badge,
+.badge {
+  display: inline-block !important;
+  width: fit-content !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  padding: 0.5rem 1.2rem !important;
+  border-radius: 20px !important;
+  
+  /* Fondo transparente con efecto borroso (Glassmorphism) */
+  background: rgba(17, 30, 25, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: var(--color--Amarillo, #f1c40f) !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+
+/* 2. Asistente Chispita Flotante (Sin fondo circular ni bordes) */
+#btnChispita,
+.chispita-ia-toggle,
+.btn-chispita-flotante,
+.chispita-container button {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0 !important;
+}
+
+#btnChispita img,
+.chispita-ia-toggle img,
+.btn-chispita-flotante img,
+.chispita-container img {
+  width: 70px !important;            /* Tamaño de la mascota */
+  height: auto !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)) !important; /* Sombra suave */
+  transition: transform 0.25s ease !important;
+}
+
+#btnChispita img:hover,
+.chispita-ia-toggle img:hover,
+.btn-chispita-flotante img:hover {
+  transform: scale(1.1) !important;  /* Efecto al pasar el cursor */
+}
+
+/* 3. Separación de secciones en el Inicio */
+section,
+section.py-5,
+.seccion-inicio {
+  padding-top: 5.5rem !important;
+  padding-bottom: 5.5rem !important;
+  margin-bottom: 2rem !important;
 }
