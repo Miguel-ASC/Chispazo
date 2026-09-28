@@ -1995,7 +1995,7 @@ nav,
    ========================================== */
 .user-dropdown-container {
   position: relative;
-  display: inline-block; /* O inline-flex, es para que la caja se ajuste al tamaño exacto del icono de usuario */
+  display: inline-block;
 }
 
 /* 

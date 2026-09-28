@@ -34,7 +34,7 @@ public class Usuarios {
     private Rol rol;
 
     public enum Rol {
-        admin, user
+        user, admin
     }
 
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
