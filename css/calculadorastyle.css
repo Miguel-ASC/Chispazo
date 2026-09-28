@@ -20,6 +20,15 @@
   flex: 1 0 auto;
 }
 
+/* La Calculadora vive dentro de la sección "Productos" del submenú,
+   así que aquí resaltamos ese link (igual que su estilo :hover)
+   aunque no se le esté pasando el mouse encima. Esto SOLO aplica
+   en esta página (calculadora.html), por el selector .calculator-page. */
+.calculator-page .dropdown-menu-container > a.navegacion__etiqueta {
+  color: var(--color--Amarillo);
+  border-bottom: 3px solid var(--color--Amarillo);
+}
+
 .calculator-page .navegacion {
   margin-bottom: 0;
 }
