@@ -15,7 +15,7 @@ public class Productos {
     @Column(name = "id_producto")
     private Long idProducto;
 
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", unique = true, nullable = false, length = 100)
     private String nombre;
 
     @Column(name = "descripcion", columnDefinition = "TEXT")
@@ -37,8 +37,7 @@ public class Productos {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetallesPedidos> detallesPedidos = new ArrayList<>();
+
 
     // Constructor vacío (necesario para JPA)
     public Productos() {
@@ -119,13 +118,6 @@ public class Productos {
         this.detallesCarritos = detallesCarritos;
     }
 
-    public List<DetallesPedidos> getDetallesPedidos() {
-        return detallesPedidos;
-    }
-
-    public void setDetallesPedidos(List<DetallesPedidos> detallesPedidos) {
-        this.detallesPedidos = detallesPedidos;
-    }
 
     @Override
     public String toString() {
@@ -138,4 +130,9 @@ public class Productos {
                 ", imagenUrl='" + imagenUrl + '\'' +
                 '}';
     }
+
+
+
+
+
 }
