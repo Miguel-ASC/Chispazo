@@ -33,7 +33,7 @@ const fields = {
   precio: document.getElementById("precio"),
   categoria: document.getElementById("categoria"),
   img: document.getElementById("img"),
-  datasheet: document.getElementById("datasheet"), // <-- NUEVO CAMPO
+  datasheet: document.getElementById("datasheet"),
 };
 
 let currentFilter = "todos"; // todos | activos | eliminados
@@ -173,7 +173,7 @@ form.addEventListener("submit", async (event) => {
     precio: Number(fields.precio.value).toFixed(2),
     categoria: fields.categoria.value,
     img: imgData,
-    datasheet: fields.datasheet ? fields.datasheet.value.trim() : "", // <-- NUEVO CAMPO
+    datasheet: fields.datasheet ? fields.datasheet.value.trim() : "",
   };
 
   const editingId = fields.id.value;
@@ -193,7 +193,7 @@ form.addEventListener("submit", async (event) => {
         productData.img,
         today,
         productData.categoria,
-        productData.datasheet // <-- PASAMOS DATASHEET AL CONTROLADOR
+        productData.datasheet
       );
       showFormSuccess("Producto agregado correctamente.");
     }
@@ -215,7 +215,7 @@ function resetForm() {
   form.reset();
   fields.id.value = "";
   currentImgInput.value = "";
-  if (fields.datasheet) fields.datasheet.value = ""; // <-- LIMPIAR CAMPO
+  if (fields.datasheet) fields.datasheet.value = "";
   formTitulo.textContent = "Nuevo Producto";
   submitBtn.textContent = "Guardar Producto";
   cancelEditBtn.classList.add("d-none");
@@ -240,7 +240,7 @@ function loadProductIntoForm(id) {
   fields.description.value = product.description;
   fields.precio.value = product.precio;
   fields.categoria.value = product.categoria || "";
-  if (fields.datasheet) fields.datasheet.value = product.datasheet || ""; // <-- CARGAR DATASHEET EXISTENTE
+  if (fields.datasheet) fields.datasheet.value = product.datasheet || "";
   imgInput.value = "";
   currentImgInput.value = product.img;
 
@@ -330,6 +330,13 @@ function renderTable() {
               <button class="btn ${accionEliminarClase}" data-action="toggle" data-id="${product.id}" aria-label="${accionEliminarLabel}">
                 <i class="bi ${accionEliminarIcono}"></i>
               </button>
+              ${
+                !product.activo
+                  ? `<button class="btn btn-dark border border-danger text-danger" data-action="delete-permanent" data-id="${product.id}" aria-label="Eliminar definitivamente" title="Eliminar definitivamente (no se puede deshacer)">
+                      <i class="bi bi-exclamation-octagon-fill"></i>
+                    </button>`
+                  : ""
+              }
             </div>
           </td>
         </tr>
@@ -405,6 +412,20 @@ tableBody.addEventListener("click", (event) => {
       showFormSuccess(`"${product.name}" fue reactivado.`);
     }
 
+    renderTable();
+  }
+
+  if (action === "delete-permanent") {
+    const product = productsController.getProductById(id);
+    if (!product) return;
+
+    const confirmado = window.confirm(
+      `¿Seguro que quieres eliminar "${product.name}" de forma PERMANENTE? Esta acción no se puede deshacer.`
+    );
+    if (!confirmado) return;
+
+    productsController.removeProduct(id);
+    showFormSuccess(`"${product.name}" fue eliminado permanentemente.`);
     renderTable();
   }
 });
