@@ -893,6 +893,51 @@ footer i:hover {
 }
 
 /*=========
+    Botón "Ver Datasheet" (tarjetas de producto)
+===========*/
+.btn-datasheet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  margin-bottom: 0.9rem;
+  padding: 0.45rem 1rem;
+  color: var(--color--Amarillo);
+  background-color: rgba(255, 193, 7, 0.08);
+  border: 1.5px solid var(--color--Amarillo);
+  border-radius: 999px;
+  font-family: var(--fuente--parrafos);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.btn-datasheet i {
+  font-size: 0.95rem;
+}
+
+.btn-datasheet:hover,
+.btn-datasheet:focus-visible {
+  color: var(--color--negro);
+  background-color: var(--color--Amarillo);
+  box-shadow: 0 4px 14px rgba(255, 193, 7, 0.35);
+  transform: translateY(-1px);
+  text-decoration: none;
+  outline: none;
+}
+
+.btn-datasheet:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/*=========
     Contenedor de Filtros (Productos)
 ===========*/
 .panel-filtros-verde {
@@ -1688,8 +1733,8 @@ nav,
 
 .submenu-columnas {
   display: grid;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 40px !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 32px !important;
 }
 
 .submenu-titulo {
@@ -2308,17 +2353,17 @@ nav,
 .chispita-ia-toggle img,
 .btn-chispita-flotante img,
 .chispita-container img {
-  width: 70px !important;            /* Tamaño de la mascota */
+  width: 70px !important;
   height: auto !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)) !important; /* Sombra suave */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)) !important;
   transition: transform 0.25s ease !important;
 }
 
 #btnChispita img:hover,
 .chispita-ia-toggle img:hover,
 .btn-chispita-flotante img:hover {
-  transform: scale(1.1) !important;  /* Efecto al pasar el cursor */
+  transform: scale(1.1) !important;
 }
 
 /* 3. Separación de secciones en el Inicio */
