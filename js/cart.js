@@ -444,3 +444,50 @@ document.addEventListener("click", (e) => {
 document.addEventListener("DOMContentLoaded", () => {
   actualizarVistas();
 });
+(function () {
+  const EXTRA_KEY = "productos-inicio";
+
+  JSON.parse(localStorage.getItem(EXTRA_KEY) || "[]").forEach((p) => {
+    if (!products.some((x) => x.id === p.id)) {
+      products.push({ ...p, image: normalizarImagenProducto(p.img) });
+    }
+  });
+
+  function registrarProducto(boton) {
+    const nombre = boton.dataset.nombre;
+    const precio = parseFloat(boton.dataset.precio);
+    if (!boton.dataset.id || !nombre || Number.isNaN(precio)) return null;
+
+    const id = "inicio-" + boton.dataset.id;
+    if (products.some((p) => p.id === id)) return id;
+
+    const img = boton.dataset.img || "";
+    const nuevo = { id, name: nombre, desc: "", price: precio, img };
+
+    const guardados = JSON.parse(localStorage.getItem(EXTRA_KEY) || "[]");
+    guardados.push(nuevo);
+    localStorage.setItem(EXTRA_KEY, JSON.stringify(guardados));
+
+    products.push({ ...nuevo, image: normalizarImagenProducto(img) });
+    return id;
+  }
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      const boton = event.target.closest(".btn-agregar-carrito");
+      if (!boton || boton.closest("#productos-grid")) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const id = registrarProducto(boton);
+      if (!id) return;
+
+      const antes = cart[id] || 0;
+      addToCart(id);
+      if ((cart[id] || 0) > antes) mostrarConfirmacion(boton);
+    },
+    true,
+  );
+})();
