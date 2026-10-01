@@ -13,6 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.PUT, RequestMethod.DELETE})
 public class ProductoController {
 
     private final ProductosService productosService ;
@@ -46,8 +48,8 @@ public class ProductoController {
     }
 
 //mapeo de busqueda nombre
-@GetMapping("/{nombre}")
-    public ResponseEntity<Productos> findByNombre  (@RequestParam  String nombre){
+@GetMapping("/buscar/{nombre}")
+    public ResponseEntity<Productos> findByNombre  (@PathVariable  String nombre){
     Productos productosByNombre = productosService.busquedaProductos(nombre);
     if (productosByNombre == null){
         return ResponseEntity.notFound().build();

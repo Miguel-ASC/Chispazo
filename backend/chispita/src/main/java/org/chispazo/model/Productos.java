@@ -1,5 +1,6 @@
 package org.chispazo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -27,30 +28,33 @@ public class Productos {
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
-    @Column(name = "imagen_url", length = 255)
+    @Column(name = "imagen_url", columnDefinition = "MEDIUMTEXT")
     private String imagenUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "id_categoria")
+    @Column(name = "datasheet", length = 255)
+    private String datasheet;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_categoria", nullable = false)
     private Categorias categoria;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
-
-
 
     // Constructor vacío (necesario para JPA)
     public Productos() {
     }
 
     // Constructor con parámetros
-    public Productos(Long idProducto, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl) {
+    public Productos(Long idProducto, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, String datasheet) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.imagenUrl = imagenUrl;
+        this.datasheet = datasheet;
     }
 
     // Getters y Setters
@@ -102,6 +106,14 @@ public class Productos {
         this.imagenUrl = imagenUrl;
     }
 
+    public String getDatasheet() {
+        return datasheet;
+    }
+
+    public void setDatasheet(String datasheet) {
+        this.datasheet = datasheet;
+    }
+
     public Categorias getCategoria() {
         return categoria;
     }
@@ -110,14 +122,13 @@ public class Productos {
         this.categoria = categoria;
     }
 
-    public List<DetallesCarritos> getDetalleCarritos() {
+    public List<DetallesCarritos> getDetallesCarritos() {
         return detallesCarritos;
     }
 
-    public void setDetalleCarritos(List<DetallesCarritos> detallesCarritos) {
+    public void setDetallesCarritos(List<DetallesCarritos> detallesCarritos) {
         this.detallesCarritos = detallesCarritos;
     }
-
 
     @Override
     public String toString() {
@@ -128,11 +139,7 @@ public class Productos {
                 ", precio=" + precio +
                 ", stock=" + stock +
                 ", imagenUrl='" + imagenUrl + '\'' +
+                ", datasheet='" + datasheet + '\'' +
                 '}';
     }
-
-
-
-
-
 }

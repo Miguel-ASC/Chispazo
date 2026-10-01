@@ -16,24 +16,34 @@ function normalizarImagenProducto(ruta) {
   const nombreArchivo = ruta.replace(/^.*(?:\/|^)img\//, "");
   return new URL(`../img/${nombreArchivo}`, document.baseURI).href;
 }
+let products = [];
 
-const storedProducts = localStorage.getItem("products");
-const products = storedProducts
-  ? JSON.parse(storedProducts)
-      .items.filter((product) => product.activo)
-      .map((product) => ({
-        id: String(product.id),
-        name: product.name,
-        desc: product.description,
-        price: Number(product.precio),
-        image: normalizarImagenProducto(product.img),
-      }))
-  : [];
-let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || "{}");
-
-function saveCart() {
-  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+async function cargarProductos() {
+  try {
+    const resp = await fetch(`${API_URL}/productos/mostrar`);
+    if (!resp.ok) throw new Error();
+    const data = await resp.json();
+    products = data.map((p) => ({
+      id: String(p.idProducto),
+      name: p.nombre,
+      desc: p.descripcion,
+      price: Number(p.precio),
+      image: normalizarImagenProducto(p.imagenUrl),
+    }));
+  } catch (error) {
+    products = [];
+  }
 }
+
+// Quita del carrito ids viejos que ya no existen en la BD
+function limpiarCarritoInvalido() {
+  if (products.length === 0) return;
+  Object.keys(cart).forEach((id) => {
+    if (!products.some((p) => p.id === id)) delete cart[id];
+  });
+  saveCart();
+}
+
 
 function money(value) {
   return `$${value.toFixed(2)} MXN`;
@@ -258,10 +268,16 @@ function inicializarEventosCatalogo() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   inicializarEventosCarrito();
   inicializarEventosCatalogo();
   actualizarContadorNav();
+
+  // Solo pide productos en las páginas que los necesitan
+  if (document.getElementById("carrito") || document.getElementById("productos-grid")) {
+    await cargarProductos();
+    limpiarCarritoInvalido();
+  }
   renderCart();
 });
 

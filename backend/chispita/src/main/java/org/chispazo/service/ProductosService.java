@@ -42,6 +42,7 @@ public class ProductosService {
                     data.setPrecio(productos.getPrecio());
                     data.setStock(productos.getStock());
                     data.setImagenUrl(productos.getImagenUrl());
+                    data.setDatasheet(productos.getDatasheet());
                     data.setCategoria(productos.getCategoria());
                     return productosRepository.save(data);
                 })

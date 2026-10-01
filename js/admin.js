@@ -1,17 +1,5 @@
-// =========================================================
-// admin.js
-// Lógica del panel administrativo: formulario de alta/edición,
-// validación con alertas de Bootstrap, tabla de productos y
-// baja lógica (activo = false) en lugar de borrado físico.
-//
-// La imagen se sube con <input type="file">, se convierte a
-// base64 (Data URL) con FileReader, y así se guarda en el
-// objeto JSON del producto (y en localStorage).
-// =========================================================
-
 const productsController = new ProductsController();
 
-// Referencias al DOM que vamos a reutilizar
 const form = document.getElementById("product-form");
 const formTitulo = document.getElementById("form-titulo");
 const alertError = document.getElementById("form-alert-error");
@@ -20,8 +8,6 @@ const submitBtn = document.getElementById("submit-btn");
 const cancelEditBtn = document.getElementById("cancel-edit-btn");
 const tableBody = document.getElementById("products-table-body");
 const tablaContador = document.getElementById("tabla-contador");
-const imgInput = document.getElementById("img");
-const currentImgInput = document.getElementById("current-img");
 const imgPreviewWrapper = document.getElementById("img-preview-wrapper");
 const imgPreview = document.getElementById("img-preview");
 const paginationControls = document.getElementById("pagination-controls");
@@ -31,90 +17,69 @@ const fields = {
   name: document.getElementById("name"),
   description: document.getElementById("description"),
   precio: document.getElementById("precio"),
+  stock: document.getElementById("stock"),
   categoria: document.getElementById("categoria"),
-  img: document.getElementById("img"),
+  imagenUrl: document.getElementById("imagen-url"),
   datasheet: document.getElementById("datasheet"),
 };
 
-let currentFilter = "todos"; // todos | activos | eliminados
+let productos = [];
 let currentPage = 1;
 const ITEMS_PER_PAGE = 5;
 
 // =========================================================
-// VALIDACIÓN
+// VALIDACIÓN Y ALERTAS
 // =========================================================
-
-/**
- * Valida los campos del formulario.
- * @returns {string[]} arreglo de mensajes de error (vacío si todo es válido)
- */
 function validateProductForm() {
   const errors = [];
-
-  Object.values(fields).forEach((field) => {
-    if (field) field.classList.remove("is-invalid");
-  });
+  Object.values(fields).forEach((f) => f.classList.remove("is-invalid"));
 
   const name = fields.name.value.trim();
   const description = fields.description.value.trim();
   const precio = fields.precio.value;
-  const categoria = fields.categoria.value;
-  const datasheet = fields.datasheet ? fields.datasheet.value.trim() : "";
-  const isEditing = fields.id.value !== "";
-  const hasNewFile = imgInput.files.length > 0;
-  const hasExistingImg = currentImgInput.value !== "";
+  const stock = fields.stock.value;
+  const datasheet = fields.datasheet.value.trim();
 
   if (name.length < 3) {
     errors.push("El nombre del producto debe tener al menos 3 caracteres.");
     fields.name.classList.add("is-invalid");
   }
-
   if (description.length < 10) {
     errors.push("La descripción debe tener al menos 10 caracteres.");
     fields.description.classList.add("is-invalid");
   }
-
   if (precio === "" || isNaN(precio) || Number(precio) <= 0) {
     errors.push("El precio debe ser un número mayor a 0.");
     fields.precio.classList.add("is-invalid");
   }
-
-  if (categoria === "") {
+  if (stock === "" || !Number.isInteger(Number(stock)) || Number(stock) < 0) {
+    errors.push("El stock debe ser un número entero mayor o igual a 0.");
+    fields.stock.classList.add("is-invalid");
+  }
+  if (fields.categoria.value === "") {
     errors.push("Debes seleccionar una categoría.");
     fields.categoria.classList.add("is-invalid");
   }
-
-  if (!hasNewFile && !(isEditing && hasExistingImg)) {
-    errors.push("Debes seleccionar una imagen para el producto.");
-    fields.img.classList.add("is-invalid");
+  if (fields.imagenUrl.value.trim() === "") {
+    errors.push("Debes indicar la ruta de la imagen.");
+    fields.imagenUrl.classList.add("is-invalid");
   }
-
-  // Validación opcional para la URL del datasheet si el usuario ingresó algo
   if (datasheet !== "" && !/^https?:\/\/.+/i.test(datasheet)) {
     errors.push("La URL del datasheet debe comenzar con http:// o https://");
-    if (fields.datasheet) fields.datasheet.classList.add("is-invalid");
+    fields.datasheet.classList.add("is-invalid");
   }
-
   return errors;
 }
 
-/**
- * Muestra el alert-danger de Bootstrap con la lista de errores
- * @param {string[]} errors
- */
 function showFormErrors(errors) {
   hideAlerts();
   alertError.innerHTML =
-    "<strong>Revisa los siguientes campos:</strong><ul class='mb-0'>" +
+    "<strong>Revisa lo siguiente:</strong><ul class='mb-0'>" +
     errors.map((e) => `<li>${e}</li>`).join("") +
     "</ul>";
   alertError.classList.remove("d-none");
 }
 
-/**
- * Muestra el alert-success de Bootstrap
- * @param {string} message
- */
 function showFormSuccess(message) {
   hideAlerts();
   alertSuccess.textContent = message;
@@ -127,221 +92,162 @@ function hideAlerts() {
   alertSuccess.classList.add("d-none");
 }
 
-/**
- * Convierte un archivo (File) en un Data URL base64
- * @param {File} file
- * @returns {Promise<string>}
- */
-function readFileAsDataURL(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
-  });
+function mensajeError(error) {
+  if (error.status === 409) return "Ya existe un producto con ese nombre.";
+  if (error.status === 404) return "El producto ya no existe en el servidor.";
+  if (error.status) return "El servidor no pudo completar la operación. Revisa que el nombre no esté repetido.";
+  return "No se pudo conectar con el servidor.";
 }
 
 // =========================================================
-// CREAR / EDITAR (mismo formulario)
+// CARGA DE DATOS
 // =========================================================
+async function cargarCategorias() {
+  try {
+    const categorias = await productsController.getCategorias();
+    fields.categoria.innerHTML =
+      '<option value="" selected disabled>Selecciona...</option>' +
+      categorias.map((c) => `<option value="${c.idCategoria}">${c.nombre}</option>`).join("");
+  } catch (error) {
+    showFormErrors(["No se pudieron cargar las categorías."]);
+  }
+}
 
+async function cargarProductos() {
+  try {
+    productos = await productsController.getAll();
+    renderTable();
+  } catch (error) {
+    tablaContador.textContent = "0 productos";
+    tableBody.innerHTML =
+      '<tr><td colspan="6" class="text-center py-4">No se pudo conectar con el servidor.</td></tr>';
+    paginationControls.innerHTML = "";
+  }
+}
+
+// =========================================================
+// CREAR / EDITAR
+// =========================================================
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const errors = validateProductForm();
-
   if (errors.length > 0) {
     showFormErrors(errors);
     return;
   }
 
-  let imgData = currentImgInput.value;
-
-  if (imgInput.files.length > 0) {
-    try {
-      imgData = await readFileAsDataURL(imgInput.files[0]);
-    } catch (error) {
-      showFormErrors(["No se pudo leer el archivo de imagen. Intenta de nuevo."]);
-      return;
-    }
-  }
-
-  // Construimos el objeto JSON incluyendo datasheet
   const productData = {
-    name: fields.name.value.trim(),
-    description: fields.description.value.trim(),
-    precio: Number(fields.precio.value).toFixed(2),
-    categoria: fields.categoria.value,
-    img: imgData,
-    datasheet: fields.datasheet ? fields.datasheet.value.trim() : "",
+    nombre: fields.name.value.trim(),
+    descripcion: fields.description.value.trim(),
+    precio: Number(fields.precio.value),
+    stock: Number(fields.stock.value),
+    imagenUrl: fields.imagenUrl.value.trim(),
+    datasheet: fields.datasheet.value.trim(),
+    categoria: { idCategoria: Number(fields.categoria.value) },
   };
 
   const editingId = fields.id.value;
 
   try {
     if (editingId) {
-      // --- MODO EDICIÓN ---
-      productsController.updateProduct(Number(editingId), productData);
+      await productsController.update(editingId, productData);
       showFormSuccess("Producto actualizado correctamente.");
     } else {
-      // --- MODO CREACIÓN ---
-      const today = new Date().toISOString().split("T")[0];
-      productsController.addProduct(
-        productData.name,
-        productData.description,
-        productData.precio,
-        productData.img,
-        today,
-        productData.categoria,
-        productData.datasheet
-      );
+      await productsController.create(productData);
       showFormSuccess("Producto agregado correctamente.");
     }
+    resetForm();
+    await cargarProductos();
   } catch (error) {
-    showFormErrors([
-      "No se pudo guardar el producto: el almacenamiento local está lleno. Elimina productos o usa imágenes más pequeñas.",
-    ]);
-    return;
+    showFormErrors([mensajeError(error)]);
   }
-
-  resetForm();
-  renderTable();
 });
 
-/**
- * Regresa el formulario a modo "Nuevo producto"
- */
 function resetForm() {
   form.reset();
   fields.id.value = "";
-  currentImgInput.value = "";
-  if (fields.datasheet) fields.datasheet.value = "";
   formTitulo.textContent = "Nuevo Producto";
   submitBtn.textContent = "Guardar Producto";
   cancelEditBtn.classList.add("d-none");
   imgPreviewWrapper.style.display = "none";
-  Object.values(fields).forEach((field) => {
-    if (field) field.classList.remove("is-invalid");
-  });
+  Object.values(fields).forEach((f) => f.classList.remove("is-invalid"));
 }
 
 cancelEditBtn.addEventListener("click", resetForm);
 
-/**
- * Carga los datos de un producto en el formulario para editarlo.
- * @param {number} id
- */
 function loadProductIntoForm(id) {
-  const product = productsController.getProductById(id);
-  if (!product) return;
+  const p = productos.find((x) => x.idProducto === Number(id));
+  if (!p) return;
 
-  fields.id.value = product.id;
-  fields.name.value = product.name;
-  fields.description.value = product.description;
-  fields.precio.value = product.precio;
-  fields.categoria.value = product.categoria || "";
-  if (fields.datasheet) fields.datasheet.value = product.datasheet || "";
-  imgInput.value = "";
-  currentImgInput.value = product.img;
+  fields.id.value = p.idProducto;
+  fields.name.value = p.nombre;
+  fields.description.value = p.descripcion ?? "";
+  fields.precio.value = p.precio;
+  fields.stock.value = p.stock;
+  fields.categoria.value = p.categoria?.idCategoria ?? "";
+  fields.imagenUrl.value = p.imagenUrl ?? "";
+  fields.datasheet.value = p.datasheet ?? "";
 
-  formTitulo.textContent = `Editando: ${product.name}`;
+  formTitulo.textContent = `Editando: ${p.nombre}`;
   submitBtn.textContent = "Actualizar Producto";
   cancelEditBtn.classList.remove("d-none");
-
-  imgPreview.src = product.img;
-  imgPreviewWrapper.style.display = "block";
+  actualizarVistaPrevia();
 
   hideAlerts();
   form.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// Vista previa
-imgInput.addEventListener("change", () => {
-  const file = imgInput.files[0];
-
-  if (!file) {
-    if (currentImgInput.value) {
-      imgPreview.src = currentImgInput.value;
-      imgPreviewWrapper.style.display = "block";
-    } else {
-      imgPreviewWrapper.style.display = "none";
-    }
+function actualizarVistaPrevia() {
+  const ruta = fields.imagenUrl.value.trim();
+  if (!ruta) {
+    imgPreviewWrapper.style.display = "none";
     return;
   }
+  imgPreview.src = normalizarImagenProducto(ruta);
+  imgPreviewWrapper.style.display = "block";
+}
 
-  readFileAsDataURL(file).then((dataUrl) => {
-    imgPreview.src = dataUrl;
-    imgPreviewWrapper.style.display = "block";
-  });
-});
+fields.imagenUrl.addEventListener("input", actualizarVistaPrevia);
 
 // =========================================================
-// TABLA: listar, eliminar (baja lógica), reactivar
+// TABLA
 // =========================================================
-
 function renderTable() {
-  let items = productsController.items;
+  tablaContador.textContent = `${productos.length} producto${productos.length === 1 ? "" : "s"}`;
 
-  if (currentFilter === "activos") {
-    items = items.filter((p) => p.activo);
-  } else if (currentFilter === "eliminados") {
-    items = items.filter((p) => !p.activo);
-  }
-
-  tablaContador.textContent = `${items.length} producto${items.length === 1 ? "" : "s"}`;
-
-  if (items.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4">No hay productos en este filtro.</td></tr>`;
+  if (productos.length === 0) {
+    tableBody.innerHTML = '<tr><td colspan="6" class="text-center py-4">No hay productos registrados.</td></tr>';
     paginationControls.innerHTML = "";
     return;
   }
 
-  const totalPages = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
-
-  if (currentPage > totalPages) {
-    currentPage = totalPages;
-  }
+  const totalPages = Math.max(1, Math.ceil(productos.length / ITEMS_PER_PAGE));
+  if (currentPage > totalPages) currentPage = totalPages;
 
   const start = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = items.slice(start, start + ITEMS_PER_PAGE);
+  const pageItems = productos.slice(start, start + ITEMS_PER_PAGE);
 
   tableBody.innerHTML = pageItems
-    .map((product) => {
-      const estadoBadge = product.activo
-        ? '<span class="badge bg-success">Activo</span>'
-        : '<span class="badge bg-secondary">Eliminado</span>';
-
-      const accionEliminarLabel = product.activo ? "Eliminar" : "Reactivar";
-      const accionEliminarClase = product.activo ? "btn-outline-danger" : "btn-outline-success";
-      const accionEliminarIcono = product.activo ? "bi-trash" : "bi-arrow-counterclockwise";
-
-      return `
-        <tr>
-          <td><img src="${product.img}" alt="${product.name}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;"></td>
-          <td>${product.name}</td>
-          <td>${product.categoria || "—"}</td>
-          <td>$${product.precio} MXN</td>
-          <td>${estadoBadge}</td>
-          <td class="text-end">
-            <div class="btn-group btn-group-sm">
-              <button class="btn btn-outline-light" data-action="edit" data-id="${product.id}" aria-label="Editar">
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button class="btn ${accionEliminarClase}" data-action="toggle" data-id="${product.id}" aria-label="${accionEliminarLabel}">
-                <i class="bi ${accionEliminarIcono}"></i>
-              </button>
-              ${
-                !product.activo
-                  ? `<button class="btn btn-dark border border-danger text-danger" data-action="delete-permanent" data-id="${product.id}" aria-label="Eliminar definitivamente" title="Eliminar definitivamente (no se puede deshacer)">
-                      <i class="bi bi-exclamation-octagon-fill"></i>
-                    </button>`
-                  : ""
-              }
-            </div>
-          </td>
-        </tr>
-      `;
-    })
+    .map((p) => `
+      <tr>
+        <td><img src="${normalizarImagenProducto(p.imagenUrl)}" alt="${p.nombre}"
+                 style="width:48px;height:48px;object-fit:cover;border-radius:6px;"></td>
+        <td>${p.nombre}</td>
+        <td>${p.categoria?.nombre || "—"}</td>
+        <td>$${Number(p.precio).toFixed(2)} MXN</td>
+        <td>${p.stock}</td>
+        <td class="text-end">
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-outline-light" data-action="edit" data-id="${p.idProducto}" aria-label="Editar">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-outline-danger" data-action="delete" data-id="${p.idProducto}" aria-label="Eliminar">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>`)
     .join("");
 
   renderPagination(totalPages);
@@ -353,27 +259,22 @@ function renderPagination(totalPages) {
     return;
   }
 
-  let html = "";
-
-  html += `
+  let html = `
     <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
       <button class="page-link" data-page="${currentPage - 1}" aria-label="Anterior">&laquo;</button>
-    </li>
-  `;
+    </li>`;
 
   for (let page = 1; page <= totalPages; page++) {
     html += `
       <li class="page-item ${page === currentPage ? "active" : ""}">
         <button class="page-link" data-page="${page}">${page}</button>
-      </li>
-    `;
+      </li>`;
   }
 
   html += `
     <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
       <button class="page-link" data-page="${currentPage + 1}" aria-label="Siguiente">&raquo;</button>
-    </li>
-  `;
+    </li>`;
 
   paginationControls.innerHTML = html;
 }
@@ -381,65 +282,37 @@ function renderPagination(totalPages) {
 paginationControls.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-page]");
   if (!button) return;
-
   const page = Number(button.dataset.page);
   if (page < 1) return;
-
   currentPage = page;
   renderTable();
 });
 
-tableBody.addEventListener("click", (event) => {
+tableBody.addEventListener("click", async (event) => {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
 
   const id = Number(button.dataset.id);
-  const action = button.dataset.action;
 
-  if (action === "edit") {
+  if (button.dataset.action === "edit") {
     loadProductIntoForm(id);
   }
 
-  if (action === "toggle") {
-    const product = productsController.getProductById(id);
-    if (!product) return;
+  if (button.dataset.action === "delete") {
+    const p = productos.find((x) => x.idProducto === id);
+    if (!p || !confirm(`¿Eliminar "${p.nombre}"? Esta acción no se puede deshacer.`)) return;
 
-    if (product.activo) {
-      productsController.deactivateProduct(id);
-      showFormSuccess(`"${product.name}" fue eliminado (baja lógica).`);
-    } else {
-      productsController.activateProduct(id);
-      showFormSuccess(`"${product.name}" fue reactivado.`);
+    try {
+      await productsController.remove(id);
+      showFormSuccess(`"${p.nombre}" fue eliminado.`);
+      await cargarProductos();
+    } catch (error) {
+      showFormErrors([mensajeError(error)]);
     }
-
-    renderTable();
   }
-
-  if (action === "delete-permanent") {
-    const product = productsController.getProductById(id);
-    if (!product) return;
-
-    const confirmado = window.confirm(
-      `¿Seguro que quieres eliminar "${product.name}" de forma PERMANENTE? Esta acción no se puede deshacer.`
-    );
-    if (!confirmado) return;
-
-    productsController.removeProduct(id);
-    showFormSuccess(`"${product.name}" fue eliminado permanentemente.`);
-    renderTable();
-  }
-});
-
-document.querySelectorAll("[data-filter]").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll("[data-filter]").forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentFilter = btn.dataset.filter;
-    currentPage = 1;
-    renderTable();
-  });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderTable();
+  cargarCategorias();
+  cargarProductos();
 });

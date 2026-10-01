@@ -1,5 +1,6 @@
 package org.chispazo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Categorias {
     private String descripcion;
 
     // Relación con productos (una categoría tiene muchos productos)
+    @JsonIgnore
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Productos> productos = new ArrayList<>();
 
