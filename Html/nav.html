@@ -1,95 +1,132 @@
-<nav>
-    <div class="navegacion">
-      <div class="navegacion__logo">
-        <a class="logo" href="/index.html">
-          <img class="logo__imagen" src="/img/logo.png" alt="Logo Chispazo" />
-        </a>
-      </div>
-  <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
-  <label for="menu-toggle" class="navegacion__botondesplegable" aria-label="Abrir menú">
-    &#9776;
-  </label>
+<nav class="site-nav" aria-label="Navegación principal">
+  <div class="navegacion">
+    <a class="navegacion__logo" href="/index.html" aria-label="Ir al inicio de Chispazo">
+      <img class="logo__imagen" src="/img/logo.png" alt="" />
+    </a>
 
-  <!-- Envoltorio de enlaces para ocultar/mostrar juntos -->
-  <div class="navegacion__contenido">
-    <div class="navegacion__pestañas">
-      <a class="navegacion__etiqueta" href="/index.html">Inicio</a>
+    <button
+      id="menu-toggle"
+      class="navegacion__botondesplegable"
+      type="button"
+      aria-controls="menu-principal"
+      aria-expanded="false"
+    >
+      <span class="visually-hidden">Abrir menú</span>
+      <span class="navegacion__hamburguesa" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </span>
+    </button>
 
-      <!-- CONTENEDOR PRINCIPAL DEL MENÚ DESPLEGABLE -->
-      <div class="dropdown-menu-container">
-        <a href="/Html/productos.html" class="navegacion__etiqueta">Productos ▾</a>
+    <div id="menu-principal" class="navegacion__contenido">
+      <div class="navegacion__pestañas">
+        <a class="navegacion__etiqueta" href="/index.html">Inicio</a>
 
-        <!-- SUBMENÚ DE ANCHO COMPLETO -->
-        <div class="mega-submenu">
-          <div class="mega-submenu-inner">
-            <div class="submenu-columnas">
+        <div class="dropdown-menu-container">
+          <div class="navegacion__producto-trigger">
+            <a href="/Html/productos.html" class="navegacion__etiqueta">Productos</a>
+            <button
+              class="mega-submenu-toggle"
+              type="button"
+              aria-controls="productos-submenu"
+              aria-expanded="false"
+              aria-label="Mostrar categorías de productos"
+            ></button>
+          </div>
 
-              <div class="submenu-col">
-                <h6 class="submenu-titulo">Pasivos y Semiconductores</h6>
-                <ul class="submenu-lista">
-                  <li><a href="/Html/productos.html?categoria=Resistencias">Resistencias</a></li>
-                  <li><a href="/Html/productos.html?categoria=Capacitores">Capacitores</a></li>
-                  <li><a href="/Html/productos.html?categoria=Semiconductores">Semiconductores</a></li>
-                  <li><a href="/Html/productos.html?categoria=Bobinas%20e%20inductores">Bobinas e Inductores</a></li>
-                  <li><a href="/Html/productos.html?categoria=Conectores%20e%20cables">Conectores y cables</a></li>
-                </ul>
+          <div id="productos-submenu" class="mega-submenu">
+            <div class="mega-submenu-inner">
+              <a class="submenu-ver-todos" href="/Html/productos.html">
+                Ver todos los productos
+                <span aria-hidden="true">→</span>
+              </a>
+
+              <div class="submenu-columnas">
+                <div class="submenu-col">
+                  <h2 class="submenu-titulo">Pasivos y semiconductores</h2>
+                  <ul class="submenu-lista">
+                    <li><a href="/Html/productos.html?categoria=Resistencias">Resistencias</a></li>
+                    <li><a href="/Html/productos.html?categoria=Capacitores">Capacitores</a></li>
+                    <li><a href="/Html/productos.html?categoria=Semiconductores">Semiconductores</a></li>
+                    <li><a href="/Html/productos.html?categoria=Bobinas%20e%20inductores">Bobinas e inductores</a></li>
+                    <li><a href="/Html/productos.html?categoria=Conectores%20e%20cables">Conectores y cables</a></li>
+                  </ul>
+                </div>
+
+                <div class="submenu-col">
+                  <h2 class="submenu-titulo">Módulos y control</h2>
+                  <ul class="submenu-lista">
+                    <li><a href="/Html/productos.html?categoria=Módulos%20y%20placas">Módulos y placas</a></li>
+                    <li><a href="/Html/productos.html?categoria=Sensores">Sensores</a></li>
+                    <li><a href="/Html/productos.html?categoria=Actuadores">Actuadores</a></li>
+                    <li><a href="/Html/productos.html?categoria=Alimentación">Alimentación</a></li>
+                    <li><a href="/Html/productos.html?categoria=Interfaz%20y%20entrada">Interfaz y entrada</a></li>
+                  </ul>
+                </div>
+
+                <div class="submenu-col">
+                  <h2 class="submenu-titulo">Conectividad y redes</h2>
+                  <ul class="submenu-lista">
+                    <li><a href="/Html/productos.html?categoria=Conectores%20y%20cables">Conectores y cables</a></li>
+                  </ul>
+                </div>
+
+                <div class="submenu-col">
+                  <h2 class="submenu-titulo">Herramientas</h2>
+                  <ul class="submenu-lista">
+                    <li><a href="/Html/calculadora.html">Calculadora de resistencias</a></li>
+                  </ul>
+                </div>
               </div>
-
-              <div class="submenu-col">
-                <h6 class="submenu-titulo">Módulos y Control</h6>
-                <ul class="submenu-lista">
-                  <li><a href="/Html/productos.html?categoria=Módulos%20y%20placas">Módulos y Placas</a></li>
-                  <li><a href="/Html/productos.html?categoria=Sensores">Sensores</a></li>
-                  <li><a href="/Html/productos.html?categoria=Actuadores">Actuadores</a></li>
-                  <li><a href="/Html/productos.html?categoria=Alimentación">Alimentación</a></li>
-                  <li><a href="/Html/productos.html?categoria=Interfaz%20y%20entrada">Interfaz y entrada</a></li>
-                </ul>
-              </div>
-
-              <div class="submenu-col">
-                <h6 class="submenu-titulo">Conectividad y Redes</h6>
-                <ul class="submenu-lista">
-                  <li><a href="/Html/productos.html?categoria=Conectores%20y%20cables">Conectores y Cables</a></li>
-                </ul>
-              </div>
-
-              <div class="submenu-col">
-                <h6 class="submenu-titulo">Kits</h6>
-                <ul class="submenu-lista">
-                  <li><a href="/Html/productos.html?categoria=Kits%20para%20principiantes">Kits para principiantes</a></li>
-                  <li><a href="/Html/productos.html?categoria=Kits%20de%20manos%20robóticas">Kits de manos robóticas</a></li>
-                </ul>
-              </div>
-
-              <div class="submenu-col">
-                <h6 class="submenu-titulo">Herramientas</h6>
-                <ul class="submenu-lista">
-                  <li><a href="/Html/calculadora.html">Calculadora de resistencias</a></li>
-                </ul>
-              </div>
-
             </div>
           </div>
         </div>
+
+        <a class="navegacion__etiqueta" href="/Html/about_us.html">Nosotros</a>
+        <a class="navegacion__etiqueta" href="/Html/contacto.html">Contacto</a>
       </div>
 
-      <a class="navegacion__etiqueta" href="/Html/about_us.html">Nosotros</a>
-      <a class="navegacion__etiqueta" href="/Html/contacto.html">Contacto</a>
-    </div>
+      <div class="navegacion__busqueda">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <input
+          id="buscador-productos"
+          type="search"
+          placeholder="Buscar productos"
+          aria-label="Buscar productos"
+          autocomplete="off"
+        />
+        <button id="btn-buscar-productos" type="button" aria-label="Ejecutar búsqueda">
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
 
-    <div class="navegacion__busqueda">
-      <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos">
-      <button type="submit">
-        🔍
-      </button>
-    </div>
+      <div class="navegacion__usuarios">
+        <a id="admin-nav-link" class="navegacion__admin" href="/Html/admin.html" hidden>
+          <i class="bi bi-grid" aria-hidden="true"></i>
+          <span>Panel admin</span>
+        </a>
 
-    <div class="navegacion__usuarios">
-      <a id="icono-login" href="perfil.html" class="navegacion__login-link">
-        <img src="/img/perfil.png" alt="usuario" class="navegacion__imagen" />
-      </a>
-      <a href="/Html/cart.html"><img src="/img/carrito.png" alt="carrito" class="navegacion__imagen" /><span id="cartCount"
-          class="cart-count" hidden>0</span></a>
+        <div class="user-dropdown-container">
+          <a
+            id="icono-login"
+            href="/Html/perfil.html"
+            class="navegacion__icono-link navegacion__login-link"
+            aria-label="Abrir perfil"
+            title="Perfil"
+          >
+            <img src="/img/perfil.png" alt="" class="navegacion__imagen" />
+          </a>
+        </div>
+
+        <a
+          class="navegacion__icono-link navegacion__carrito"
+          href="/Html/cart.html"
+          aria-label="Abrir carrito"
+          title="Carrito"
+        >
+          <img src="/img/carrito.png" alt="" class="navegacion__imagen" />
+          <span id="cartCount" class="cart-count" hidden>0</span>
+        </a>
+      </div>
     </div>
   </div>
 </nav>

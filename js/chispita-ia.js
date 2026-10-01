@@ -5,70 +5,51 @@
    sitio desde http://localhost:3000 (no el .html directo).
 
    Uso: agrega antes de </body>, DESPUÉS de tus otros scripts:
-        <script src="js/chispita-ia.js"></script>
+        <script src="chispita-ia.js"></script>
    ============================================================ */
 
 (function () {
   const ENDPOINT = "/api/chispita";
-
-  /* Imagen de la mascota (solo la mascota, sin círculo) */
-  const IMG_MASCOTA = "img/IACHISP.png";
-
-  /* Frase del globo de diálogo junto a la mascota */
+  const imagenChispita = new URL("../img/IACHISP.png", document.currentScript.src).href;
   const FRASES_DIALOGO = ["¡Hola, soy Chispita!"];
-  const DIALOGO_PRIMERA_VEZ_MS = 1500; // cuánto tarda en aparecer
-  const DIALOGO_VISIBLE_MS = 0;        // 0 = se queda visible; pon 7000 para que se esconda a los 7 s
-  const DIALOGO_REPETIR_MS = 30000;    // solo si DIALOGO_VISIBLE_MS > 0: cada cuánto vuelve a salir
+  const DIALOGO_PRIMERA_VEZ_MS = 1500;
 
   let historial = [];
   let esperandoRespuesta = false;
 
   const estilos = document.createElement("style");
   estilos.textContent = `
-    /* --- Mascota flotante (sin círculo) --- */
     .chispita-burbuja {
-      position: fixed; bottom: 24px; left: 24px; width: 96px; height: 96px;
+      position: fixed; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); left: auto; width: 88px; height: 88px;
       display: flex; align-items: center; justify-content: center; cursor: pointer;
       z-index: 9999; transition: transform 0.2s ease;
     }
     .chispita-burbuja:hover { transform: scale(1.08) translateY(-3px); }
-    .chispita-burbuja img {
-      width: 100%; height: 100%; object-fit: contain;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5));
-      animation: chispitaFlotar 3.2s ease-in-out infinite;
-    }
+    .chispita-burbuja img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5)); animation: chispitaFlotar 3.2s ease-in-out infinite; }
     @keyframes chispitaFlotar {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
     }
-
-    /* --- Globo de diálogo junto a la mascota --- */
     .chispita-dialogo {
-      position: absolute; left: 104px; bottom: 38px; width: max-content; max-width: 210px;
+      position: absolute; right: 94px; bottom: 30px; left: auto; width: max-content; max-width: min(210px, calc(100vw - 130px));
       padding: 10px 14px; border-radius: 14px 14px 14px 4px;
       background: rgba(13, 24, 19, 0.94); color: #ffffff;
       border: 1px solid rgba(255, 193, 7, 0.55);
       box-shadow: 0 8px 22px rgba(0,0,0,0.45);
-      font-family: "Quicksand", sans-serif; font-size: 14px; font-weight: 600; line-height: 1.35;
-      opacity: 0; visibility: hidden; transform: translateX(-8px) scale(0.96);
-      transform-origin: left bottom; pointer-events: none;
+      font: 600 14px/1.35 "Quicksand", sans-serif;
+      opacity: 0; visibility: hidden; transform: translateX(8px) scale(0.96);
+      transform-origin: right bottom; pointer-events: none;
       transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     }
-    .chispita-dialogo.visible {
-      opacity: 1; visibility: visible; transform: translateX(0) scale(1); pointer-events: auto;
-    }
-    /* Colita del globo apuntando a la mascota */
+    .chispita-dialogo.visible { opacity: 1; visibility: visible; transform: translateX(0) scale(1); pointer-events: auto; }
     .chispita-dialogo::before {
-      content: ""; position: absolute; left: -7px; bottom: 10px;
-      width: 12px; height: 12px; transform: rotate(45deg);
-      background: rgba(13, 24, 19, 0.94);
-      border-left: 1px solid rgba(255, 193, 7, 0.55);
-      border-bottom: 1px solid rgba(255, 193, 7, 0.55);
+      content: ""; position: absolute; right: -7px; bottom: 10px; left: auto; width: 12px; height: 12px;
+      transform: rotate(45deg); background: rgba(13, 24, 19, 0.94);
+      border-top: 1px solid rgba(255, 193, 7, 0.55); border-right: 1px solid rgba(255, 193, 7, 0.55);
     }
 
-    /* --- Ventana del chat --- */
     .chispita-ventana {
-      position: fixed; bottom: 132px; left: 24px; width: 320px;
+      position: fixed; right: max(24px, env(safe-area-inset-right)); bottom: 124px; left: auto; width: 320px;
       max-width: calc(100vw - 32px); height: 420px; max-height: 70vh;
       background-color: #0d1117; border: 1px solid #2f6b45; border-radius: 16px;
       display: none; flex-direction: column; overflow: hidden;
@@ -80,7 +61,7 @@
       background-color: #14532d; color: #ffffff; padding: 12px 14px;
       display: flex; align-items: center; gap: 10px;
     }
-    .chispita-header img { width: 34px; height: 34px; object-fit: contain; }
+    .chispita-header img { width: 30px; height: 30px; border-radius: 50%; object-fit: contain; background: #fff; }
     .chispita-header strong { font-size: 0.95rem; }
     .chispita-header span { font-size: 0.7rem; color: #b7c9bd; display:block; }
     .chispita-cerrar { margin-left: auto; background: none; border: none; color: #ffffff; font-size: 1.1rem; cursor: pointer; line-height: 1; }
@@ -110,14 +91,11 @@
     }
     .chispita-form button:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    @media (max-width: 480px) {
-      .chispita-ventana { right: 12px; left: 12px; width: auto; bottom: 112px; }
-      .chispita-burbuja { left: 16px; bottom: 16px; width: 80px; height: 80px; }
-      .chispita-dialogo { left: 88px; bottom: 30px; max-width: 170px; font-size: 13px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .chispita-burbuja img { animation: none; }
+    @media (max-width: 576px) {
+      .chispita-ventana { right: 12px; bottom: 100px; left: 12px; width: auto; max-width: none; }
+      .chispita-burbuja { right: 12px; bottom: 12px; left: auto; width: 72px; height: 72px; }
+      .chispita-dialogo { right: 76px; bottom: 24px; left: auto; max-width: min(180px, calc(100vw - 108px)); font-size: 13px; }
+      .chispita-burbuja:hover { transform: none; }
     }
   `;
   document.head.appendChild(estilos);
@@ -125,17 +103,15 @@
   const burbuja = document.createElement("div");
   burbuja.className = "chispita-burbuja";
   burbuja.setAttribute("role", "button");
+  burbuja.setAttribute("tabindex", "0");
   burbuja.setAttribute("aria-label", "Abrir chat de ayuda Chispita");
-  burbuja.innerHTML = `
-    <img src="${IMG_MASCOTA}" alt="Chispita">
-    <div class="chispita-dialogo" id="chispita-dialogo" aria-hidden="true"></div>
-  `;
+  burbuja.innerHTML = `<img src="${imagenChispita}" alt="Chispita"><div class="chispita-dialogo" id="chispita-dialogo" aria-hidden="true"></div>`;
 
   const ventana = document.createElement("div");
   ventana.className = "chispita-ventana";
   ventana.innerHTML = `
     <div class="chispita-header">
-      <img src="${IMG_MASCOTA}" alt="Chispita">
+      <img src="${imagenChispita}" alt="Chispita">
       <div>
         <strong>Chispita</strong>
         <span>Asistente con IA de Chispazo</span>
@@ -159,40 +135,23 @@
   const cerrarBtn = ventana.querySelector(".chispita-cerrar");
   const dialogoEl = burbuja.querySelector("#chispita-dialogo");
 
-  /* ---------- Globo de diálogo de la mascota ---------- */
   let indiceFrase = 0;
-  let timerOcultar = null;
-  let timerRepetir = null;
-
-  function ocultarDialogo() {
-    dialogoEl.classList.remove("visible");
-    clearTimeout(timerOcultar);
-  }
+  let timerDialogo;
 
   function mostrarDialogo() {
-   
-
     dialogoEl.textContent = FRASES_DIALOGO[indiceFrase];
     indiceFrase = (indiceFrase + 1) % FRASES_DIALOGO.length;
     dialogoEl.classList.add("visible");
-
-    clearTimeout(timerOcultar);
-    if (DIALOGO_VISIBLE_MS > 0) {
-      timerOcultar = setTimeout(ocultarDialogo, DIALOGO_VISIBLE_MS);
-    }
+    clearTimeout(timerDialogo);
   }
 
-  function programarDialogo(espera) {
-    clearTimeout(timerRepetir);
-    timerRepetir = setTimeout(() => {
-      mostrarDialogo();
-      if (DIALOGO_VISIBLE_MS > 0) programarDialogo(DIALOGO_REPETIR_MS);
-    }, espera);
+  function ocultarDialogo() {
+    dialogoEl.classList.remove("visible");
+    clearTimeout(timerDialogo);
   }
 
-  
+  timerDialogo = setTimeout(mostrarDialogo, DIALOGO_PRIMERA_VEZ_MS);
 
-  /* ---------- Chat ---------- */
   function agregarMensaje(texto, tipo) {
     const msg = document.createElement("div");
     msg.className = `chispita-msg ${tipo}`;
@@ -204,18 +163,24 @@
 
   let saludoMostrado = false;
 
-    // Clic en la mascota (o en su globo): abre/cierra el chat
   burbuja.addEventListener("click", () => {
     ventana.classList.toggle("abierta");
+    if (ventana.classList.contains("abierta") && !saludoMostrado) {
+      agregarMensaje("¡Hola! ⚡ Soy Chispita, con IA de verdad. Pregúntame lo que quieras sobre Chispazo.", "bot");
+      saludoMostrado = true;
+    }
     if (ventana.classList.contains("abierta")) {
-      mostrarDialogo(); // el globo solo sale al hacer clic
-      if (!saludoMostrado) {
-        agregarMensaje("¡Hola! Soy Chispita, con IA de verdad. Pregúntame lo que quieras sobre Chispazo.", "bot");
-        saludoMostrado = true;
-      }
+      mostrarDialogo();
       inputEl.focus();
     } else {
       ocultarDialogo();
+    }
+  });
+
+  burbuja.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      burbuja.click();
     }
   });
 
