@@ -287,7 +287,7 @@ window.addEventListener("chispazo:component-loaded", (event) => {
 // --- MOSTRAR NOTIFICACIÓN TIPO TOAST AL AGREGAR UN PRODUCTO ---
 function mostrarNotificacionToast(mensaje) {
   let toastContainer = document.getElementById("toast-container-carrito");
-  
+
   if (!toastContainer) {
     toastContainer = document.createElement("div");
     toastContainer.id = "toast-container-carrito";
@@ -329,9 +329,15 @@ function actualizarContadorNavbar() {
 // --- RENDERIZAR TABLA PRINCIPAL (Html/cart.html) ---
 function renderizarPaginaCarrito() {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  const tablaContenedor = document.querySelector("table tbody") || document.querySelector("#contenedor-carrito-pagina");
-  const subtotalTextos = document.querySelectorAll(".resumen-subtotal, #subtotal-carrito");
-  const totalTextos = document.querySelectorAll(".resumen-total, #total-carrito");
+  const tablaContenedor =
+    document.querySelector("table tbody") ||
+    document.querySelector("#contenedor-carrito-pagina");
+  const subtotalTextos = document.querySelectorAll(
+    ".resumen-subtotal, #subtotal-carrito",
+  );
+  const totalTextos = document.querySelectorAll(
+    ".resumen-total, #total-carrito",
+  );
 
   if (!tablaContenedor) return;
 
@@ -342,21 +348,22 @@ function renderizarPaginaCarrito() {
           <h4>Tu carrito está vacío.</h4>
         </td>
       </tr>`;
-    
-    subtotalTextos.forEach(el => el.textContent = "$0.00 MXN");
-    totalTextos.forEach(el => el.textContent = "$0.00 MXN");
+
+    subtotalTextos.forEach((el) => (el.textContent = "$0.00 MXN"));
+    totalTextos.forEach((el) => (el.textContent = "$0.00 MXN"));
     return;
   }
 
   let total = 0;
-  tablaContenedor.innerHTML = carrito.map((item) => {
-    const subtotal = item.precio * item.cantidad;
-    total += subtotal;
+  tablaContenedor.innerHTML = carrito
+    .map((item) => {
+      const subtotal = item.precio * item.cantidad;
+      total += subtotal;
 
-    const esSubcarpeta = window.location.pathname.includes("/Html/");
-    const rutaImg = esSubcarpeta ? `../${item.img}` : item.img;
+      const esSubcarpeta = window.location.pathname.includes("/Html/");
+      const rutaImg = esSubcarpeta ? `../${item.img}` : item.img;
 
-    return `
+      return `
       <tr class="align-middle text-white border-bottom border-secondary">
         <td class="py-3">
           <div class="d-flex align-items-center gap-3">
@@ -380,10 +387,11 @@ function renderizarPaginaCarrito() {
         </td>
       </tr>
     `;
-  }).join("");
+    })
+    .join("");
 
-  subtotalTextos.forEach(el => el.textContent = `$${total.toFixed(2)} MXN`);
-  totalTextos.forEach(el => el.textContent = `$${total.toFixed(2)} MXN`);
+  subtotalTextos.forEach((el) => (el.textContent = `$${total.toFixed(2)} MXN`));
+  totalTextos.forEach((el) => (el.textContent = `$${total.toFixed(2)} MXN`));
 }
 
 function actualizarVistas() {
@@ -395,8 +403,15 @@ function actualizarVistas() {
 document.addEventListener("click", (e) => {
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+  // CORRECCIÓN: Si el botón pertenece al formulario de contacto, salimos inmediatamente para no interferir
+  if (e.target.closest("#contactForm")) {
+    return;
+  }
+
   // Agregar al carrito (Botones principales o amarillos)
-  const btnAgregar = e.target.closest(".btn-agregar-carrito") || e.target.closest("button.btn-warning");
+  const btnAgregar =
+    e.target.closest(".btn-agregar-carrito") ||
+    e.target.closest("button.btn-warning");
   if (btnAgregar && !e.target.closest("#lista-carrito-offcanvas")) {
     e.preventDefault();
     const id = btnAgregar.getAttribute("data-id") || "1";
