@@ -9,7 +9,9 @@
    ============================================================ */
 
 (function () {
-  const ENDPOINT = "http://localhost:3000/api/chispita";
+  const ENDPOINT = ["localhost", "127.0.0.1"].includes(location.hostname)
+  ? "http://localhost:3000/api/chispita"
+  : "https://chispita-backend.onrender.com/api/chispita";
   const imagenChispita = new URL("../img/IACHISP.png", document.currentScript.src).href;
   const FRASES_DIALOGO = ["¡Hola, soy Chispita!"];
   const DIALOGO_PRIMERA_VEZ_MS = 1500;
