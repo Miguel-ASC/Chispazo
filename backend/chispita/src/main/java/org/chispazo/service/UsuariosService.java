@@ -17,33 +17,34 @@ public class UsuariosService {
     public UsuariosService(UsuariosRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-    //Mostrar usuario para pruebas
+
+    // Mostrar usuario para pruebas
     public List<Usuarios> mostrarUsuario() {
         return usuarioRepository.findAll();
 
     }
 
     // Crear usuario
-    public Usuarios crearUsuario(Usuarios nuevoUsuario){
+    public Usuarios crearUsuario(Usuarios nuevoUsuario) {
         return usuarioRepository.save(nuevoUsuario);
     }
 
-    //Buscar por email
-    public Usuarios buscarEmail(String email){
+    // Buscar por email
+    public Usuarios buscarEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
-    //Buscar por id
-    public Usuarios buscarUsuario(Long id){
+
+    // Buscar por id
+    public Usuarios buscarUsuario(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNotFoundException(id));
     }
 
-    //Actualizar usuario
+    // Actualizar usuario
 
-
-    public Usuarios actualizarUsuario(Usuarios usuarios, Long id){
+    public Usuarios actualizarUsuario(Usuarios usuarios, Long id) {
         return usuarioRepository.findById(id)
-                .map(data ->{
+                .map(data -> {
                     data.setNombre(usuarios.getNombre());
                     data.setApellidos(usuarios.getApellidos());
                     data.setEmail(usuarios.getEmail());
@@ -52,6 +53,16 @@ public class UsuariosService {
                     return usuarioRepository.save(data);
                 })
                 .orElseThrow(() -> new UsuarioNotFoundException(id));
+    }
+
+    // Validar
+    public Usuarios validar(String email, String password) {
+        Usuarios u = usuarioRepository.findByEmail(email);
+
+        if (u == null || !u.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Email o password incorrectos");
+        }
+        return u;
     }
 
 }

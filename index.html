@@ -8,10 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20261001-2" />
   <link rel="icon" href="img/favicon.png" type="image/png">
   <title>Inicio - Chispazo</title>
 </head>
@@ -20,9 +21,6 @@
 
   <!--************************************Nav bar*********************************************** -->
   <div id="nav-container"></div>
-
-    <main class="bg-black text-white">
-
 
     <main class="bg-black text-white">
 
@@ -69,7 +67,7 @@
             Explora nuestro catálogo completo y encuentra las piezas que
             te faltan.
           </p>
-          <a href="productos.html" class="btn btn-outline-warning">Explorar Catálogo</a>
+          <a href="Html/productos.html" class="btn btn-outline-warning">Explorar Catálogo</a>
         </div>
       </div>
     </div>
@@ -105,42 +103,42 @@
 
        
       
-    <section class="py-5 seccion-beneficios">
+    <section class="py-5 seccion-beneficios inicio-bloque inicio-beneficios">
       <div class="container">
-        <div class="text-center mb-5">
-          <h2 class="fw-bold text-uppercase tracking-wide titulo-destacado">
+        <div class="text-center mb-5 inicio-encabezado">
+          <h2 class="fw-bold titulo-destacado">
             ¿Por qué elegir Chispazo?
           </h2>
-          <p class="text-white-50 ">
+          <p class="inicio-subtitulo">
             Impulsamos tus proyectos electrónicos desde la primera chispa.
           </p>
         </div>
-        <div class="row g-4 text-center">
-          <div class="col-md-4">
+        <div class="row g-4 text-center beneficios-grid">
+          <div class="col-12 col-md-4">
             <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
               <img src="img/CHISP1.png" alt="Mascota Chispita entregando un paquete" class="mascota-beneficio">
               <h3 class="fw-bold text-white mb-2">Envíos Rápidos</h3>
-              <p class="text-white-50 small mb-0 textos-card">
+              <p class="mb-0 textos-card">
                 Recibe tus componentes y kits STEM directo a la puerta de tu
                 hogar o escuela.
               </p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
               <img src="img/CHISP2.png" alt="Mascota Chispita con un escudo de calidad" class="mascota-beneficio">
               <h3 class="fw-bold text-white mb-2">Calidad Garantizada</h3>
-              <p class="text-white-50 small mb-0 textos-card">
+              <p class="mb-0 textos-card">
                 Todos nuestros sensores y microcontroladores están probados
                 para asegurar su funcionamiento.
               </p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <div class="p-4 rounded-4 h-100 tarjeta-beneficio">
               <img src="img/CHISP3.png" alt="Mascota Chispita con audífonos y un clipboard" class="mascota-beneficio">
               <h3 class="fw-bold text-white mb-2">Soporte Maker</h3>
-              <p class="text-white-50 small mb-0 textos-card">
+              <p class="mb-0 textos-card">
                 Te acompañamos con documentación clara para que no te atores
                 en tus tareas o prototipos, con absoluta confianza.
               </p>
@@ -150,20 +148,18 @@
       </div>
     </section>
 <!-- Sección 1.5: Productos Destacados -->
-<section class="py-5">
+<section class="py-5 inicio-bloque inicio-destacados">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-end mb-5 flex-wrap gap-3">
-      <div>
-        <h2 class="titulo-seccion-inicio mb-1">Productos destacados</h2>
-        <p class="subtitulo-seccion-inicio mb-0">Los más populares entre nuestra comunidad maker.</p>
-      </div>
-      <a href="Html/productos.html" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+    <div class="inicio-encabezado text-center mb-5">
+      <h2 class="titulo-seccion-inicio mb-1">Productos destacados</h2>
+      <p class="inicio-subtitulo mb-0">Los más populares entre nuestra comunidad maker.</p>
+      <a href="Html/productos.html" class="btn boton-amarillo inicio-ver-todo">Ver todo →</a>
     </div>
-    <div class="row g-4">
+    <div class="row g-4 inicio-grid-cuatro">
       
       <!-- Producto 1 -->
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="tarjeta-custom tarjeta-producto-inicio h-100 rounded-4 overflow-hidden">
           <div class="tarjeta-custom__img-container">
             <img src="img/microcontrolador.jpg" class="imgindex" alt="Arduino UNO R3" />
             <div class="etiqueta-badge"><span class="badge">Más vendido</span></div>
@@ -176,7 +172,7 @@
             </div>
             <p class="precio-custom mb-3">$299 MXN</p>
             <button 
-              class="btn btn-hero-dorado w-100 fw-bold rounded-3 btn-agregar-carrito"
+              class="btn btn-hero-dorado boton-amarillo w-100 btn-agregar-carrito"
               data-id="1"
               data-nombre="Arduino UNO R3"
               data-precio="299.00"
@@ -188,8 +184,8 @@
       </div>
 
       <!-- Producto 2 -->
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="tarjeta-custom tarjeta-producto-inicio h-100 rounded-4 overflow-hidden">
           <div class="tarjeta-custom__img-container">
             <img src="img/esp32_esp8266.jpg" class="imgindex" alt="ESP32 DevKit" />
             <div class="etiqueta-badge"><span class="badge">Nuevo</span></div>
@@ -202,7 +198,7 @@
             </div>
             <p class="precio-custom mb-3">$180 MXN</p>
             <button 
-              class="btn btn-hero-dorado w-100 fw-bold rounded-3 btn-agregar-carrito"
+              class="btn btn-hero-dorado boton-amarillo w-100 btn-agregar-carrito"
               data-id="2"
               data-nombre="ESP32 DevKit"
               data-precio="180.00"
@@ -214,8 +210,8 @@
       </div>
 
       <!-- Producto 3 -->
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="tarjeta-custom tarjeta-producto-inicio h-100 rounded-4 overflow-hidden">
           <div class="tarjeta-custom__img-container">
             <img src="img/Kit de electrónica analógica (resistencias, capacitores, protoboard, LEDs).jpg" class="imgindex" alt="Protoboard 830 puntos" />
             <div class="etiqueta-badge"><span class="badge">Oferta</span></div>
@@ -228,7 +224,7 @@
             </div>
             <p class="precio-custom mb-3">$95 MXN</p>
             <button 
-              class="btn btn-hero-dorado w-100 fw-bold rounded-3 btn-agregar-carrito"
+              class="btn btn-hero-dorado boton-amarillo w-100 btn-agregar-carrito"
               data-id="3"
               data-nombre="Protoboard 830 puntos"
               data-precio="95.00"
@@ -240,8 +236,8 @@
       </div>
 
       <!-- Producto 4 -->
-      <div class="col-6 col-md-3">
-        <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="tarjeta-custom tarjeta-producto-inicio h-100 rounded-4 overflow-hidden">
           <div class="tarjeta-custom__img-container">
             <img src="img/Diodos.jpg" class="imgindex" alt="Kit LEDs" />
             <div class="etiqueta-badge"><span class="badge">Más vendido</span></div>
@@ -254,7 +250,7 @@
             </div>
             <p class="precio-custom mb-3">$150 MXN</p>
             <button 
-              class="btn btn-hero-dorado w-100 fw-bold rounded-3 btn-agregar-carrito"
+              class="btn btn-hero-dorado boton-amarillo w-100 btn-agregar-carrito"
               data-id="4"
               data-nombre="Kit LEDs"
               data-precio="150.00"
@@ -269,7 +265,7 @@
   </div>
 </section>
     <!-- Sección 1.6: Kits STEM -->
-    <section class="py-5">
+    <section id="kits-stem" class="py-5 inicio-kits">
       <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-5 flex-wrap gap-3">
           <div>
@@ -281,7 +277,7 @@
         <div class="d-flex flex-column gap-4">
           <div class="tarjeta-custom tarjeta-kit rounded-4">
             <img src="img/Kit de electrónica analógica (resistencias, capacitores, protoboard, LEDs).jpg" class="tarjeta-kit__img" alt="Kit Principiante" />
-            <div class="card-body-custom text-start">
+            <div class="card-body-custom kit-contenido text-start">
               <span class="kit-tag-badge">⚙️ Basics</span>
               <h5 class="card-title-custom mb-2">Kit Principiante</h5>
               <p class="descripcion-producto mb-3">Todo lo que necesitas para dar tus primeros pasos en electrónica. LEDs, resistencias, protoboard y más.</p>
@@ -295,7 +291,7 @@
           <div class="tarjeta-custom tarjeta-kit tarjeta-kit--arduino rounded-4">
             <span class="kit-ribbon">Más popular</span>
             <img src="img/esp32_esp8266.jpg" class="tarjeta-kit__img" alt="Kit Arduino" />
-            <div class="card-body-custom text-start">
+            <div class="card-body-custom kit-contenido text-start">
               <span class="kit-tag-badge">📶 MCU / IOT</span>
               <h5 class="card-title-custom mb-2">Kit Arduino</h5>
               <p class="descripcion-producto mb-3">Arduino UNO + 15 sensores + cables jumper + guía de proyectos paso a paso.</p>
@@ -308,7 +304,7 @@
           </div>
           <div class="tarjeta-custom tarjeta-kit rounded-4">
             <img src="img/Kit de mano robótica-biónica educativa (ensamblable).jpg" class="tarjeta-kit__img" alt="Kit Robótica" />
-            <div class="card-body-custom text-start">
+            <div class="card-body-custom kit-contenido text-start">
               <span class="kit-tag-badge">🦾 Robótica</span>
               <h5 class="card-title-custom mb-2">Kit Robótica</h5>
               <p class="descripcion-producto mb-3">Motores DC, servo motors, driver L298N y ESP32 para construir tu primer robot autónomo.</p>
@@ -345,7 +341,7 @@
               <div class="herr-visual herr-resistor" aria-hidden="true">
                 <span class="herr-cable"></span>
                 <div class="herr-cuerpo">
-                  <i style="--c:#8b4513"></i><i style="--c:#111"></i><i style="--c:#e53935"></i><i style="--c:#dfa225"></i>
+                  <i></i><i></i><i></i><i></i>
                 </div>
                 <span class="herr-cable"></span>
                 <span class="herr-valor">1 kΩ ±5%</span>
@@ -391,17 +387,17 @@
     <!--------------------------------EXPLORA POR TIPO DE PROYECTO------------------>
 
     <!-- Sección 2: Categorías Principales (Acceso Rápido) -->
-    <section class="py-5 seccion-verde">
+    <section class="py-5 seccion-verde inicio-bloque inicio-proyectos">
       <div class="container">
-        <div class="text-center mb-5">
+        <div class="text-center mb-5 inicio-encabezado">
           <h2 class="fw-bold text-white">Explora por Tipo de Proyecto</h2>
-          <p class="text-white-50">
+          <p class="inicio-subtitulo">
             Encuentra exactamente el tipo de material que necesitas
           </p>
         </div>
         <div class="row g-4">
-          <div class="col-6 col-md-3">
-            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="tarjeta-custom tarjeta-proyecto h-100 rounded-4 overflow-hidden">
               <div class="tarjeta-custom__img-container">
                 <img src="img/microcontrolador.jpg" class="imgindex" alt="Microcontroladores" />
                 <div class="etiqueta-badge">
@@ -411,13 +407,13 @@
               <div class="card-body-custom text-start">
              <h5 class="card-title-custom mb-1"><a href="Html/productos.html?categoria=M%C3%B3dulos%20y%20placas" class="stretched-link enlace-card">Microcontroladores</a></h5>
                 <p class="descripcion-producto mb-3">Arduino, ESP32, STM32</p>
-                <a href="Html/productos.html?categoria=M%C3%B3dulos%20y%20placas" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+                <a href="Html/productos.html?categoria=M%C3%B3dulos%20y%20placas" class="btn boton-amarillo">Ver todo →</a>
               </div>
             </div>
           </div>
 
-          <div class="col-6 col-md-3">
-            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="tarjeta-custom tarjeta-proyecto h-100 rounded-4 overflow-hidden">
               <div class="tarjeta-custom__img-container">
                 <img src="img/sensores.jpg" class="imgindex" alt="Sensores" />
                 <div class="etiqueta-badge">
@@ -427,13 +423,13 @@
               <div class="card-body-custom text-start">
                 <h5 class="card-title-custom mb-1"><a href="Html/productos.html?categoria=Sensores" class="stretched-link enlace-card">Sensores</a></h5>
                 <p class="descripcion-producto mb-3">Temperatura, Movimiento, Gas</p>
-                <a href="Html/productos.html?categoria=Sensores" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+                <a href="Html/productos.html?categoria=Sensores" class="btn boton-amarillo">Ver todo →</a>
               </div>
             </div>
           </div>
 
-          <div class="col-6 col-md-3">
-            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="tarjeta-custom tarjeta-proyecto h-100 rounded-4 overflow-hidden">
               <div class="tarjeta-custom__img-container">
                 <img src="img/kitsstem.jpg" class="imgindex" alt="Kits STEM" />
                 <div class="etiqueta-badge">
@@ -443,13 +439,13 @@
               <div class="card-body-custom text-start">
                 <h5 class="card-title-custom mb-1"><a href="Html/productos.html?categoria=Kits" class="stretched-link enlace-card">Kits STEM</a></h5>
                 <p class="descripcion-producto mb-3">Principiantes y Educación</p>
-               <a href="Html/productos.html?categoria=Kits" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+               <a href="Html/productos.html?categoria=Kits" class="btn boton-amarillo">Ver todo →</a>
               </div>
             </div>
           </div>
 
-          <div class="col-6 col-md-3">
-            <div class="tarjeta-custom h-100 rounded-4 overflow-hidden">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="tarjeta-custom tarjeta-proyecto h-100 rounded-4 overflow-hidden">
               <div class="tarjeta-custom__img-container">
                 <img src="img/herramientas.jpg" class="imgindex" alt="Herramientas" />
                 <div class="etiqueta-badge">
@@ -459,7 +455,7 @@
               <div class="card-body-custom text-start">
               <h5 class="card-title-custom mb-1"><a href="Html/productos.html?categoria=Soldadura" class="stretched-link enlace-card">Herramientas</a></h5>
                 <p class="descripcion-producto mb-3">Soldadura, Multímetros, Pinzas</p>
-               <a href="Html/productos.html?categoria=Soldadura" class="btn btn-outline-warning btn-sm fw-semibold">Ver todo →</a>
+               <a href="Html/productos.html?categoria=Soldadura" class="btn boton-amarillo">Ver todo →</a>
               </div>
             </div>
           </div>
@@ -493,6 +489,8 @@
         </div>
       </div>
     </section>
+
+    </main>
 
      <!-- *********************************footer******************************************* -->
     <div id="footer-container"></div>

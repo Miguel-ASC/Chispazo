@@ -1,220 +1,271 @@
 <!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../img/favicon.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <title>Panel administrativo | Chispazo</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <body class="pagina-admin">
+    <main class="admin-dashboard">
+      <div class="admin-dashboard__contenedor">
+        <header class="admin-dashboard__barra">
+          <a class="admin-dashboard__marca" href="../index.html" aria-label="Ir al inicio del panel administrativo">
+            <img src="../img/logo.png" alt="" />
+            <span>
+              <strong>Chispazo</strong>
+              <small>Panel administrativo</small>
+            </span>
+          </a>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="icon" href="../img/favicon.png" type="image/png">
-  <title>Panel Administrativo - Chispazo</title>
-</head>
-
-<body>
-  <nav>
-    <div class="navegacion">
-      <div class="navegacion__logo">
-        <a class="logo" href="../index.html">
-          <img class="logo__imagen" src="../img/logo.png" alt="Logo" />
-        </a>
-      </div>
-
-      <input type="checkbox" id="menu-toggle" class="navegacion__checkbox" />
-      <label for="menu-toggle" class="navegacion__botondesplegable">&#9776;</label>
-
-      <div class="navegacion__contenido">
-        <div class="navegacion__pestañas">
-          <!-- <a href="index.html">inicio</a> -->
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <main class="bg-black text-white">
-    <div class="container my-4">
-      <h1 class="titulo-catalogo text-center">PANEL ADMINISTRATIVO</h1>
-    </div>
-
-    <section class="pb-5 bg-black">
-      <div class="container">
-        <div class="row g-4">
-          <!-- ============================= -->
-          <!-- COLUMNA IZQUIERDA: FORMULARIO -->
-          <!-- ============================= -->
-          <div class="col-lg-5">
-            <div class="panel-filtros-verde p-4">
-              <h3 id="form-titulo" class="mb-4 text-uppercase">
-                Nuevo Producto
-              </h3>
-
-              <!-- Alertas de Bootstrap -->
-              <div id="form-alert-error" class="alert alert-danger d-none" role="alert"></div>
-              <div id="form-alert-success" class="alert alert-success d-none" role="alert"></div>
-
-              <form id="product-form" novalidate>
-                <!-- id oculto: vacío = creación, con valor = edición -->
-                <input type="hidden" id="product-id" value="" />
-
-                <!-- 1. Nombre -->
-                <div class="mb-3">
-                  <label for="name" class="form-label textos">Nombre del producto</label>
-                  <input type="text" class="form-control textos" id="name" placeholder="Ej. Resistencias" maxlength="100" />
-                  <div class="invalid-feedback">
-                    <p>El nombre es obligatorio (mínimo 3 caracteres).</p>
-                  </div>
-                </div>
-
-                <!-- 2. Descripción -->
-                <div class="mb-3">
-                  <label for="description" class="form-label textos">Descripción</label>
-                  <textarea class="form-control textos" id="description" rows="3" maxlength="300"
-                    placeholder="Detalle técnico del producto"></textarea>
-                  <div class="invalid-feedback">
-                    <p>La descripción debe tener al menos 10 caracteres.</p>
-                  </div>
-                </div>
-
-                <!-- 3. Precio y Categoría -->
-                <div class="row">
-                  <div class="col-sm-6 mb-3">
-                    <label for="precio" class="form-label textos">Precio (MXN)</label>
-                    <input type="number" class="form-control textos" id="precio" min="0" step="0.01" placeholder="0.00" />
-                    <div class="invalid-feedback">
-                      <p>Ingresa un precio válido mayor a 0.</p>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-6 mb-3">
-                    <label for="categoria" class="form-label textos">Categoría</label>
-                    <select class="form-select textos" id="categoria">
-                      <option value="" selected disabled>Selecciona...</option>
-                      <option value="Resistencias">Resistencias</option>
-                      <option value="Capacitores">Capacitores</option>
-                      <option value="Semiconductores">Semiconductores</option>
-                      <option value="Bobinas e inductores">Bobinas e inductores</option>
-                      <option value="Conectores y cables">Conectores y cables</option>
-                      <option value="Módulos y placas">Módulos y placas</option>
-                      <option value="Sensores">Sensores</option>
-                      <option value="Actuadores">Actuadores</option>
-                      <option value="Alimentación">Alimentación</option>
-                      <option value="Interfaz y entrada">Interfaz y entrada</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Selecciona una categoría.
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 4. Seleccionar Imagen -->
-                <div class="mb-3">
-                  <label for="img" class="form-label textos">Seleccionar Imagen</label>
-                  <input type="file" class="form-control" id="img" accept="image/*" />
-                  <div class="invalid-feedback">
-                    Selecciona una imagen para el producto.
-                  </div>
-                  <input type="hidden" id="current-img" value="">
-                </div>
-
-                <!-- Vista Previa Imagen -->
-                <div class="mb-3" id="img-preview-wrapper" style="display: none">
-                  <label class="form-label d-block">Vista previa</label>
-                  <img id="img-preview" src="" alt="Vista previa" class="img-fluid rounded" style="max-height: 140px" />
-                </div>
-
-                <!-- 5. URL del Datasheet (UBICADO DEBAJO DE LA IMAGEN) -->
-                <div class="mb-4">
-                  <label for="datasheet" class="form-label textos">URL del Datasheet</label>
-                  <input type="url" class="form-control textos" id="datasheet" placeholder="https://ejemplo.com/datasheet.pdf" />
-                  <div class="invalid-feedback">
-                    <p>Ingresa una URL válida (ej. https://...).</p>
-                  </div>
-                </div>
-
-                <!-- Botones de Acción -->
-                <div class="d-flex gap-2">
-                  <button type="submit" class="btn btn-carrito-custom flex-fill" id="submit-btn">
-                    Guardar Producto
-                  </button>
-                  <button type="button" class="btn btn-outline-light d-none" id="cancel-edit-btn">
-                    Cancelar edición
-                  </button>
-                </div>
-              </form>
-            </div>
+          <div class="admin-dashboard__acciones">
+            <a class="admin-dashboard__enlace" href="../index.html">
+              <i class="bi bi-shop" aria-hidden="true"></i>
+              Ver tienda
+            </a>
+            <a class="admin-dashboard__enlace admin-dashboard__enlace--principal" href="carritos-admin.html">
+              <i class="bi bi-cart-check" aria-hidden="true"></i>
+              Pedidos realizados
+            </a>
           </div>
+        </header>
 
-          <!-- ============================= -->
-          <!-- COLUMNA DERECHA: TABLA -->
-          <!-- ============================= -->
-          <div class="col-lg-7">
-            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-              <p class="subtitulo-resultados mb-0" id="tabla-contador">
-                0 productos
-              </p>
-              <div class="btn-group" role="group" aria-label="Filtro de estado">
-                <button type="button" class="btn btn-sm btn-outline-light active" data-filter="todos">
-                  Todos
+        <section class="admin-dashboard__encabezado" aria-labelledby="titulo-admin">
+          <div>
+            <p>GESTIÓN DE INVENTARIO</p>
+            <h1 id="titulo-admin">Control de catálogo</h1>
+            <span>Agrega productos, actualiza existencias y mantén la información de la tienda al día.</span>
+          </div>
+          <div id="admin-estado" class="admin-dashboard__estado admin-dashboard__estado--cargando" aria-live="polite">
+            <span><i aria-hidden="true"></i><strong id="admin-estado-texto">Sincronizando catálogo</strong></span>
+            <small id="admin-actualizacion">Consultando el servidor…</small>
+          </div>
+        </section>
+
+        <section class="admin-metricas" aria-label="Resumen del inventario">
+          <article class="admin-metrica admin-metrica--productos">
+            <span class="admin-metrica__icono"><i class="bi bi-boxes" aria-hidden="true"></i></span>
+            <div>
+              <span>Productos publicados</span>
+              <strong id="metrica-productos">—</strong>
+            </div>
+          </article>
+          <article class="admin-metrica admin-metrica--valor">
+            <span class="admin-metrica__icono"><i class="bi bi-cash-stack" aria-hidden="true"></i></span>
+            <div>
+              <span>Valor del inventario</span>
+              <strong id="metrica-inventario">—</strong>
+            </div>
+          </article>
+          <article class="admin-metrica admin-metrica--stock">
+            <span class="admin-metrica__icono"><i class="bi bi-box-seam-fill" aria-hidden="true"></i></span>
+            <div>
+              <span>Unidades disponibles</span>
+              <strong id="metrica-stock">—</strong>
+            </div>
+          </article>
+          <article class="admin-metrica admin-metrica--alerta">
+            <span class="admin-metrica__icono"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i></span>
+            <div>
+              <span>Sin existencias</span>
+              <strong id="metrica-agotados">—</strong>
+            </div>
+          </article>
+        </section>
+
+        <div class="admin-area">
+          <aside class="producto-editor" aria-labelledby="form-titulo">
+            <div class="producto-editor__cabecera">
+              <span>EDITOR DE PRODUCTOS</span>
+              <h2 id="form-titulo">Nuevo producto</h2>
+              <p>Completa los datos que aparecerán en el catálogo.</p>
+            </div>
+
+            <div id="form-alert-error" class="admin-alerta admin-alerta--error d-none" role="alert"></div>
+            <div id="form-alert-success" class="admin-alerta admin-alerta--exito d-none" role="status"></div>
+
+            <form id="product-form" novalidate>
+              <input type="hidden" id="product-id" value="" />
+
+              <div class="admin-campo">
+                <label for="name">Nombre del producto</label>
+                <input type="text" id="name" placeholder="Ej. Kit de sensores Arduino" maxlength="100" autocomplete="off" />
+                <div class="invalid-feedback">El nombre debe contener al menos 3 caracteres.</div>
+              </div>
+
+              <div class="admin-campo">
+                <label for="description">Descripción</label>
+                <textarea id="description" rows="4" maxlength="300" placeholder="Describe sus características y uso principal"></textarea>
+                <div class="admin-campo__ayuda"><span>Mínimo 10 caracteres</span><span>Máximo 300</span></div>
+                <div class="invalid-feedback">La descripción debe contener al menos 10 caracteres.</div>
+              </div>
+
+              <div class="admin-campos-grid">
+                <div class="admin-campo">
+                  <label for="precio">Precio <span>MXN</span></label>
+                  <div class="admin-control-icono">
+                    <i class="bi bi-currency-dollar" aria-hidden="true"></i>
+                    <input type="number" id="precio" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+                  </div>
+                  <div class="invalid-feedback">Ingresa un precio mayor a 0.</div>
+                </div>
+
+                <div class="admin-campo">
+                  <label for="stock">Existencias</label>
+                  <div class="admin-control-icono">
+                    <i class="bi bi-box" aria-hidden="true"></i>
+                    <input type="number" id="stock" min="0" step="1" placeholder="0" inputmode="numeric" />
+                  </div>
+                  <div class="invalid-feedback">Ingresa un número entero igual o mayor a 0.</div>
+                </div>
+              </div>
+
+              <div class="admin-campo">
+                <label for="categoria">Categoría</label>
+                <select id="categoria">
+                  <option value="" selected disabled>Selecciona una categoría</option>
+                </select>
+                <div class="invalid-feedback">Selecciona una categoría.</div>
+              </div>
+
+              <div class="admin-campo">
+                <label for="img">Imagen del producto</label>
+                <label class="admin-subida" for="img">
+                  <span><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i></span>
+                  <strong>Seleccionar imagen</strong>
+                  <small>JPG, PNG o WEBP. Se optimizará al guardar.</small>
+                </label>
+                <input class="admin-subida__input" type="file" id="img" accept="image/*" />
+                <input type="hidden" id="current-img" value="" />
+                <div class="invalid-feedback">Selecciona una imagen para el producto.</div>
+              </div>
+
+              <div id="img-preview-wrapper" class="admin-vista-previa" hidden>
+                <span>Vista previa</span>
+                <img id="img-preview" src="" alt="Vista previa del producto" />
+              </div>
+
+              <div class="admin-campo">
+                <label for="datasheet">URL del datasheet <span>Opcional</span></label>
+                <div class="admin-control-icono">
+                  <i class="bi bi-link-45deg" aria-hidden="true"></i>
+                  <input type="url" id="datasheet" placeholder="https://ejemplo.com/datasheet.pdf" inputmode="url" />
+                </div>
+                <div class="invalid-feedback">La dirección debe comenzar con http:// o https://.</div>
+              </div>
+
+              <div class="producto-editor__acciones">
+                <button type="submit" class="admin-boton admin-boton--principal" id="submit-btn">
+                  <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                  <span>Guardar producto</span>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-light" data-filter="activos">
-                  Activos
+                <button type="button" class="admin-boton admin-boton--secundario d-none" id="cancel-edit-btn">
+                  Cancelar edición
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-light" data-filter="eliminados">
-                  Eliminados
-                </button>
+              </div>
+            </form>
+          </aside>
+
+          <section class="productos-panel" aria-labelledby="productos-panel-titulo">
+            <div class="productos-panel__cabecera">
+              <div class="productos-panel__titulo">
+                <span>INVENTARIO</span>
+                <h2 id="productos-panel-titulo">Productos de la tienda</h2>
+                <p id="tabla-contador" aria-live="polite">Cargando productos…</p>
+              </div>
+
+              <div class="productos-filtros">
+                <label class="productos-filtro productos-filtro--buscar" for="buscar-producto">
+                  <span class="visually-hidden">Buscar producto</span>
+                  <i class="bi bi-search" aria-hidden="true"></i>
+                  <input id="buscar-producto" type="search" placeholder="Buscar producto" autocomplete="off" />
+                </label>
+                <label class="productos-filtro" for="filtrar-categoria">
+                  <span class="visually-hidden">Filtrar por categoría</span>
+                  <i class="bi bi-funnel" aria-hidden="true"></i>
+                  <select id="filtrar-categoria">
+                    <option value="todas">Todas las categorías</option>
+                  </select>
+                </label>
               </div>
             </div>
 
-            <div class="table-responsive p-3">
-              <table class="table table-dark table-hover align-middle mb-0">
+            <div id="productos-tabla-contenedor" class="productos-tabla-contenedor" hidden>
+              <table class="productos-tabla">
                 <thead>
                   <tr>
-                    <th scope="col">Img</th>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">Producto</th>
                     <th scope="col">Categoría</th>
                     <th scope="col">Precio</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col" class="text-end">Acciones</th>
+                    <th scope="col">Existencias</th>
+                    <th scope="col" class="productos-tabla__acciones">Acciones</th>
                   </tr>
                 </thead>
-                <tbody id="products-table-body">
-                  <!-- Filas generadas por js/admin.js -->
-                </tbody>
+                <tbody id="products-table-body"></tbody>
               </table>
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center mt-3" id="pagination-controls">
-                  
-                </ul>
-              </nav>
             </div>
-          </div>
+
+            <div id="productos-cargando" class="admin-mensaje" role="status">
+              <span class="spinner-border" aria-hidden="true"></span>
+              <p>Consultando el catálogo más reciente…</p>
+            </div>
+
+            <div id="productos-vacio" class="admin-mensaje admin-mensaje--vacio" hidden>
+              <span class="admin-mensaje__icono"><i class="bi bi-box2" aria-hidden="true"></i></span>
+              <h3>No encontramos productos</h3>
+              <p>Prueba con otra búsqueda o registra un producto nuevo.</p>
+            </div>
+
+            <div id="productos-error" class="admin-mensaje admin-mensaje--error" role="alert" hidden>
+              <span class="admin-mensaje__icono"><i class="bi bi-wifi-off" aria-hidden="true"></i></span>
+              <h3>No fue posible cargar el catálogo</h3>
+              <p>Comprueba que el servidor esté disponible e inténtalo nuevamente.</p>
+              <button id="reintentar-productos" class="admin-boton admin-boton--principal" type="button">
+                <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                Reintentar
+              </button>
+            </div>
+
+            <div class="productos-panel__pie">
+              <span id="paginacion-resumen"></span>
+              <div aria-label="Paginación de productos" role="navigation">
+                <ul class="pagination" id="pagination-controls"></ul>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-    </section>
-  </main>
+    </main>
 
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 mb-3">
-          <img id="logo_footer" class="logo__imagen" src="../img/logo.png" alt="Logo" />
-          <p id="copyright">@2026 Chispazo. Todos los derechos reservados.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+    <div id="footer-container"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-  <script src="../js/itemsController.js"></script>
-  <script src="../js/admin.js"></script>
-</body>
-
+    <script src="../js/componentes.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/admin-guard.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/admin.js"></script>
+  </body>
 </html>

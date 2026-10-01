@@ -1,5 +1,6 @@
 package org.chispazo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,9 +18,6 @@ public class Categorias {
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
-    @Column(name = "descripcion", length = 250)
-    private String descripcion;
-
     // Relación con productos (una categoría tiene muchos productos)
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Productos> productos = new ArrayList<>();
@@ -30,7 +28,6 @@ public class Categorias {
     public Categorias(Long idCategoria, String nombre, String descripcion) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
-        this.descripcion = descripcion;
     }
 
     public Long getIdCategoria() {
@@ -49,14 +46,8 @@ public class Categorias {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
+    @JsonIgnore
     public List<Productos> getProductos() {
         return productos;
     }
@@ -70,8 +61,6 @@ public class Categorias {
         return "Categorias{" +
                 "idCategoria=" + idCategoria +
                 ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 }
-

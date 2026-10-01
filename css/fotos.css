@@ -7,7 +7,7 @@
     text-align: center;
     color: #408A71;
     font-family: var(--fuente--titulos);
-    font-size: 4.8rem;
+    font-size: 3rem;
     font-weight: 800;
     margin-bottom: 30px;
 }
@@ -96,12 +96,12 @@
 }
 
 /* Celulares */
-@media (max-width: 500px) {
+@media (max-width: 576px) {
     .team-grid {
         grid-template-columns: 1fr;
     }
 
     .team-title {
-        font-size: 3.8rem;
+        font-size: 2.125rem;
     }
 }

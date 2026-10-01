@@ -1,5 +1,6 @@
 package org.chispazo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -27,7 +28,7 @@ public class Productos {
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
-    @Column(name = "imagen_url", length = 255)
+    @Column(name = "imagen_url", columnDefinition = "MEDIUMTEXT")
     private String imagenUrl;
 
     @ManyToOne
@@ -35,16 +36,16 @@ public class Productos {
     private Categorias categoria;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
-
-
 
     // Constructor vacío (necesario para JPA)
     public Productos() {
     }
 
     // Constructor con parámetros
-    public Productos(Long idProducto, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl) {
+    public Productos(Long idProducto, String nombre, String descripcion, BigDecimal precio, Integer stock,
+            String imagenUrl) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -110,6 +111,7 @@ public class Productos {
         this.categoria = categoria;
     }
 
+    @JsonIgnore
     public List<DetallesCarritos> getDetalleCarritos() {
         return detallesCarritos;
     }
@@ -117,7 +119,6 @@ public class Productos {
     public void setDetalleCarritos(List<DetallesCarritos> detallesCarritos) {
         this.detallesCarritos = detallesCarritos;
     }
-
 
     @Override
     public String toString() {
@@ -130,9 +131,5 @@ public class Productos {
                 ", imagenUrl='" + imagenUrl + '\'' +
                 '}';
     }
-
-
-
-
 
 }

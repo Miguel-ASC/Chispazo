@@ -1,5 +1,6 @@
 package org.chispazo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -34,18 +35,18 @@ public class Usuarios {
     private Rol rol;
 
     public enum Rol {
-        admin, user
+        user, admin
     }
 
     @OneToMany(mappedBy = "usuarios", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Carritos> carritos = new ArrayList<>();
-
-
 
     public Usuarios() {
     }
 
-    public Usuarios(Long idUsuario, String nombre, String email, String apellidos, String password, String telefono, Rol rol) {
+    public Usuarios(Long idUsuario, String nombre, String email, String apellidos, String password, String telefono,
+            Rol rol) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.email = email;
@@ -53,7 +54,6 @@ public class Usuarios {
         this.password = password;
         this.telefono = telefono;
         this.rol = rol;
-
 
     }
 
@@ -113,6 +113,7 @@ public class Usuarios {
         this.rol = rol;
     }
 
+    @JsonIgnore
     public List<Carritos> getCarritos() {
         return carritos;
     }
@@ -120,7 +121,6 @@ public class Usuarios {
     public void setCarritos(List<Carritos> carritos) {
         this.carritos = carritos;
     }
-
 
     @Override
     public String toString() {
@@ -135,7 +135,3 @@ public class Usuarios {
                 '}';
     }
 }
-
-
-
-

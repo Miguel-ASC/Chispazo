@@ -1,6 +1,5 @@
 package org.chispazo.controller;
 
-
 import org.chispazo.exepciones.ProductosNotFoundExeption;
 import org.chispazo.model.Productos;
 import org.chispazo.service.ProductosService;
@@ -13,64 +12,65 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST,
+        RequestMethod.PUT, RequestMethod.DELETE})
 public class ProductoController {
 
-    private final ProductosService productosService ;
+    private final ProductosService productosService;
 
-@Autowired
+    @Autowired
     public ProductoController(ProductosService productosService) {
         this.productosService = productosService;
     }
 
-    //mapeo de emostrat
+    // mapeo de emostrat
 
     @GetMapping("/mostrar")
-    public List<Productos> mostrar (){
-    return productosService.mostrar();
+    public List<Productos> mostrar() {
+        return productosService.mostrar();
     }
 
-
-
-    //mapeo de insertar
+    // mapeo de insertar
     @PostMapping("/insertar")
-    public ResponseEntity<Productos> insertar (@RequestBody Productos newProducto){
-    Productos productoBynombre = productosService.busquedaProductos(newProducto.getNombre());
-    if (productoBynombre != null) {
-    return new ResponseEntity<>(HttpStatus.CONFLICT);
-    }
-    else {
-    return ResponseEntity.status(HttpStatus.CREATED)
-            .body(productosService.insertarProductos(newProducto));
+    public ResponseEntity<Productos> insertar(@RequestBody Productos newProducto) {
+        Productos productoBynombre = productosService.busquedaProductos(newProducto.getNombre());
+        if (productoBynombre != null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(productosService.insertarProductos(newProducto));
 
-    }
+        }
     }
 
-//mapeo de busqueda nombre
-@GetMapping("/{nombre}")
-    public ResponseEntity<Productos> findByNombre  (@RequestParam  String nombre){
-    Productos productosByNombre = productosService.busquedaProductos(nombre);
-    if (productosByNombre == null){
-        return ResponseEntity.notFound().build();
+    // mapeo de busqueda nombre
+    @GetMapping("/buscar")
+    public ResponseEntity<Productos> findByNombre(@RequestParam String nombre) {
+        Productos productosByNombre = productosService.busquedaProductos(nombre);
+        if (productosByNombre == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(productosByNombre);
     }
-    return ResponseEntity.ok(productosByNombre);
-}
-    //mapeo de actualizar
+
+    // mapeo de actualizar
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<Productos> actualizarProducto (@RequestBody Productos productos, @PathVariable Long id){
-        try {//204
+    public ResponseEntity<Productos> actualizarProducto(@RequestBody Productos productos, @PathVariable Long id) {
+        try {// 204
             productosService.actualizarProductos(productos, id);
             return ResponseEntity.noContent().build();
-        }catch (ProductosNotFoundExeption e){//404
+        } catch (ProductosNotFoundExeption e) {// 404
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    //mapear borrar
+
+    // mapear borrar
     @DeleteMapping("/borrar/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id){
-        try {//204
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+        try {// 204
             productosService.deleteProducto(id);
             return ResponseEntity.noContent().build();
-        }catch (ProductosNotFoundExeption e){//404
+        } catch (ProductosNotFoundExeption e) {// 404
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

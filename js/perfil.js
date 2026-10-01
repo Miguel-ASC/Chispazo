@@ -7,6 +7,13 @@ function obtenerSesionActiva() {
   }
 }
 
+function normalizarUsuario(usuario) {
+  return {
+    ...usuario,
+    apellido: usuario.apellido || usuario.apellidos || "",
+  };
+}
+
 function mostrarFormulario(vista) {
   const formLogin = document.getElementById("form-login");
   const formRegistro = document.getElementById("form-registro");
@@ -49,47 +56,32 @@ function mostrarVistaCerrarSesion(sesion) {
 
   if (!perfilCard || !panel) return;
 
-  // Ocultar tabs y formularios de login/registro
   if (formLogin) formLogin.classList.add("d-none");
   if (formRegistro) formRegistro.classList.add("d-none");
   if (tabs) tabs.classList.add("d-none");
 
-  // Mostrar el panel de edición
   panel.classList.remove("d-none");
 
-  // Rellenar datos existentes
   const editNombre = document.getElementById("edit-nombre");
   const editApellido = document.getElementById("edit-apellido");
   const editEmail = document.getElementById("edit-email");
-  const editAntiguedad = document.getElementById("edit-antiguedad");
-  const editGenero = document.getElementById("edit-genero");
-  const editCurp = document.getElementById("edit-curp");
-  const editFechaNac = document.getElementById("edit-fecha-nac");
+  const editTelefono = document.getElementById("edit-telefono");
   const editPassword = document.getElementById("edit-password");
   const avatarPreview = document.getElementById("avatar-preview");
 
   if (editNombre) editNombre.value = sesion.nombre || "";
   if (editApellido) editApellido.value = sesion.apellido || "";
   if (editEmail) editEmail.value = sesion.email || "";
-  if (editGenero) editGenero.value = sesion.genero || "";
-  if (editCurp) editCurp.value = sesion.curp || "";
-  if (editFechaNac) editFechaNac.value = sesion.fechaNacimiento || "";
+  if (editTelefono) editTelefono.value = sesion.telefono || "";
   if (editPassword && sesion.password) editPassword.value = sesion.password;
-
-  if (editAntiguedad) {
-    const fecha = sesion.fechaIngreso ? new Date(sesion.fechaIngreso) : new Date();
-    editAntiguedad.value = fecha.toLocaleDateString("es-MX");
-  }
 
   if (avatarPreview && sesion.avatar) {
     avatarPreview.src = sesion.avatar;
   }
 
-  // --- Control del botón "Modificar" en el Perfil ---
   const btnModificarPass = document.getElementById("btn-abrir-modal-pass");
   const btnToggleEditPass = document.getElementById("btn-toggle-edit-password");
 
-  // Asegurar estado inicial: campo oculto/readonly
   if (editPassword) {
     editPassword.setAttribute("readonly", "true");
     editPassword.type = "password";
@@ -103,7 +95,6 @@ function mostrarVistaCerrarSesion(sesion) {
       const isReadOnly = editPassword.hasAttribute("readonly");
 
       if (isReadOnly) {
-        // Habilitar edición y MOSTRAR el ojito solo al presionar Modificar
         editPassword.removeAttribute("readonly");
         editPassword.focus();
 
@@ -114,7 +105,6 @@ function mostrarVistaCerrarSesion(sesion) {
         btnModificarPass.innerHTML = '<i class="fa-solid fa-check me-1"></i> Listo';
         btnModificarPass.style.backgroundColor = "#198754";
       } else {
-        // Bloquear edición, OCULTAR el ojito y reestablecer a tipo password
         editPassword.setAttribute("readonly", "true");
         editPassword.type = "password";
 
@@ -130,7 +120,6 @@ function mostrarVistaCerrarSesion(sesion) {
     });
   }
 
-  // Evento para cambiar la foto de perfil
   const inputAvatar = document.getElementById("input-avatar");
   const fileChosenName = document.getElementById("file-chosen-name");
 
@@ -152,31 +141,34 @@ function mostrarVistaCerrarSesion(sesion) {
     });
   }
 
-  // Guardar Cambios de Perfil
   const formEditPerfil = document.getElementById("form-edit-perfil");
   if (formEditPerfil) {
-    formEditPerfil.addEventListener("submit", (e) => {
+    formEditPerfil.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       sesion.nombre = editNombre ? editNombre.value.trim() : sesion.nombre;
       sesion.apellido = editApellido ? editApellido.value.trim() : sesion.apellido;
-      sesion.genero = editGenero ? editGenero.value : sesion.genero;
-      sesion.curp = editCurp ? editCurp.value.trim() : sesion.curp;
-      sesion.fechaNacimiento = editFechaNac ? editFechaNac.value : sesion.fechaNacimiento;
+      sesion.telefono = editTelefono ? editTelefono.value.trim() : sesion.telefono;
       if (editPassword) sesion.password = editPassword.value;
 
-      // 1. Guardar en la sesión activa actual (incluyendo avatar en Base64)
-      localStorage.setItem("chispazo_session", JSON.stringify(sesion));
-
-      // 2. Sincronizar con la base de datos local de usuarios
-      const usuarios = JSON.parse(localStorage.getItem("chispazo_usuarios")) || [];
-      const index = usuarios.findIndex((u) => u.email === sesion.email);
-      if (index !== -1) {
-        usuarios[index] = { ...usuarios[index], ...sesion };
-        localStorage.setItem("chispazo_usuarios", JSON.stringify(usuarios));
+      if (sesion.idUsuario) {
+        try {
+          await ChispazoAPI.actualizarUsuario(sesion.idUsuario, {
+            nombre: sesion.nombre,
+            apellidos: sesion.apellido,
+            email: sesion.email,
+            password: sesion.password,
+            telefono: sesion.telefono,
+            rol: sesion.rol,
+          });
+        } catch (error) {
+          alert("No se pudo actualizar el perfil en el servidor.");
+          return;
+        }
       }
 
-      // Restablecer campos de contraseña
+      localStorage.setItem("chispazo_session", JSON.stringify(sesion));
+
       if (btnToggleEditPass) {
         btnToggleEditPass.classList.add("d-none");
         const eyeIcon = btnToggleEditPass.querySelector("i");
@@ -195,7 +187,6 @@ function mostrarVistaCerrarSesion(sesion) {
     });
   }
 
-  // Evento Cerrar Sesión
   const cerrarSesionBtn = document.getElementById("cerrar-sesion");
   if (cerrarSesionBtn) {
     cerrarSesionBtn.addEventListener("click", () => {
@@ -303,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Formulario de Login ---
   if (perfilFormLogin) {
-    perfilFormLogin.addEventListener("submit", (e) => {
+    perfilFormLogin.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const emailInput = document.getElementById("login-email");
@@ -336,15 +327,17 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const usuarios = JSON.parse(localStorage.getItem("chispazo_usuarios")) || [];
       const emailIngresado = emailInput.value.trim().toLowerCase();
-
-      const usuarioValido = usuarios.find(
-        (u) => u.email === emailIngresado && u.password === passInput.value
-      );
-
-      if (!usuarioValido) {
-        passInput.setCustomValidity("Correo o contraseña incorrectos.");
+      let usuarioValido;
+      try {
+        usuarioValido = normalizarUsuario(await ChispazoAPI.iniciarSesion({
+          email: emailIngresado,
+          password: passInput.value,
+        }));
+      } catch (error) {
+        passInput.setCustomValidity(error.status === 401
+          ? "Correo o contraseña incorrectos."
+          : "No fue posible conectar con el servidor.");
         passInput.reportValidity();
         return;
       }
@@ -355,14 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("chispazo_saved_email");
       }
 
-      // IMPORTANTE: Incluir todos los datos guardados del usuario (avatar, género, curp, etc.)
-      localStorage.setItem(
-        "chispazo_session",
-        JSON.stringify({
-          ...usuarioValido,
-          fechaIngreso: usuarioValido.fechaIngreso || new Date().toISOString()
-        })
-      );
+      localStorage.setItem("chispazo_session", JSON.stringify(usuarioValido));
 
       window.location.href = "../index.html";
     });
@@ -375,12 +361,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Formulario de Registro ---
   if (perfilFormRegistro) {
-    perfilFormRegistro.addEventListener("submit", (e) => {
+    perfilFormRegistro.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const nombreInput = document.getElementById("reg-nombre");
       const apellidoInput = document.getElementById("reg-apellido");
       const emailInput = document.getElementById("reg-email");
+      const telefonoInput = document.getElementById("reg-telefono");
       const passwordInput = document.getElementById("reg-password");
       const confirmPasswordInput = document.getElementById("reg-confirm-password");
       const terminosInput = document.getElementById("terminos");
@@ -389,6 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nombreInput,
         apellidoInput,
         emailInput,
+        telefonoInput,
         passwordInput,
         confirmPasswordInput,
         terminosInput,
@@ -428,6 +416,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      if (!/^\d{10}$/.test(telefonoInput.value.trim())) {
+        telefonoInput.setCustomValidity("El teléfono debe tener 10 dígitos.");
+        telefonoInput.reportValidity();
+        return;
+      }
+
       if (!passwordRegex.test(passwordInput.value)) {
         passwordInput.setCustomValidity(
           "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial (@$!%*?&.#_-)."
@@ -448,30 +442,20 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const usuarios = JSON.parse(localStorage.getItem("chispazo_usuarios")) || [];
       const emailNuevo = emailInput.value.trim().toLowerCase();
-
-      const yaExiste = usuarios.some((u) => u.email === emailNuevo);
-      if (yaExiste) {
-        emailInput.setCustomValidity("Este correo ya está registrado.");
-        emailInput.reportValidity();
-        return;
-      }
-
-      usuarios.push({
-        nombre: nombreInput.value.trim(),
-        apellido: apellidoInput.value.trim(),
-        email: emailNuevo,
-        password: passwordInput.value,
-        registroFecha: new Date().toISOString(),
-        avatar: ""
-      });
-
       try {
-        localStorage.setItem("chispazo_usuarios", JSON.stringify(usuarios));
+        await ChispazoAPI.registrarUsuario({
+          nombre: nombreInput.value.trim(),
+          apellidos: apellidoInput.value.trim(),
+          email: emailNuevo,
+          password: passwordInput.value,
+          telefono: telefonoInput.value.trim(),
+          rol: "user",
+        });
       } catch (error) {
-        console.error("No se pudo guardar el usuario en localStorage:", error);
-        alert("No se pudo guardar la cuenta. Verifica el espacio disponible de almacenamiento.");
+        alert(error.status === 409
+          ? "Este correo ya está registrado."
+          : "No se pudo crear la cuenta. Verifica la conexión con el servidor.");
         return;
       }
 

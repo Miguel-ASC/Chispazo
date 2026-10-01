@@ -1,6 +1,7 @@
 package org.chispazo.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,12 +12,14 @@ public class DetallesCarritos {
     @Id
     @ManyToOne
     @JoinColumn(name = "id_carriro", nullable = false)
+    @JsonIgnore
     private Carritos carritos;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "id_producto", nullable = false)
-    private Productos producto;  // ← debe ser "producto", no "productos"
+    @JsonIgnoreProperties({ "detalleCarritos", "categoria" })
+    private Productos producto; // ← debe ser "producto", no "productos"
 
     @Column(name = "cantidad", nullable = false)
     private int cantidad;

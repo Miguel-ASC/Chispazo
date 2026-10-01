@@ -7,6 +7,9 @@
 
 const CART_STORAGE_KEY = "cart";
 const MAX_POR_PRODUCTO = 10;
+const CART_API_BASE_URL = ["localhost", "127.0.0.1"].includes(window.location.hostname)
+  ? "http://localhost:8081"
+  : "";
 
 function normalizarImagenProducto(ruta) {
   if (!ruta || ruta.startsWith("data:") || /^https?:\/\//.test(ruta)) {
@@ -18,7 +21,7 @@ function normalizarImagenProducto(ruta) {
 }
 
 const storedProducts = localStorage.getItem("products");
-const products = storedProducts
+let products = storedProducts
   ? JSON.parse(storedProducts)
       .items.filter((product) => product.activo)
       .map((product) => ({
@@ -29,7 +32,29 @@ const products = storedProducts
         image: normalizarImagenProducto(product.img),
       }))
   : [];
+let productosCargados = false;
 let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || "{}");
+
+async function cargarProductosParaCarrito() {
+  try {
+    const respuesta = await (window.ChispazoAPI
+      ? ChispazoAPI.listarProductos()
+      : fetch(`${CART_API_BASE_URL}/productos/mostrar`).then((response) => response.json()));
+    products = respuesta.map((product) => ({
+      id: String(product.idProducto),
+      name: product.nombre,
+      desc: product.descripcion || "",
+      price: Number(product.precio),
+      image: normalizarImagenProducto(product.imagenUrl),
+    }));
+  } catch (error) {
+    console.warn("No se pudo cargar el catálogo para el carrito.", error);
+  } finally {
+    productosCargados = true;
+    actualizarContadorNav();
+    renderCart();
+  }
+}
 
 function saveCart() {
   localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
@@ -206,8 +231,9 @@ function actualizarResumen(subtotal) {
 function renderCart() {
   const cartContainer = document.getElementById("carrito");
   if (!cartContainer) return;
+  if (!productosCargados) return;
 
-  const ids = Object.keys(cart);
+  const ids = Object.keys(cart).filter((id) => products.some((product) => product.id === id));
 
   actualizarContadorNav();
 
@@ -258,236 +284,76 @@ function inicializarEventosCatalogo() {
   });
 }
 
+async function mostrarModalGuardado() {
+  const modalElement = document.getElementById("carritoGuardadoModal");
+  const mensaje = document.getElementById("carritoGuardadoModalMensaje");
+  const botonPago = document.getElementById("btn-proceder-pago");
+  const carritoTieneProductos = Object.keys(cart).length > 0;
+
+  if (carritoTieneProductos) {
+    if (botonPago) botonPago.disabled = true;
+    try {
+      await guardarPedido();
+    } catch (error) {
+      if (mensaje) {
+        const productosSolicitados = Object.keys(cart)
+          .map((id) => products.find((product) => product.id === id)?.name)
+          .filter(Boolean)
+          .join(", ");
+        mensaje.textContent = error.status === 409
+          ? (error.message.startsWith("No disponemos")
+            ? error.message
+            : `No disponemos de ${productosSolicitados || "ese producto"}.`)
+          : error.message || "No se pudo registrar el pedido. Inténtalo de nuevo.";
+      }
+      if (modalElement && window.bootstrap) {
+        bootstrap.Modal.getOrCreateInstance(modalElement).show();
+      }
+      return;
+    } finally {
+      if (botonPago) botonPago.disabled = false;
+    }
+
+    cart = {};
+    saveCart();
+    actualizarContadorNav();
+    renderCart();
+  }
+
+  if (!modalElement || !window.bootstrap) return;
+  mensaje.textContent = carritoTieneProductos
+    ? "Tu pedido se registró correctamente."
+    : "Agrega al menos un producto antes de proceder al pago.";
+
+  bootstrap.Modal.getOrCreateInstance(modalElement).show();
+}
+
+async function guardarPedido() {
+  const sesion = JSON.parse(localStorage.getItem("chispazo_session") || "null");
+  if (!window.ChispazoAPI) throw new Error("API no disponible");
+
+  await ChispazoAPI.guardarCarrito({
+    usuario: sesion?.idUsuario ? { idUsuario: sesion.idUsuario } : null,
+    detalleCarritos: Object.entries(cart).map(([id, cantidad]) => ({
+      producto: { idProducto: Number(id) },
+      cantidad,
+    })),
+  });
+}
+
+function inicializarBotonPago() {
+  const botonPago = document.getElementById("btn-proceder-pago");
+  if (botonPago) botonPago.addEventListener("click", mostrarModalGuardado);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   inicializarEventosCarrito();
   inicializarEventosCatalogo();
+  inicializarBotonPago();
   actualizarContadorNav();
-  renderCart();
+  cargarProductosParaCarrito();
 });
 
 window.addEventListener("chispazo:component-loaded", (event) => {
   if (event.detail?.id === "nav-container") actualizarContadorNav();
 });
-// --- MOSTRAR NOTIFICACIÓN TIPO TOAST AL AGREGAR UN PRODUCTO ---
-function mostrarNotificacionToast(mensaje) {
-  let toastContainer = document.getElementById("toast-container-carrito");
-  
-  if (!toastContainer) {
-    toastContainer = document.createElement("div");
-    toastContainer.id = "toast-container-carrito";
-    toastContainer.style.position = "fixed";
-    toastContainer.style.bottom = "20px";
-    toastContainer.style.right = "20px";
-    toastContainer.style.zIndex = "9999";
-    document.body.appendChild(toastContainer);
-  }
-
-  const toast = document.createElement("div");
-  toast.className = "alert alert-success text-white fw-bold mb-2 shadow-lg";
-  toast.style.backgroundColor = "#198754";
-  toast.style.border = "none";
-  toast.style.fontSize = "0.85rem";
-  toast.style.padding = "8px 16px";
-  toast.style.borderRadius = "4px";
-  toast.textContent = mensaje;
-
-  toastContainer.appendChild(toast);
-
-  // Ocultar notificación después de 2.5 segundos
-  setTimeout(() => {
-    toast.remove();
-  }, 2500);
-}
-
-// --- ACTUALIZAR CONTADOR DEL NAVBAR ---
-function actualizarContadorNavbar() {
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  const contadorBadge = document.querySelector("#contador-carrito");
-  if (contadorBadge) {
-    const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    contadorBadge.textContent = totalItems;
-    contadorBadge.style.display = totalItems > 0 ? "inline-block" : "none";
-  }
-}
-
-// --- RENDERIZAR TABLA PRINCIPAL (Html/cart.html) ---
-function renderizarPaginaCarrito() {
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  const tablaContenedor = document.querySelector("table tbody") || document.querySelector("#contenedor-carrito-pagina");
-  const subtotalTextos = document.querySelectorAll(".resumen-subtotal, #subtotal-carrito");
-  const totalTextos = document.querySelectorAll(".resumen-total, #total-carrito");
-
-  if (!tablaContenedor) return;
-
-  if (carrito.length === 0) {
-    tablaContenedor.innerHTML = `
-      <tr>
-        <td colspan="5" class="text-center text-white-50 py-5">
-          <h4>Tu carrito está vacío.</h4>
-        </td>
-      </tr>`;
-    
-    subtotalTextos.forEach(el => el.textContent = "$0.00 MXN");
-    totalTextos.forEach(el => el.textContent = "$0.00 MXN");
-    return;
-  }
-
-  let total = 0;
-  tablaContenedor.innerHTML = carrito.map((item) => {
-    const subtotal = item.precio * item.cantidad;
-    total += subtotal;
-
-    const esSubcarpeta = window.location.pathname.includes("/Html/");
-    const rutaImg = esSubcarpeta ? `../${item.img}` : item.img;
-
-    return `
-      <tr class="align-middle text-white border-bottom border-secondary">
-        <td class="py-3">
-          <div class="d-flex align-items-center gap-3">
-            <img src="${rutaImg}" alt="${item.nombre}" style="width: 60px; height: 60px; object-fit: cover;" class="rounded">
-            <span class="fw-bold">${item.nombre}</span>
-          </div>
-        </td>
-        <td>$${item.precio.toFixed(2)} MXN</td>
-        <td>
-          <div class="d-flex align-items-center gap-2">
-            <button class="btn btn-sm btn-outline-light px-2 btn-restar" data-id="${item.id}">-</button>
-            <span class="fw-bold fs-6">${item.cantidad}</span>
-            <button class="btn btn-sm btn-outline-light px-2 btn-sumar" data-id="${item.id}">+</button>
-          </div>
-        </td>
-        <td class="fw-bold text-warning">$${subtotal.toFixed(2)} MXN</td>
-        <td>
-          <button class="btn btn-sm btn-outline-danger btn-eliminar" data-id="${item.id}">
-            Eliminar
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
-
-  subtotalTextos.forEach(el => el.textContent = `$${total.toFixed(2)} MXN`);
-  totalTextos.forEach(el => el.textContent = `$${total.toFixed(2)} MXN`);
-}
-
-function actualizarVistas() {
-  actualizarContadorNavbar();
-  renderizarPaginaCarrito();
-}
-
-// --- MANEJADOR DE EVENTOS DE CLIC ---
-document.addEventListener("click", (e) => {
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  // Agregar al carrito (Botones principales o amarillos)
-  const btnAgregar = e.target.closest(".btn-agregar-carrito") || e.target.closest("button.btn-warning");
-  if (btnAgregar && !e.target.closest("#lista-carrito-offcanvas")) {
-    e.preventDefault();
-    const id = btnAgregar.getAttribute("data-id") || "1";
-    const nombre = btnAgregar.getAttribute("data-nombre") || "Producto";
-    const precio = parseFloat(btnAgregar.getAttribute("data-precio")) || 0;
-    const img = btnAgregar.getAttribute("data-img") || "";
-
-    const existe = carrito.find((p) => p.id === id);
-    if (existe) {
-      existe.cantidad += 1;
-    } else {
-      carrito.push({ id, nombre, precio, img, cantidad: 1 });
-    }
-
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    actualizarVistas();
-    mostrarNotificacionToast("Producto agregado al carrito");
-    return;
-  }
-
-  // Sumar (+)
-  const btnSumar = e.target.closest(".btn-sumar");
-  if (btnSumar) {
-    const id = btnSumar.getAttribute("data-id");
-    const producto = carrito.find((p) => p.id === id);
-    if (producto) {
-      producto.cantidad += 1;
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      actualizarVistas();
-    }
-    return;
-  }
-
-  // Restar (-)
-  const btnRestar = e.target.closest(".btn-restar");
-  if (btnRestar) {
-    const id = btnRestar.getAttribute("data-id");
-    const producto = carrito.find((p) => p.id === id);
-    if (producto) {
-      producto.cantidad -= 1;
-      if (producto.cantidad <= 0) {
-        carrito = carrito.filter((p) => p.id !== id);
-      }
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      actualizarVistas();
-    }
-    return;
-  }
-
-  // Eliminar
-  const btnEliminar = e.target.closest(".btn-eliminar");
-  if (btnEliminar) {
-    const id = btnEliminar.getAttribute("data-id");
-    carrito = carrito.filter((p) => p.id !== id);
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    actualizarVistas();
-    return;
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  actualizarVistas();
-});
-(function () {
-  const EXTRA_KEY = "productos-inicio";
-
-  JSON.parse(localStorage.getItem(EXTRA_KEY) || "[]").forEach((p) => {
-    if (!products.some((x) => x.id === p.id)) {
-      products.push({ ...p, image: normalizarImagenProducto(p.img) });
-    }
-  });
-
-  function registrarProducto(boton) {
-    const nombre = boton.dataset.nombre;
-    const precio = parseFloat(boton.dataset.precio);
-    if (!boton.dataset.id || !nombre || Number.isNaN(precio)) return null;
-
-    const id = "inicio-" + boton.dataset.id;
-    if (products.some((p) => p.id === id)) return id;
-
-    const img = boton.dataset.img || "";
-    const nuevo = { id, name: nombre, desc: "", price: precio, img };
-
-    const guardados = JSON.parse(localStorage.getItem(EXTRA_KEY) || "[]");
-    guardados.push(nuevo);
-    localStorage.setItem(EXTRA_KEY, JSON.stringify(guardados));
-
-    products.push({ ...nuevo, image: normalizarImagenProducto(img) });
-    return id;
-  }
-
-  document.addEventListener(
-    "click",
-    (event) => {
-      const boton = event.target.closest(".btn-agregar-carrito");
-      if (!boton || boton.closest("#productos-grid")) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      const id = registrarProducto(boton);
-      if (!id) return;
-
-      const antes = cart[id] || 0;
-      addToCart(id);
-      if ((cart[id] || 0) > antes) mostrarConfirmacion(boton);
-    },
-    true,
-  );
-})();

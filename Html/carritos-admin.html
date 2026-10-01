@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../img/favicon.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/carritos-admin.css" />
+    <title>Carritos realizados | Chispazo</title>
+
+  </head>
+
+  <body class="pagina-carritos-admin">
+    <main class="admin-carritos">
+      <div class="admin-carritos__contenedor">
+        <header class="admin-carritos__barra">
+          <a class="admin-carritos__marca" href="../index.html">
+            <img src="../img/logo.png" alt="" />
+            <span>
+              <strong>Chispazo</strong>
+              <small>Panel administrativo</small>
+            </span>
+          </a>
+          <a class="admin-carritos__volver" href="../index.html">
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            Volver al panel
+          </a>
+        </header>
+
+        <section class="admin-carritos__encabezado" aria-labelledby="titulo-carritos">
+          <div>
+            <p>OPERACIÓN DE TIENDA</p>
+            <h1 id="titulo-carritos">Pedidos realizados</h1>
+            <span>Consulta las compras de tus clientes, revisa sus artículos y controla el flujo de preparación.</span>
+          </div>
+          <div class="admin-carritos__estado" aria-live="polite">
+            <span><i aria-hidden="true"></i> Sistema conectado</span>
+            <small id="ultima-actualizacion">Actualizando información…</small>
+          </div>
+        </section>
+
+        <section class="carritos-metricas" aria-label="Resumen de pedidos">
+          <article class="carritos-metrica carritos-metrica--pedidos">
+            <span class="carritos-metrica__icono"><i class="bi bi-cart-check-fill" aria-hidden="true"></i></span>
+            <div>
+              <span>Pedidos registrados</span>
+              <strong id="metrica-pedidos">—</strong>
+            </div>
+          </article>
+          <article class="carritos-metrica carritos-metrica--ventas">
+            <span class="carritos-metrica__icono"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></span>
+            <div>
+              <span>Ventas acumuladas</span>
+              <strong id="metrica-ventas">—</strong>
+            </div>
+          </article>
+          <article class="carritos-metrica carritos-metrica--preparar">
+            <span class="carritos-metrica__icono"><i class="bi bi-box-seam-fill" aria-hidden="true"></i></span>
+            <div>
+              <span>Por preparar</span>
+              <strong id="metrica-preparar">—</strong>
+            </div>
+          </article>
+          <article class="carritos-metrica carritos-metrica--clientes">
+            <span class="carritos-metrica__icono"><i class="bi bi-people-fill" aria-hidden="true"></i></span>
+            <div>
+              <span>Clientes atendidos</span>
+              <strong id="metrica-clientes">—</strong>
+            </div>
+          </article>
+        </section>
+
+        <section class="carritos-panel" aria-labelledby="tabla-carritos-titulo">
+          <div class="carritos-panel__cabecera">
+            <div class="carritos-panel__titulo">
+              <span>HISTORIAL</span>
+              <h2 id="tabla-carritos-titulo">Pedidos recientes</h2>
+              <p id="pedidos-contador">Cargando pedidos…</p>
+            </div>
+            <div class="carritos-filtros">
+              <label class="carritos-filtro carritos-filtro--buscar" for="buscar-carrito">
+                <span class="visually-hidden">Buscar pedido o cliente</span>
+                <i class="bi bi-search" aria-hidden="true"></i>
+                <input id="buscar-carrito" type="search" placeholder="Pedido, cliente o producto" />
+              </label>
+              <label class="carritos-filtro" for="filtrar-estado">
+                <span class="visually-hidden">Filtrar por estado</span>
+                <i class="bi bi-funnel" aria-hidden="true"></i>
+                <select id="filtrar-estado">
+                  <option value="todos">Todos los estados</option>
+                  <option value="pagado">Pagado</option>
+                  <option value="preparando">Preparando</option>
+                  <option value="pendiente">Pendiente</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="table-responsive carritos-tabla-contenedor">
+            <table class="table carritos-tabla table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">Pedido</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Artículos</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col" class="text-end">Detalle</th>
+                </tr>
+              </thead>
+              <tbody id="carritos-tabla-body"></tbody>
+            </table>
+          </div>
+          <div id="carritos-cargando" class="carritos-mensaje carritos-cargando" role="status">
+            <span class="spinner-border" aria-hidden="true"></span>
+            <p>Consultando los pedidos más recientes…</p>
+          </div>
+          <div id="carritos-vacio" class="carritos-vacio" hidden>
+            <span class="carritos-mensaje__icono"><i class="bi bi-search" aria-hidden="true"></i></span>
+            <h3>No encontramos pedidos</h3>
+            <p>Prueba con otra búsqueda o selecciona un estado diferente.</p>
+          </div>
+          <div id="carritos-error" class="carritos-vacio carritos-error" role="alert" hidden>
+            <span class="carritos-mensaje__icono"><i class="bi bi-wifi-off" aria-hidden="true"></i></span>
+            <h3>No fue posible cargar los pedidos</h3>
+            <p>Revisa la conexión con el servidor e inténtalo nuevamente.</p>
+            <button id="reintentar-carritos" class="btn carritos-reintentar" type="button">
+              <i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Reintentar
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <div class="modal fade modal-carrito" id="detalleCarritoModal" tabindex="-1" aria-labelledby="detalleCarritoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-carrito__titulo">
+              <span><i class="bi bi-receipt" aria-hidden="true"></i></span>
+              <div>
+                <small>RESUMEN DE COMPRA</small>
+                <h2 class="modal-title" id="detalleCarritoModalLabel">Detalle del pedido</h2>
+              </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="detalle-identidad">
+              <div><span>Pedido</span><strong id="detalle-pedido"></strong></div>
+              <div><span>Cliente</span><strong id="detalle-cliente"></strong></div>
+            </div>
+            <h3 class="detalle-subtitulo">Productos</h3>
+            <ul id="detalle-productos" class="detalle-productos"></ul>
+            <ul class="detalle-lista">
+              <li><span>Artículos</span><strong id="detalle-items"></strong></li>
+              <li><span>Total</span><strong id="detalle-total"></strong></li>
+              <li><span>Dirección</span><strong>Registrada en el perfil</strong></li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-verde-pill" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/componentes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/admin-guard.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/carritos-admin.js"></script>
+  </body>
+</html>
