@@ -1,0 +1,16 @@
+.env
+node_modules/
+
+.idea/
+
+
+backend/.idea/
+
+
+*.properties
+
+
+
+
+backend/chispita/bin/
+backend/chispita/build/

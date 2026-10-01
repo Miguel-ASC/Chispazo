@@ -9,7 +9,7 @@
    ============================================================ */
 
 (function () {
-  const ENDPOINT = "/api/chispita";
+  const ENDPOINT = "http://localhost:3000/api/chispita";
   const imagenChispita = new URL("../img/IACHISP.png", document.currentScript.src).href;
   const FRASES_DIALOGO = ["¡Hola, soy Chispita!"];
   const DIALOGO_PRIMERA_VEZ_MS = 1500;
