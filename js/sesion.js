@@ -3,6 +3,7 @@
   const scriptActual = document.currentScript;
   const rutaProyecto = new URL("../", scriptActual?.src || document.baseURI);
   const rutaPerfil = new URL("Html/perfil.html", rutaProyecto).href;
+  const rutaAdmin = new URL("Html/admin.html", rutaProyecto).href;
 
   function obtenerSesion() {
     try {
@@ -27,6 +28,8 @@
   const sesion = obtenerSesion();
 
   if (!sesion) {
+    const enlaceAdmin = document.getElementById("admin-nav-link");
+    if (enlaceAdmin) enlaceAdmin.hidden = true;
     iconoLogin.classList.remove("login-activo");
     iconoLogin.setAttribute("title", "Iniciar sesión / Registrarse");
     iconoLogin.setAttribute("aria-label", "Iniciar sesión / Registrarse");
@@ -38,6 +41,11 @@
   }
 
   const nombre = sesion.nombre || sesion.email || "Usuario";
+  const enlaceAdmin = document.getElementById("admin-nav-link");
+  if (enlaceAdmin) {
+    enlaceAdmin.hidden = String(sesion.rol || "").toLowerCase() !== "admin";
+    enlaceAdmin.href = rutaAdmin;
+  }
   iconoLogin.classList.add("login-activo");
   iconoLogin.setAttribute("title", `Sesión activa: ${nombre}`);
   iconoLogin.setAttribute("aria-label", `Sesión activa: ${nombre}`);
@@ -45,12 +53,15 @@
 
   // Si el usuario tiene una foto guardada, se dibuja dentro del botón circular del header
   if (sesion.avatar) {
-    iconoLogin.innerHTML = `<img src="${sesion.avatar}" alt="${nombre}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+    const avatar = document.createElement("img");
+    avatar.src = sesion.avatar;
+    avatar.alt = nombre;
+    avatar.className = "navegacion__imagen navegacion__avatar";
+    iconoLogin.replaceChildren(avatar);
   }
 
   const parentContainer = iconoLogin.parentElement;
   if (parentContainer) {
-    parentContainer.style.position = "relative";
     parentContainer.classList.add("user-dropdown-container");
   }
 

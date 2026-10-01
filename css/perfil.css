@@ -1,5 +1,371 @@
+/* Estilos de la página de perfil */
+/*=========
+    Sección Perfil de Usuario
+===========*/
+main.flex-grow-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1.875rem .9375rem;
+}
+
+.perfil-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.perfil-card {
+  background-color: #235445;
+  border-radius: 12px;
+  padding: 1.875rem 2.1875rem;
+  max-width: 820px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.perfil-sesion-panel {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-sesion-panel .btn-perfil-submit {
+  width: min(260px, 70vw);
+}
+
+.perfil-card.perfil-sesion-activa {
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  margin-bottom: 1.5625rem;
+  padding-bottom: .46875rem;
+}
+
+.perfil-tab-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: var(--fuente--titulos);
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding-bottom: .3125rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.perfil-tab-btn.active {
+  color: var(--color--Amarillo);
+}
+
+.perfil-tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -.53125rem;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color--Amarillo);
+  border-radius: 2px;
+}
+
+.perfil-form-group {
+  margin-bottom: .9375rem;
+}
+
+.perfil-form-group label {
+  display: block;
+  margin-bottom: .375rem;
+  font-family: var(--fuente--parrafos);
+  font-weight: 600;
+  font-size: .875rem;
+  color: #ffffff;
+}
+
+.perfil-input {
+  width: 100%;
+  background-color: #11201c;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: .625rem .75rem;
+  color: #ffffff;
+  font-family: var(--fuente--parrafos);
+  font-size: .875rem;
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.perfil-input:focus {
+  border-color: var(--color--Amarillo);
+  box-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
+}
+
+.perfil-input::placeholder {
+  color: #617770;
+}
+
+.perfil-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .9375rem;
+}
+
+.perfil-opciones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .8125rem;
+  font-family: var(--fuente--parrafos);
+  margin-top: .75rem;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+}
+
+.perfil-opciones label {
+  display: flex;
+  align-items: center;
+  gap: .375rem;
+  cursor: pointer;
+}
+
+.perfil-enlace {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.perfil-enlace:hover {
+  color: var(--color--Amarillo);
+}
+
+.btn-perfil-submit {
+  width: 100%;
+  background-color: var(--color--Amarillo);
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  padding: .6875rem;
+  font-family: var(--fuente--titulos);
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease;
+}
+
+.btn-perfil-submit:hover {
+  background-color: #ffc107;
+}
+
+.perfil-guardar-limitado {
+  max-width: 250px;
+}
+
+.perfil-footer-copyright {
+  font-size: .53125rem;
+}
+
+
+@media (max-width: 576px) {
+  .perfil-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .perfil-card {
+    padding: 1.25rem .9375rem;
+  }
+
+  .perfil-tabs {
+    gap: .9375rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .perfil-opciones {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .5rem;
+  }
+}
+
+/*=============================================
+    NAVBAR SIMPLIFICADO (APARTADO PERFIL)
+=============================================*/
+.header-simplificado {
+  padding-right: clamp(1.25rem, 5vw, 2.8125rem) !important;
+}
+
+.logo-link:hover .logo__imagen {
+  transform: scale(1.03);
+}
+
+.btn-volver-tienda {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  padding: .46875rem 1.09375rem;
+  font-size: .65625rem;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-volver-tienda .icon-arrow {
+  font-size: .71875rem;
+  transition: transform 0.25s ease;
+}
+
+.btn-volver-tienda:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffc107, #ffc107);
+  border-color: transparent;
+  box-shadow: 0 8px 25px rgba(247, 183, 49, 0.4);
+  transform: translateY(-3px);
+}
+
+.btn-volver-tienda:hover .icon-arrow {
+  transform: translateX(-6px);
+}
+
+.btn-volver-tienda:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/*=============================================
+    ESTILOS DEL MODAL (OCULTO Y FLOTANTE)
+=============================================*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.active {
+  display: flex !important;
+}
+
+.modal-contenedor {
+  background-color: #235445;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  animation: aparecerModal 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: .5rem;
+  margin-bottom: .625rem;
+}
+
+.modal-header h3 {
+  font-size: 1.125rem;
+  color: var(--color--Amarillo);
+  margin: 0;
+}
+
+.btn-cerrar {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.375rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-cerrar:hover {
+  color: var(--color--Amarillo);
+}
+
+.modal-body {
+  font-size: .6875rem;
+  line-height: 1.6;
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: justify;
+  padding: .3125rem .75rem;
+}
+
+.modal-body h4 {
+  color: var(--color--Amarillo);
+  margin-top: 1.25rem;
+  margin-bottom: .75rem;
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.modal-body h4:first-child {
+  margin-top: 0;
+}
+
+.modal-body p {
+  margin-bottom: 1.25rem;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes aparecerModal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 /* ==========================================
-   1. Ojito de Ver/Ocultar Contraseña
+   Ojito de ver/ocultar contraseña
    ========================================== */
 .password-wrapper {
     position: relative;
@@ -43,7 +409,7 @@
    ========================================== */
 .edit-profile-header h2 {
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: .9375rem;
     font-weight: 700;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 10px;
@@ -52,20 +418,20 @@
 .perfil-grid-layout {
     display: grid;
     grid-template-columns: 1fr 260px;
-    gap: 2.5rem;
+    gap: 1.5625rem;
     align-items: start;
 }
 
 .perfil-col-inputs {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: .75rem;
 }
 
 .perfil-row-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: .625rem;
 }
 
 /* ==========================================
@@ -74,7 +440,7 @@
 .password-action-container {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: .5rem;
     width: 100%;
 }
 
@@ -86,10 +452,10 @@
     background-color: #1a2c4e;
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.6rem 1.4rem;
+    padding: .375rem .875rem;
     border-radius: 20px;
     font-weight: 700;
-    font-size: 0.88rem;
+    font-size: .55rem;
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -112,14 +478,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 1.5rem;
+    padding-top: .9375rem;
 }
 
 .avatar-title {
     color: #ffffff;
     font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
+    font-size: .59375rem;
+    margin-bottom: .625rem;
     text-align: center;
 }
 
@@ -134,7 +500,7 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-    margin-bottom: 1.2rem;
+    margin-bottom: .75rem;
 }
 
 .avatar-img {
@@ -149,7 +515,7 @@
 
 .avatar-file-input {
     width: 100%;
-    font-size: 0.8rem;
+    font-size: .5rem;
     color: #ffffff;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -166,7 +532,7 @@
     }
     .perfil-col-avatar {
         order: -1;
-        margin-bottom: 1.5rem;
+        margin-bottom: .9375rem;
         padding-top: 0;
     }
     .perfil-row-2 {
@@ -183,7 +549,7 @@
     border-radius: 8px;
     padding: 6px 12px;
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: .54688rem;
     color: #333333;
     transition: all 0.2s ease-in-out;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -210,4 +576,19 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@media (max-width: 576px) {
+    .password-action-container {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .btn-modificar-pass {
+        width: 100%;
+    }
+
+    .custom-file-upload {
+        max-width: 100%;
+    }
 }
