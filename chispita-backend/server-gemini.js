@@ -16,9 +16,10 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-   const GEMINI_MODEL = "gemini-3.6-flash";
+const GEMINI_MODEL = "gemini-flash-lite-latest";
 
 app.use(cors());
 app.use(express.json());
@@ -48,6 +49,16 @@ function convertirHistorialAGemini(history) {
     parts: [{ text: m.content }],
   }));
 }
+
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  message: { error: "Demasiadas preguntas seguidas, espera un momento." },
+});
+
+app.use("/api/chispita", limiter);
 
 app.post("/api/chispita", async (req, res) => {
   try {
