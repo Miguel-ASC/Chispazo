@@ -37,7 +37,10 @@ public class Productos {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallesCarritos> detallesCarritos = new ArrayList<>();
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 320f3e0538228760b4bb8c272e0faaaef3072fc4
 
     // Constructor vacío (necesario para JPA)
     public Productos() {
